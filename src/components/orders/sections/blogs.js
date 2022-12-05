@@ -166,7 +166,7 @@ const blogs = () => {
   };
 
   const titleStyles = {
-    color: "#000",
+    color: "grey",
     fontSize: "16px",
   };
   const optionStyles = {
