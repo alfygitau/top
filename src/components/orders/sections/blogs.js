@@ -4,7 +4,6 @@ import {
   filterBlog,
   getBlog,
   getBlogs,
-  updateBlog,
 } from "dataStore/actions/blogAction";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -15,16 +14,14 @@ import AddOutlineIcon from "@rsuite/icons/AddOutline";
 import ModalContext from "../../helpers/ModalContext";
 import VisibleIcon from "@rsuite/icons/Visible";
 import BlogModal from "components/helpers/BlogModal";
-import EditIcon from "@rsuite/icons/Edit";
 
 const blogs = () => {
   const blogSelector = useSelector((state) => state.blogState);
-  const { blogs, updatedBlog } = blogSelector;
+  const { blogs } = blogSelector;
 
   const dispatch = useDispatch();
   const [value, setValue] = useState("active");
   const [open, setOpen] = useState(false);
-  const [openUpdate, setOpenUpdate] = useState(false);
   const [openBlog, setOpenBlog] = useState(false);
   const [openView, setOpenView] = useState(false);
   const [updateID, setUpdateID] = useState("");
@@ -33,17 +30,11 @@ const blogs = () => {
     blog_text: "",
     keywords: "",
   });
-  const [updateDetails, setUpdateDetails] = useState({
-    title: updatedBlog.title,
-    blog_text: updatedBlog.blog_text,
-    keywords: updatedBlog.keywords,
-  });
 
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleBlogClose = () => setOpenBlog(false);
   const handleOpenBlog = () => setOpenBlog(true);
-  const handleUpdateClose = () => setOpenUpdate(false);
   const handleViewClose = () => setOpenView(false);
 
   const fetchBlog = (title) => {
@@ -59,44 +50,11 @@ const blogs = () => {
     }));
   };
 
-  const handleUpdateChange = (event) => {
-    event.persist();
-    event.preventDefault();
-    let name = event.target.name;
-    let value = event.target.value;
-    setUpdateDetails({
-      ...updateDetails,
-      [name]: value,
-    });
-  };
-
   const handleInstructionsChange = (value) => {
     setBlogDetails((details) => ({
       ...details,
       blog_text: value,
     }));
-  };
-
-  const handleUpdateSubmit = (event, articleID) => {
-    console.log(articleID);
-    setOpenUpdate(true);
-    event.preventDefault();
-    const bodyData = {
-      title: updateDetails.title || updatedBlog?.title,
-      blog_text: updateDetails.blog_text || updatedBlog?.blog_text,
-      keywords: updateDetails.keywords || updatedBlog?.keywords,
-    };
-    if (bodyData) {
-      updateBlog(dispatch, articleID, bodyData).then((response) => {});
-    } else {
-      dispatch({
-        type: "ERROR",
-        errorMessage: "Make sure all the fields all filled",
-      });
-      if (errorMessage.errorMessage) {
-        <Message type="error">Error</Message>;
-      }
-    }
   };
 
   const handleCreateArticle = (e) => {
@@ -229,7 +187,6 @@ const blogs = () => {
                   style={iconStyles}
                   onClick={() => fetchBlog(blog.slug)}
                 />
-                <EditIcon style={iconStyles} onClick={()=>setOpenUpdate(true)} />
               </div>
             )}
           </div>
@@ -246,17 +203,12 @@ const blogs = () => {
           main_title="Create Blog"
           onEditorChange={handleInstructionsChange}
         />
-        <ModalContext
-          open={openUpdate}
-          handleClose={handleUpdateClose}
-          hadleClick={(e) => handleUpdateSubmit(e, updateID)}
-          handleInputChange={handleUpdateChange}
-          blog={updateDetails}
-          button="Update"
-          main_title="Update Blog"
-          onEditorChange={handleInstructionsChange}
+        <BlogModal
+          open={openBlog}
+          handleClose={handleBlogClose}
+          setValue={setValue}
+          setOpenBlog={setOpenBlog}
         />
-        <BlogModal open={openBlog} handleClose={handleBlogClose} />
       </div>
     </div>
   );

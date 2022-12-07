@@ -13,8 +13,8 @@ const ModalContext = (props) => {
     button,
     main_title,
     onEditorChange,
-    nameRef,
-    keywordsRef
+    handleInit,
+    editValue
   } = props;
 
   return (
@@ -29,22 +29,21 @@ const ModalContext = (props) => {
             id="title"
             name="title"
             value={blog.title}
-            ref={nameRef}
             onChange={handleInputChange}
           />
           <Label htmlFor="Blog_Keywords">Blog Keywords</Label>
           <Input
             id="keywords"
             name="keywords"
-            ref={keywordsRef}
             value={blog.keywords}
             onChange={handleInputChange}
           />
           <Label htmlFor="Blog_content">Blog Content</Label>
           <Editor
             apiKey="jm5weuex99fz17qyiv457ia53e6ignpzdupkd8vpszcywnoo"
-            initialValue={""}
-            value={blog.blog_text}
+            initialValue=""
+            value={editValue}
+            onInit={handleInit}
             init={{
               height: 250,
               language: "en_US",

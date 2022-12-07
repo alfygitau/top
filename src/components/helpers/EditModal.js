@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button, ButtonToolbar, Placeholder } from "rsuite";
 
-const createModal = ({
+const EditModal = ({
   open,
   handleClose,
   hadleClick,
@@ -71,4 +71,4 @@ const createModal = ({
   );
 };
 
-export default createModal;
+export default EditModal;
