@@ -11,15 +11,15 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Radio, RadioGroup, Form, Pagination } from "rsuite";
 import TrashIcon from "@rsuite/icons/Trash";
-import EditIcon from "@rsuite/icons/Edit";
 import AddOutlineIcon from "@rsuite/icons/AddOutline";
 import ModalContext from "../../helpers/ModalContext";
 import VisibleIcon from "@rsuite/icons/Visible";
 import BlogModal from "components/helpers/BlogModal";
+import EditIcon from "@rsuite/icons/Edit";
 
 const blogs = () => {
   const blogSelector = useSelector((state) => state.blogState);
-  const { blogs, blog } = blogSelector;
+  const { blogs, updatedBlog } = blogSelector;
 
   const dispatch = useDispatch();
   const [value, setValue] = useState("active");
@@ -34,9 +34,9 @@ const blogs = () => {
     keywords: "",
   });
   const [updateDetails, setUpdateDetails] = useState({
-    title: blog?.title,
-    blog_text: blog?.blog_text,
-    keywords: blog?.keywords,
+    title: updatedBlog.title,
+    blog_text: updatedBlog.blog_text,
+    keywords: updatedBlog.keywords,
   });
 
   const handleClose = () => setOpen(false);
@@ -55,11 +55,13 @@ const blogs = () => {
     event.persist();
     setBlogDetails((details) => ({
       ...details,
-      [event.target.name]: event.target.value,
+      [event.target?.name]: event.target?.value,
     }));
   };
 
   const handleUpdateChange = (event) => {
+    event.persist();
+    event.preventDefault();
     let name = event.target.name;
     let value = event.target.value;
     setUpdateDetails({
@@ -78,16 +80,14 @@ const blogs = () => {
   const handleUpdateSubmit = (event, articleID) => {
     console.log(articleID);
     setOpenUpdate(true);
-    event.persist();
     event.preventDefault();
     const bodyData = {
-      title: updateDetails.title || blog?.title,
-      blog_text: updateDetails.blog_text || blog?.blog_text,
-      keywords: updateDetails.keywords || blog?.keywords,
+      title: updateDetails.title || updatedBlog?.title,
+      blog_text: updateDetails.blog_text || updatedBlog?.blog_text,
+      keywords: updateDetails.keywords || updatedBlog?.keywords,
     };
     if (bodyData) {
-      updateBlog(dispatch, articleID, bodyData).then((response) => {
-      });
+      updateBlog(dispatch, articleID, bodyData).then((response) => {});
     } else {
       dispatch({
         type: "ERROR",
@@ -116,6 +116,12 @@ const blogs = () => {
       createBlog(dispatch, bodyData).then((response) => {
         if (response.status === 200) getBlogs(dispatch);
         setOpen(false);
+        setValue("active");
+        setBlogDetails({
+          title: "",
+          blog_text: "",
+          keywords: "",
+        });
       });
     } else {
       console.log("Provide all required fields");
@@ -124,6 +130,7 @@ const blogs = () => {
 
   const handleDeleteArticle = (article) => {
     deleteBlog(dispatch, article.id);
+    setValue("active");
     getBlogs(dispatch);
   };
 
@@ -222,10 +229,7 @@ const blogs = () => {
                   style={iconStyles}
                   onClick={() => fetchBlog(blog.slug)}
                 />
-                <EditIcon
-                  style={iconStyles}
-                  onClick={(e) => handleUpdateSubmit(e, blog.id)}
-                />
+                <EditIcon style={iconStyles} onClick={()=>setOpenUpdate(true)} />
               </div>
             )}
           </div>

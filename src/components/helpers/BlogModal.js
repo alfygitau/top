@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Modal, Button, Placeholder } from "rsuite";
+import EditIcon from "@rsuite/icons/Edit";
 
 const BlogModal = ({ open, handleClose }) => {
   const { blogDetails } = useSelector((state) => state.blogState);
@@ -9,6 +10,12 @@ const BlogModal = ({ open, handleClose }) => {
   const blogStyles = {
     width: "80%",
     margin: "auto",
+  };
+
+  const iconStyles = {
+    marginRight: "15px",
+    fontSize: "20px",
+    cursor: "pointer",
   };
 
   return (
@@ -23,6 +30,7 @@ const BlogModal = ({ open, handleClose }) => {
         <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
       </Modal.Body>
       <Modal.Footer>
+        <EditIcon style={iconStyles} />
         <Button onClick={handleClose} appearance="primary">
           Ok
         </Button>
