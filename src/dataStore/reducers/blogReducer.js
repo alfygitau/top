@@ -17,6 +17,9 @@ import {
   FILTER_BLOG_SUCCESS,
   FILTER_BLOG_ERROR,
   FILTER_BLOG,
+  PUBLISH_BLOG,
+  PUBLISH_BLOG_SUCCESS,
+  PUBLISH_BLOG_ERROR,
 } from "../dispatchTypes";
 
 export const initialBlogState = {
@@ -24,6 +27,7 @@ export const initialBlogState = {
   isError: false,
   isSuccess: false,
   errorMessage: "",
+  successMessage: "",
   blogs: [],
   createdBlog: {},
   blogDetails: {},
@@ -170,6 +174,30 @@ export const blogReducers = (state = initialBlogState, action) => {
       };
     }
     case FILTER_BLOG_ERROR: {
+      return {
+        ...state,
+        isError: true,
+        isSuccess: false,
+        isLoading: false,
+        errorMessage: action.errorMessage,
+      };
+    }
+    case PUBLISH_BLOG: {
+      return {
+        ...state,
+        isError: false,
+        isLoading: true,
+      };
+    }
+    case PUBLISH_BLOG_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        successMessage: action.payload,
+      };
+    }
+    case PUBLISH_BLOG_ERROR: {
       return {
         ...state,
         isError: true,

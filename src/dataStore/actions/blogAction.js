@@ -17,6 +17,9 @@ import {
   UPDATE_BLOGS_SUCCESS,
   FILTER_BLOG_ERROR,
   FILTER_BLOG,
+  PUBLISH_BLOG,
+  PUBLISH_BLOG_SUCCESS,
+  PUBLISH_BLOG_ERROR,
 } from "../dispatchTypes";
 
 export const getBlogs = async (dispatch) => {
@@ -182,6 +185,34 @@ export const filterBlog = async (dispatch, status) => {
   } catch (error) {
     dispatch({
       type: FILTER_BLOG_ERROR,
+      errorMessage: error.response?.data.message,
+    });
+
+    return error.response;
+  }
+};
+
+export const publishBlog = async (dispatch, id) => {
+  try {
+    dispatch({
+      type: PUBLISH_BLOG,
+    });
+    return await axiosConfig
+      .get(`/top_articles/${id}/publish`, {
+        headers: {
+          "x-toprated-token": localStorage.token,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: PUBLISH_BLOG_SUCCESS,
+          payload: "Blog successfully published",
+        });
+        return response;
+      });
+  } catch (error) {
+    dispatch({
+      type: PUBLISH_BLOG_ERROR,
       errorMessage: error.response?.data.message,
     });
 

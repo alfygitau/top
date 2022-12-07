@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal, Button } from "rsuite";
+import { Modal, Button, Placeholder, Loader } from "rsuite";
 import EditIcon from "@rsuite/icons/Edit";
 import ModalContext from "./ModalContext";
-import { updateBlog } from "dataStore/actions/blogAction";
+import { publishBlog, updateBlog } from "dataStore/actions/blogAction";
 
-const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
+const BlogModal = ({ open, handleClose, setValue, setOpenBlog, rows }) => {
   const dispatch = useDispatch();
   const [openUpdate, setOpenUpdate] = useState(false);
-  const { blogDetails } = useSelector((state) => state.blogState);
+  const { blogDetails, isLoading, isSuccess } = useSelector(
+    (state) => state.blogState
+  );
   console.log("single blog", blogDetails);
   const handleUpdateClose = () => setOpenUpdate(false);
   const [instructions, setInstructions] = useState(blogDetails.blog_text);
@@ -38,7 +40,7 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
     });
   };
 
-  const handleUpdateSubmit = (event, articleID) => {
+  const handleUpdateSubmit = async (event, articleID) => {
     event.persist();
     event.preventDefault();
     const bodyData = {
@@ -47,11 +49,11 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
       keywords: updateDetails.keywords,
     };
     if (bodyData) {
-      updateBlog(dispatch, articleID, bodyData).then((response) => {
+      await updateBlog(dispatch, articleID, bodyData).then((response) => {
         if (response.status === 200) {
           setOpenUpdate(false);
           setOpenBlog(false);
-          setValue("active")
+          setValue("active");
         }
       });
     } else {
@@ -65,9 +67,14 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
     }
   };
 
+  const handlePublishBlog = (blogId) => {
+    publishBlog(dispatch, blogId);
+  };
+
   const blogStyles = {
     width: "80%",
     margin: "auto",
+    height: "70%",
   };
 
   const iconStyles = {
@@ -78,7 +85,12 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
 
   return (
     <>
-      <Modal open={open} onClose={handleClose} style={blogStyles}>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        style={blogStyles}
+        overflow={true}
+      >
         <Modal.Header>
           <Modal.Title>
             {blogDetails.id}:{blogDetails.title}
@@ -88,14 +100,25 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
           <p>{blogDetails.keywords}</p>
           <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
         </Modal.Body>
-        <Modal.Footer>
-          <EditIcon style={iconStyles} onClick={() => setOpenUpdate(true)} />
-          <Button onClick={handleClose} appearance="primary">
-            Ok
-          </Button>
-          <Button onClick={handleClose} appearance="subtle">
-            Cancel
-          </Button>
+        <Modal.Footer
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <div className="buttons">
+            <EditIcon style={iconStyles} onClick={() => setOpenUpdate(true)} />
+            {blogDetails.status === "pending" && (
+              <Button onClick={() => handlePublishBlog(blogDetails.id)}>
+                Publish Blog
+              </Button>
+            )}
+          </div>
+          <div className="btn">
+            <Button onClick={handleClose} appearance="primary">
+              Ok
+            </Button>
+            <Button onClick={handleClose} appearance="subtle">
+              Cancel
+            </Button>
+          </div>
         </Modal.Footer>
       </Modal>
       <ModalContext

@@ -17,7 +17,8 @@ import BlogModal from "components/helpers/BlogModal";
 
 const blogs = () => {
   const blogSelector = useSelector((state) => state.blogState);
-  const { blogs } = blogSelector;
+  const { blogs, isSuccess } = blogSelector;
+  const [rows, setRows] = useState(0);
 
   const dispatch = useDispatch();
   const [value, setValue] = useState("active");
@@ -37,9 +38,9 @@ const blogs = () => {
   const handleOpenBlog = () => setOpenBlog(true);
   const handleViewClose = () => setOpenView(false);
 
-  const fetchBlog = (title) => {
+  const fetchBlog = async (title) => {
     setOpenBlog(true);
-    getBlog(dispatch, title);
+    await getBlog(dispatch, title);
   };
 
   const handleInputChange = (event) => {
@@ -95,7 +96,6 @@ const blogs = () => {
   const handleBlogCreator = () => {
     let blogCreator;
     if (typeof window !== "undefined") {
-      // Perform localStorage action
       blogCreator = blogCreator = localStorage.currentUser.id === 7 || null;
     }
     return blogCreator;
@@ -104,6 +104,10 @@ const blogs = () => {
   useEffect(() => {
     filterBlog(dispatch, value);
   }, [dispatch, value]);
+
+  const handleEnter = () => {
+    setTimeout(() => setRows(10), 2000);
+  };
 
   const blogNavbar = {
     display: "flex",
