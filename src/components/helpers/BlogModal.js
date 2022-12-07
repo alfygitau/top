@@ -101,9 +101,13 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
         }}
       >
         <Modal.Header>
-          <Modal.Title>
-            {blogDetails.id}:{blogDetails.title}
-          </Modal.Title>
+          {rows ? (
+            <Modal.Title>
+              {blogDetails.id}:{blogDetails.title}
+            </Modal.Title>
+          ) : (
+            <Placeholder.Paragraph />
+          )}
         </Modal.Header>
         <Modal.Body>
           {rows ? (
