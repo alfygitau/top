@@ -128,12 +128,11 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <div className="buttons">
-            <span style={{ marginRight: "20px", cursor: "pointer" }}>
-              <EditIcon
-                style={iconStyles}
-                onClick={() => setOpenUpdate(true)}
-              />{" "}
-              Edit
+            <span
+              style={{ marginRight: "20px", cursor: "pointer" }}
+              onClick={() => setOpenUpdate(true)}
+            >
+              <EditIcon style={iconStyles} /> Edit
             </span>
             {blogDetails.status === "pending" && (
               <span
