@@ -502,7 +502,7 @@ const styles = {
     color: " #fff",
     whiteSpace: "nowrap",
     overflow: "hidden",
-    cursor:"pointer",
+    cursor: "pointer",
   },
   iconStyles: {
     width: 56,

@@ -63,7 +63,6 @@ export const getBlog = async (dispatch, slug) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         dispatch({
           type: GET_BLOG_SUCCESS,
           blog: response.data,
@@ -85,10 +84,11 @@ export const createBlog = async (dispatch, credentials) => {
     dispatch({
       type: CREATE_BLOG,
     });
+    const token = localStorage.getItem("authToken");
     return await axiosConfig
       .post(`/top_articles`, credentials, {
         headers: {
-          "x-toprated-token": localStorage.token,
+          "x-toprated-token": token,
         },
       })
       .then((response) => {
@@ -197,10 +197,12 @@ export const publishBlog = async (dispatch, id) => {
     dispatch({
       type: PUBLISH_BLOG,
     });
+    const token = localStorage.getItem("authToken");
+    console.log(token);
     return await axiosConfig
       .put(`/top_articles/${id}/publish`, {
         headers: {
-          "x-toprated-token": localStorage.token,
+          "x-toprated-token": localStorage.getItem("authToken"),
         },
       })
       .then((response) => {

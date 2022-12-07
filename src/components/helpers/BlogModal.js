@@ -24,7 +24,6 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
   };
 
   const handleInstructionsChange = (value, editor) => {
-    console.log(value);
     setInstructions(value);
   };
 

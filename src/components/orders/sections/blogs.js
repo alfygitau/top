@@ -8,7 +8,7 @@ import {
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Radio, RadioGroup, Form, Pagination } from "rsuite";
+import { Radio, RadioGroup, Form } from "rsuite";
 import TrashIcon from "@rsuite/icons/Trash";
 import AddOutlineIcon from "@rsuite/icons/AddOutline";
 import ModalContext from "../../helpers/ModalContext";
@@ -17,7 +17,7 @@ import BlogModal from "components/helpers/BlogModal";
 
 const blogs = () => {
   const blogSelector = useSelector((state) => state.blogState);
-  const { blogs, isSuccess } = blogSelector;
+  const { blogs } = blogSelector;
   const [rows, setRows] = useState(0);
 
   const dispatch = useDispatch();
@@ -105,10 +105,6 @@ const blogs = () => {
     filterBlog(dispatch, value);
   }, [dispatch, value]);
 
-  const handleEnter = () => {
-    setTimeout(() => setRows(10), 2000);
-  };
-
   const blogNavbar = {
     display: "flex",
     marginTop: "20px",
@@ -176,7 +172,7 @@ const blogs = () => {
       </div>
       <div className="content">
         {blogs?.top_articles?.map((blog) => (
-          <div className="bloging" style={contentStyles} id={blog.id}>
+          <div className="bloging" style={contentStyles} key={blog.id}>
             <div className="blog">
               <h3 style={titleStyles}>{blog.title}</h3>
               <p>{blog.keywords}</p>
