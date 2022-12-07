@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, Button, Placeholder, Loader } from "rsuite";
 import EditIcon from "@rsuite/icons/Edit";
+import CheckOutlineIcon from "@rsuite/icons/CheckOutline";
 import ModalContext from "./ModalContext";
 import { publishBlog, updateBlog } from "dataStore/actions/blogAction";
 
@@ -83,7 +84,7 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
   };
 
   const iconStyles = {
-    marginRight: "15px",
+    marginRight: "5px",
     fontSize: "20px",
     cursor: "pointer",
   };
@@ -127,11 +128,21 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <div className="buttons">
-            <EditIcon style={iconStyles} onClick={() => setOpenUpdate(true)} />
+            <span style={{ marginRight: "20px", cursor: "pointer" }}>
+              <EditIcon
+                style={iconStyles}
+                onClick={() => setOpenUpdate(true)}
+              />{" "}
+              Edit
+            </span>
             {blogDetails.status === "pending" && (
-              <Button onClick={() => handlePublishBlog(blogDetails.id)}>
+              <span
+                onClick={() => handlePublishBlog(blogDetails.id)}
+                style={{ cursor: "pointer" }}
+              >
+                <CheckOutlineIcon style={iconStyles} />
                 Publish Blog
-              </Button>
+              </span>
             )}
           </div>
           <div className="btn">
