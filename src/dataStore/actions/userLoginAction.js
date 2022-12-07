@@ -18,6 +18,7 @@ export const loginUser = async (dispatch, bodyData) => {
         localStorage.currentUser = JSON.stringify(response.data);
         localStorage.admin = true;
         localStorage.token = userToken;
+        localStorage.authToken = userToken;
       } else {
         <Alert>
           User Id did mot match

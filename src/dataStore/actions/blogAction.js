@@ -198,7 +198,7 @@ export const publishBlog = async (dispatch, id) => {
       type: PUBLISH_BLOG,
     });
     return await axiosConfig
-      .get(`/top_articles/${id}/publish`, {
+      .put(`/top_articles/${id}/publish`, {
         headers: {
           "x-toprated-token": localStorage.token,
         },
@@ -206,7 +206,7 @@ export const publishBlog = async (dispatch, id) => {
       .then((response) => {
         dispatch({
           type: PUBLISH_BLOG_SUCCESS,
-          payload: "Blog successfully published",
+          blog: response.data,
         });
         return response;
       });

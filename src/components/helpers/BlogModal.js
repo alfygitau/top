@@ -10,10 +10,7 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
   const dispatch = useDispatch();
   const [rows, setRows] = React.useState(0);
   const [openUpdate, setOpenUpdate] = useState(false);
-  const { blogDetails, isLoading, isSuccess } = useSelector(
-    (state) => state.blogState
-  );
-  console.log("single blog", blogDetails);
+  const { blogDetails } = useSelector((state) => state.blogState);
   const handleUpdateClose = () => setOpenUpdate(false);
   const [instructions, setInstructions] = useState(blogDetails.blog_text);
 
@@ -71,6 +68,9 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
 
   const handlePublishBlog = (blogId) => {
     publishBlog(dispatch, blogId);
+    setOpenUpdate(false);
+    setOpenBlog(false);
+    setValue("active");
   };
 
   const handleEntered = () => {

@@ -31,8 +31,9 @@ export const initialBlogState = {
   blogs: [],
   createdBlog: {},
   blogDetails: {},
-  deletedBlog:{},
-  updatedBlog:{}
+  deletedBlog: {},
+  updatedBlog: {},
+  publishedBlog: {},
 };
 
 export const blogReducers = (state = initialBlogState, action) => {
@@ -194,7 +195,7 @@ export const blogReducers = (state = initialBlogState, action) => {
         ...state,
         isLoading: false,
         isSuccess: true,
-        successMessage: action.payload,
+        publishedBlog: action.blog,
       };
     }
     case PUBLISH_BLOG_ERROR: {
