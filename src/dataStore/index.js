@@ -7,9 +7,9 @@ import rootReducer from "./reducers/index";
 
 const MIDDLEWARES = [];
 
-process.env.NODE_ENV === "development" &&
-  typeof window !== "undefined" &&
-  MIDDLEWARES.push(logger);
+// process.env.NODE_ENV === "development" &&
+//   typeof window !== "undefined" &&
+//   MIDDLEWARES.push(logger);
 
 let state;
 

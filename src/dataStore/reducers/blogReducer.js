@@ -41,7 +41,6 @@ export const blogReducers = (state = initialBlogState, action) => {
       };
     }
     case GET_BLOGS_SUCCESS: {
-      console.log(action.blogs);
       return {
         ...state,
         isLoading: false,
@@ -66,7 +65,6 @@ export const blogReducers = (state = initialBlogState, action) => {
       };
     }
     case GET_BLOG_SUCCESS: {
-      console.log(action.blogDetails);
       return {
         ...state,
         isLoading: false,

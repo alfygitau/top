@@ -70,7 +70,7 @@ export const getBlog = async (dispatch, slug) => {
   } catch (error) {
     dispatch({
       type: GET_BLOG_ERROR,
-      error: error.response.data.message,
+      errorMessage: error.response.data.message,
     });
 
     return error.response;
@@ -140,7 +140,7 @@ export const updateBlog = async (dispatch, articleID, bodyData) => {
       type: UPDATE_BLOG,
     });
     return await axiosConfig
-      .put(`/top_articles/2/publish`, bodyData, {
+      .put(`/top_articles/${articleID}`, bodyData, {
         headers: {
           "x-toprated-token": localStorage.token,
         },

@@ -4,6 +4,7 @@ import {
   filterBlog,
   getBlog,
   getBlogs,
+  updateBlog,
 } from "dataStore/actions/blogAction";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -75,18 +76,17 @@ const blogs = () => {
   };
 
   const handleUpdateSubmit = (event, articleID) => {
+    console.log(articleID);
+    setOpenUpdate(true);
     event.persist();
     event.preventDefault();
     const bodyData = {
-      title: updateDetails.title || blog.title,
-      blog_text: updateDetails.blog_text || blog.blog_text,
-      keywords: updateDetails.keywords || blog.keywords,
+      title: updateDetails.title || blog?.title,
+      blog_text: updateDetails.blog_text || blog?.blog_text,
+      keywords: updateDetails.keywords || blog?.keywords,
     };
     if (bodyData) {
       updateBlog(dispatch, articleID, bodyData).then((response) => {
-        if (response.status === 200) {
-          setOpenUpdate(false);
-        }
       });
     } else {
       dispatch({
@@ -102,8 +102,6 @@ const blogs = () => {
   const handleCreateArticle = (e) => {
     e.preventDefault();
     const { title, blog_text, keywords } = blogDetails;
-
-    console.log("blog_text", blog_text);
 
     const bodyData = {
       title,
@@ -213,7 +211,6 @@ const blogs = () => {
             <div className="blog">
               <h3 style={titleStyles}>{blog.title}</h3>
               <p>{blog.keywords}</p>
-              <div dangerouslySetInnerHTML={{ __html: blog.blog_text }} />
             </div>
             {handleBlogCreator() ?? (
               <div className="options" style={optionStyles}>
@@ -223,7 +220,11 @@ const blogs = () => {
                 />
                 <VisibleIcon
                   style={iconStyles}
-                  onClick={() => fetchBlog(`${blog.slug}`)}
+                  onClick={() => fetchBlog(blog.slug)}
+                />
+                <EditIcon
+                  style={iconStyles}
+                  onClick={(e) => handleUpdateSubmit(e, blog.id)}
                 />
               </div>
             )}
@@ -245,7 +246,7 @@ const blogs = () => {
           open={openUpdate}
           handleClose={handleUpdateClose}
           hadleClick={(e) => handleUpdateSubmit(e, updateID)}
-          handleInputChange={handleInputChange}
+          handleInputChange={handleUpdateChange}
           blog={updateDetails}
           button="Update"
           main_title="Update Blog"
