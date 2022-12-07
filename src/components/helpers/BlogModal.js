@@ -5,8 +5,9 @@ import EditIcon from "@rsuite/icons/Edit";
 import ModalContext from "./ModalContext";
 import { publishBlog, updateBlog } from "dataStore/actions/blogAction";
 
-const BlogModal = ({ open, handleClose, setValue, setOpenBlog, rows }) => {
+const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
   const dispatch = useDispatch();
+  const [rows, setRows] = React.useState(0);
   const [openUpdate, setOpenUpdate] = useState(false);
   const { blogDetails, isLoading, isSuccess } = useSelector(
     (state) => state.blogState
@@ -71,6 +72,10 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog, rows }) => {
     publishBlog(dispatch, blogId);
   };
 
+  const handleEntered = () => {
+    setTimeout(() => setRows(80), 2000);
+  };
+
   const blogStyles = {
     width: "80%",
     margin: "auto",
@@ -90,6 +95,10 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog, rows }) => {
         onClose={handleClose}
         style={blogStyles}
         overflow={true}
+        onEntered={handleEntered}
+        onExited={() => {
+          setRows(0);
+        }}
       >
         <Modal.Header>
           <Modal.Title>
@@ -97,8 +106,18 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog, rows }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>{blogDetails.keywords}</p>
-          <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
+          {rows ? (
+            <>
+              <p>{blogDetails.keywords}</p>
+              <div
+                dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }}
+              />
+            </>
+          ) : (
+            <div style={{ textAlign: "center" }}>
+              <Loader size="md" />
+            </div>
+          )}
         </Modal.Body>
         <Modal.Footer
           style={{ display: "flex", justifyContent: "space-between" }}
