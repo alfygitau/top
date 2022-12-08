@@ -23,7 +23,7 @@ const ModalContext = (props) => {
   };
 
   return (
-    <Modal size="md" open={open} onClose={handleClose} style={blogStyles}>
+    <Modal size="md" open={open} onClose={handleClose} >
       <Modal.Header>
         <Modal.Title>{main_title}</Modal.Title>
       </Modal.Header>
