@@ -29,14 +29,14 @@ const ModalContext = (props) => {
       </Modal.Header>
       <Modal.Body>
         <Box as="form" onSubmit={hadleClick}>
-          <Label htmlFor="email">Title</Label>
+          <Label htmlFor="title">Title</Label>
           <Input
             id="title"
             name="title"
             value={blog.title}
             onChange={handleInputChange}
           />
-          <Label htmlFor="Blog_Keywords">Blog Keywords</Label>
+          <Label htmlFor="keywords">Blog Keywords</Label>
           <Input
             id="keywords"
             name="keywords"
@@ -46,7 +46,6 @@ const ModalContext = (props) => {
           <Label htmlFor="Blog_content">Blog Content</Label>
           <Editor
             apiKey="jm5weuex99fz17qyiv457ia53e6ignpzdupkd8vpszcywnoo"
-            initialValue=""
             value={editValue}
             onInit={handleInit}
             init={{
