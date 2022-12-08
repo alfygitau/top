@@ -93,14 +93,6 @@ const blogs = () => {
     getBlogs(dispatch);
   };
 
-  const handleBlogCreator = () => {
-    let blogCreator;
-    if (typeof window !== "undefined") {
-      blogCreator = blogCreator = localStorage.currentUser.id === 7 || null;
-    }
-    return blogCreator;
-  };
-
   useEffect(() => {
     filterBlog(dispatch, value);
   }, [dispatch, value]);
@@ -177,20 +169,18 @@ const blogs = () => {
               <h3 style={titleStyles}>{blog.title}</h3>
               <p>{blog.keywords}</p>
             </div>
-            {handleBlogCreator() ?? (
-              <div className="options" style={optionStyles}>
-                {blog.status !== "deleted" && (
-                  <TrashIcon
-                    style={iconStyles}
-                    onClick={() => handleDeleteArticle(blog)}
-                  />
-                )}
-                <VisibleIcon
+            <div className="options" style={optionStyles}>
+              {blog.status !== "deleted" && (
+                <TrashIcon
                   style={iconStyles}
-                  onClick={() => fetchBlog(blog.slug)}
+                  onClick={() => handleDeleteArticle(blog)}
                 />
-              </div>
-            )}
+              )}
+              <VisibleIcon
+                style={iconStyles}
+                onClick={() => fetchBlog(blog.slug)}
+              />
+            </div>
           </div>
         ))}
       </div>
