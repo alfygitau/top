@@ -158,7 +158,7 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
         handleClose={handleUpdateClose}
         hadleClick={(e) => handleUpdateSubmit(e, blogDetails.id)}
         handleInputChange={handleUpdateChange}
-        blog={updateDetails}
+        blog={blogDetails}
         editValue={instructions}
         button="Update"
         main_title="Update Blog"
