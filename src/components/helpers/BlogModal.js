@@ -77,7 +77,7 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
   };
 
   const blogStyles = {
-    width: "80%",
+    width: "90%",
     margin: "auto",
     height: "70%",
   };
