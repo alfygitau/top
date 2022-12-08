@@ -14,11 +14,16 @@ const ModalContext = (props) => {
     main_title,
     onEditorChange,
     handleInit,
-    editValue
+    editValue,
   } = props;
 
+  const blogStyles = {
+    width: "85%",
+    margin: "auto auto",
+  };
+
   return (
-    <Modal size="md" open={open} onClose={handleClose}>
+    <Modal size="md" open={open} onClose={handleClose} style={blogStyles}>
       <Modal.Header>
         <Modal.Title>{main_title}</Modal.Title>
       </Modal.Header>
