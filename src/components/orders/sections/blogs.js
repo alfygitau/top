@@ -179,10 +179,12 @@ const blogs = () => {
             </div>
             {handleBlogCreator() ?? (
               <div className="options" style={optionStyles}>
-                <TrashIcon
-                  style={iconStyles}
-                  onClick={() => handleDeleteArticle(blog)}
-                />
+                {blog.status !== "deleted" && (
+                  <TrashIcon
+                    style={iconStyles}
+                    onClick={() => handleDeleteArticle(blog)}
+                  />
+                )}
                 <VisibleIcon
                   style={iconStyles}
                   onClick={() => fetchBlog(blog.slug)}
