@@ -22,6 +22,13 @@ import {
   PUBLISH_BLOG_ERROR,
 } from "../dispatchTypes";
 
+export const tokenFromStorage = () => {
+  if (typeof window === "undefined") {
+    const token = JSON.parse(localStorage.getItem("authToken"));
+    return token;
+  }
+};
+
 export const getBlogs = async (dispatch) => {
   try {
     dispatch({
@@ -130,7 +137,7 @@ export const deleteBlog = async (dispatch, articleID) => {
   } catch (error) {
     dispatch({
       type: DELETE_BLOG_ERROR,
-      errorMessage: error.response.data.message,
+      errorMessage: error.response.data?.message,
     });
 
     return error.response;
@@ -202,7 +209,7 @@ export const publishBlog = async (dispatch, id) => {
     return await axiosConfig
       .put(`/top_articles/${id}/publish`, {
         headers: {
-          "x-toprated-token": localStorage.getItem("authToken"),
+          "x-toprated-token": token,
         },
       })
       .then((response) => {

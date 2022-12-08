@@ -169,6 +169,15 @@ const OrderLayout = ({ children }) => {
     setUsername(user.username);
   }, []);
 
+  const userFromStorage = () => {
+    if (typeof window !== "undefined") {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      return user.id;
+    }
+  };
+
+  console.log(userFromStorage());
+
   return (
     <div className="show-fake-browser sidebar-page" style={{ color: "black" }}>
       <Container>
@@ -449,15 +458,19 @@ const OrderLayout = ({ children }) => {
                   >
                     Wallet
                   </Nav.Item>
-                  <Nav.Item
-                    onClick={() =>
-                      router.push("/dashboard/blogs", undefined, {
-                        shallow: true,
-                      })
-                    }
-                  >
-                    Blogs
-                  </Nav.Item>
+                  {userFromStorage() === 7 ? (
+                    <Nav.Item
+                      onClick={() =>
+                        router.push("/dashboard/blogs", undefined, {
+                          shallow: true,
+                        })
+                      }
+                    >
+                      Blogs
+                    </Nav.Item>
+                  ) : (
+                    ""
+                  )}
                 </Nav>
                 <Nav pullRight style={{ marginRight: "70px" }}>
                   <Nav.Item
