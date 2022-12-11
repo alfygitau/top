@@ -113,7 +113,7 @@ const blogs = () => {
     border: "1px solid rgb(247,247,250)",
     marginLeft: "40px",
     marginTop: "20px",
-    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+    // boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
     width: "80%",
     borderRadius: "10px",
     display: "flex",
@@ -121,7 +121,7 @@ const blogs = () => {
   };
 
   const titleStyles = {
-    color: "grey",
+    color: "black",
     fontSize: "16px",
   };
   const optionStyles = {
@@ -134,6 +134,12 @@ const blogs = () => {
     fontSize: "20px",
     cursor: "pointer",
   };
+
+  const longEnUSFormatter = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <div>
@@ -168,6 +174,14 @@ const blogs = () => {
             <div className="blog">
               <h3 style={titleStyles}>{blog.title}</h3>
               <p>{blog.keywords}</p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: blog.blog_text.slice(0, 200),
+                }}
+              />
+              <p style={{ fontStyle: "italic", color:"grey" }}>
+                POSTED ON {longEnUSFormatter.format(blog.createdAt)}
+              </p>
             </div>
             <div className="options" style={optionStyles}>
               {blog.status !== "deleted" && (

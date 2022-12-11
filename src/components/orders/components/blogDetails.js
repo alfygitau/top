@@ -101,6 +101,12 @@ const blogDetails = ({ section }) => {
     setInstructions(blogDetails.blog_text);
   };
 
+  const longEnUSFormatter = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <>
       {isLoading ? (
@@ -118,7 +124,9 @@ const blogDetails = ({ section }) => {
             </div>
             <p>{blogDetails.keywords}</p>
             <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
-            <p>POSTED ON {blogDetails.createdAt}</p>
+            <p style={{ fontStyle: "italic" }}>
+              POSTED ON {longEnUSFormatter.format(blogDetails.createdAt)}
+            </p>
           </div>
           <div className="buttons" style={{ marginTop: "20px" }}>
             <p>Blog Options</p>
