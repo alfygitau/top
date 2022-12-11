@@ -106,41 +106,44 @@ const blogDetails = ({ section }) => {
       {isLoading ? (
         <Loader size="md" />
       ) : (
-        <div style={detailsStyles}>
-          <div
-            className="preview"
-            style={{ display: "flex", justifyContent: "space-between" }}
-          >
-            <h3>
-              {blogDetails.id}:{blogDetails.title}
-            </h3>
-            <div className="buttons" style={{ marginTop: "20px" }}>
-              {blogDetails.status !== "active" && !published ? (
-                <span
-                  style={{ marginRight: "30px", cursor: "pointer" }}
-                  onClick={() => handlePublish(blogDetails.id)}
-                >
-                  <CheckOutlineIcon style={iconStyles} /> Publish
-                </span>
-              ) : (
-                <span
-                  style={{
-                    marginRight: "20px",
-                    backgroundColor: "rgb(76,176,51)",
-                    borderRadius: "10px",
-                    padding: "7px",
-                  }}
-                >
-                  Published
-                </span>
-              )}
-              <span style={{ cursor: "pointer" }} onClick={handleShow} e>
-                <EditIcon style={iconStyles} /> Edit
-              </span>
+        <div style={{ display: "flex" }}>
+          <div style={detailsStyles}>
+            <div
+              className="preview"
+              style={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <h3>
+                {blogDetails.id}:{blogDetails.title}
+              </h3>
             </div>
+            <p>{blogDetails.keywords}</p>
+            <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
           </div>
-          <p>{blogDetails.keywords}</p>
-          <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
+          <div className="buttons" style={{ marginTop: "20px" }}>
+            <p>Blog Options</p>
+            {blogDetails.status !== "active" && !published ? (
+              <span
+                style={{ marginRight: "30px", cursor: "pointer" }}
+                onClick={() => handlePublish(blogDetails.id)}
+              >
+                <CheckOutlineIcon style={iconStyles} /> Publish
+              </span>
+            ) : (
+              <span
+                style={{
+                  marginRight: "20px",
+                  backgroundColor: "rgb(76,176,51)",
+                  borderRadius: "10px",
+                  padding: "7px",
+                }}
+              >
+                Published
+              </span>
+            )}
+            <span style={{ cursor: "pointer" }} onClick={handleShow} e>
+              <EditIcon style={iconStyles} /> Edit
+            </span>
+          </div>
         </div>
       )}
       <Modal
