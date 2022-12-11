@@ -14,6 +14,10 @@ import { Box, Input, Label } from "theme-ui";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
+// toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const blogDetails = ({ section }) => {
   // bootstrap
   const [show, setShow] = useState(false);
@@ -79,7 +83,8 @@ const blogDetails = ({ section }) => {
 
   const handlePublish = (id) => {
     publishBlog(dispatch, id);
-    router.push("/dashboard/blogs");
+    // router.push("/dashboard/blogs");
+    toast.success("New blog published")
   };
 
   const handleExit = () => {
@@ -110,7 +115,7 @@ const blogDetails = ({ section }) => {
             <div className="buttons" style={{ marginTop: "20px" }}>
               <span
                 style={{ marginRight: "30px", cursor: "pointer" }}
-                onClick={() => handlePublish(blogId)}
+                onClick={() => handlePublish(blogDetails.id)}
               >
                 <CheckOutlineIcon style={iconStyles} /> Publish
               </span>
@@ -185,6 +190,7 @@ const blogDetails = ({ section }) => {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ToastContainer />
     </>
   );
 };

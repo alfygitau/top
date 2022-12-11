@@ -89,7 +89,7 @@ const blogs = () => {
 
   const handleDeleteArticle = (article) => {
     deleteBlog(dispatch, article.id);
-    setValue("active");
+    setValue("deleted");
     getBlogs(dispatch);
   };
 
