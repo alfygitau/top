@@ -120,6 +120,7 @@ const blogs = () => {
     // borderRadius: "10px",
     display: "flex",
     justifyContent: "space-between",
+    position: "relative",
   };
 
   const titleStyles = {
@@ -143,6 +144,16 @@ const blogs = () => {
     month: "long",
     day: "numeric",
   });
+
+  const middleStyle = {
+    transition: ".5s ease",
+    opacity: "0",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    textAlign: "center",
+  };
 
   return (
     <div>
@@ -179,7 +190,7 @@ const blogs = () => {
               <p>{blog.keywords}</p>
               <p
                 dangerouslySetInnerHTML={{
-                  __html: blog.blog_text.slice(0, 200),
+                  __html: blog.blog_text.slice(0, 250),
                 }}
               />
               <p style={{ fontStyle: "italic", color: "grey" }}>
@@ -199,6 +210,9 @@ const blogs = () => {
                   onClick={() => fetchBlog(blog.slug)}
                 />
               </Link>
+            </div>
+            <div class="middle" style={middleStyle}>
+              <div class="text">John Doe</div>
             </div>
           </div>
         ))}
