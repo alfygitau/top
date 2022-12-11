@@ -143,13 +143,11 @@ export const blogReducers = (state = initialBlogState, action) => {
       };
     }
     case DELETE_BLOG_SUCCESS: {
-      let remaining = state.blogs.filter((item) => item.id !== action.blog.id);
       return {
         ...state,
         isLoading: false,
         isSuccess: true,
         deletedBlog: action.blog,
-        blogs: remaining,
       };
     }
     case DELETE_BLOG_ERROR: {

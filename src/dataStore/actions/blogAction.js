@@ -70,6 +70,7 @@ export const getBlog = async (dispatch, slug) => {
         },
       })
       .then((response) => {
+        localStorage.setItem("blog", JSON.stringify(response.data));
         dispatch({
           type: GET_BLOG_SUCCESS,
           blog: response.data,

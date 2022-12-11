@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import Dashboard from "../../components/admin/dashboard";
+import Dashboard from "../../../components/admin/dashboard";
 
-const Blogs = () => {
+const BlogDetails = () => {
   useEffect(() => {
     try {
       JSON.parse(localStorage.currentUser);
@@ -10,7 +10,7 @@ const Blogs = () => {
       window.location.replace("/user/login");
     }
   }, []);
-  return <Dashboard page="dashboard" section="blogs" />;
+  return <Dashboard page="dashboard" section="blogDetails" />;
 };
 
-export default Blogs;
+export default BlogDetails;

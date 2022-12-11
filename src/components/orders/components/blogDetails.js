@@ -1,52 +1,50 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Modal, Button, Placeholder, Loader } from "rsuite";
+import { useSelector } from "react-redux";
+import { Loader } from "rsuite";
 import EditIcon from "@rsuite/icons/Edit";
 import CheckOutlineIcon from "@rsuite/icons/CheckOutline";
-import ModalContext from "./ModalContext";
-import { Box, Input, Label } from "theme-ui";
 import { publishBlog, updateBlog } from "dataStore/actions/blogAction";
+import { useDispatch } from "react-redux";
+import { Modal, Button, Placeholder } from "rsuite";
 import { Editor } from "@tinymce/tinymce-react";
+import { Box, Input, Label } from "theme-ui";
 
-const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
+const blogDetails = ({ section }) => {
   const dispatch = useDispatch();
+  const { blogDetails, isLoading } = useSelector((state) => state.blogState);
+  console.log(blogDetails);
+
   const [rows, setRows] = React.useState(0);
   const [openUpdate, setOpenUpdate] = useState(false);
-  const { blogDetails } = useSelector((state) => state.blogState);
   const handleUpdateClose = () => setOpenUpdate(false);
   const [instructions, setInstructions] = useState(blogDetails.blog_text);
+  const [title, setTitle] = useState(blogDetails.title);
+  const [keywords, setKeywords] = useState(blogDetails.keywords);
 
-  const [updateDetails, setUpdateDetails] = useState({
-    title: blogDetails.title,
-    keywords: blogDetails.keywords,
-  });
+  const router = useRouter();
+  const { blogId } = router.query;
 
   const handleInit = (evt, editor) => {
     // setLength(editor.getContent({ format: 'text' }).length);
   };
+  const handleEntered = () => {
+    setTimeout(() => setRows(80), 2000);
+  };
+
+  // const reload = () => window.location.reload();
 
   const handleInstructionsChange = (value, editor) => {
     setInstructions(value);
-  };
-
-  const handleUpdateChange = (event) => {
-    event.persist();
-    event.preventDefault();
-    let name = event.target.name;
-    let value = event.target.value;
-    setUpdateDetails({
-      ...updateDetails,
-      [name]: value,
-    });
   };
 
   const handleUpdateSubmit = async (event, articleID) => {
     event.persist();
     event.preventDefault();
     const bodyData = {
-      title: updateDetails.title,
+      title: title,
       blog_text: instructions,
-      keywords: updateDetails.keywords,
+      keywords: keywords,
     };
     if (bodyData) {
       await updateBlog(dispatch, articleID, bodyData).then((response) => {
@@ -67,21 +65,11 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
     }
   };
 
-  const handlePublishBlog = (blogId) => {
-    publishBlog(dispatch, blogId);
-    setOpenUpdate(false);
-    setOpenBlog(false);
-    setValue("active");
-  };
-
-  const handleEntered = () => {
-    setTimeout(() => setRows(80), 2000);
-  };
-
-  const blogStyles = {
-    width: "85%",
-    margin: "auto",
-    height: "70%",
+  const detailsStyles = {
+    display: "flex",
+    flexDirection: "column",
+    padding: "20px",
+    width: "70%",
   };
 
   const iconStyles = {
@@ -90,71 +78,36 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
     cursor: "pointer",
   };
 
+  const handlePublish = (id) => {
+    publishBlog(dispatch, id);
+  };
+
   return (
     <>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        style={blogStyles}
-        overflow={true}
-        onEntered={handleEntered}
-        onExited={() => {
-          setRows(0);
-        }}
-      >
-        <Modal.Header>
-          {rows ? (
-            <Modal.Title>
-              {blogDetails.id}:{blogDetails.title}
-            </Modal.Title>
-          ) : (
-            <Placeholder.Paragraph />
-          )}
-        </Modal.Header>
-        <Modal.Body>
-          {rows ? (
-            <>
-              <p>{blogDetails.keywords}</p>
-              <div
-                dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }}
-              />
-            </>
-          ) : (
-            <div style={{ textAlign: "center" }}>
-              <Loader size="md" />
-            </div>
-          )}
-        </Modal.Body>
-        <Modal.Footer
-          style={{ display: "flex", justifyContent: "space-between" }}
-        >
-          <div className="buttons">
+      {isLoading ? (
+        <Loader size="md" />
+      ) : (
+        <div style={detailsStyles}>
+          <h1>{blogId}:Blog Details</h1>
+          <h3>{blogDetails.title}</h3>
+          <p>{blogDetails.keywords}</p>
+          <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
+          <div className="buttons" style={{ marginTop: "20px" }}>
             <span
-              style={{ marginRight: "20px", cursor: "pointer" }}
+              style={{ marginRight: "30px", cursor: "pointer" }}
+              onClick={() => handlePublish(blogId)}
+            >
+              <CheckOutlineIcon style={iconStyles} /> Publish
+            </span>
+            <span
+              style={{ cursor: "pointer" }}
               onClick={() => setOpenUpdate(true)}
             >
               <EditIcon style={iconStyles} /> Edit
             </span>
-            {blogDetails.status === "pending" && (
-              <span
-                onClick={() => handlePublishBlog(blogDetails.id)}
-                style={{ cursor: "pointer" }}
-              >
-                <CheckOutlineIcon style={iconStyles} />
-                Publish Blog
-              </span>
-            )}
           </div>
-          <div className="btn">
-            <Button onClick={handleClose} appearance="primary">
-              Ok
-            </Button>
-            <Button onClick={handleClose} appearance="subtle">
-              Cancel
-            </Button>
-          </div>
-        </Modal.Footer>
-      </Modal>
+        </div>
+      )}
       <Modal
         open={openUpdate}
         onClose={handleUpdateClose}
@@ -174,15 +127,15 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
               <Input
                 id="title"
                 name="title"
-                value={updateDetails.title}
-                onChange={handleUpdateChange}
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
               />
               <Label htmlFor="keywords">Blog Keywords</Label>
               <Input
                 id="keywords"
                 name="keywords"
-                value={updateDetails.keywords}
-                onChange={handleUpdateChange}
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
               />
               <Label htmlFor="Blog_content">Blog Content</Label>
               <Editor
@@ -229,4 +182,4 @@ const BlogModal = ({ open, handleClose, setValue, setOpenBlog }) => {
   );
 };
 
-export default BlogModal;
+export default blogDetails;

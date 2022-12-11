@@ -18,6 +18,7 @@ import RevisionDetails from "../orders/components/revisionDetails";
 import InProgressDetails from "components/orders/components/inProgressDetails";
 import ReserveOrder from "../orders/components/reserve-order";
 import Blogs from "../orders/components/blogs";
+import BlogDetails from "../../components/orders/components/blogDetails";
 
 const Dashboard = ({ section }) => {
   const renderOrderPages = () => {
@@ -64,6 +65,8 @@ const Dashboard = ({ section }) => {
         return <CreateOrder section={section} />;
       case "blogs":
         return <Blogs section={section} />;
+      case "blogDetails":
+        return <BlogDetails section={section} />;
       case undefined:
         return "";
       default:

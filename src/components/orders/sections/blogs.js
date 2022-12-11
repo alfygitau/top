@@ -14,6 +14,7 @@ import AddOutlineIcon from "@rsuite/icons/AddOutline";
 import ModalContext from "../../helpers/ModalContext";
 import VisibleIcon from "@rsuite/icons/Visible";
 import BlogModal from "components/helpers/BlogModal";
+import Link from "next/link";
 
 const blogs = () => {
   const blogSelector = useSelector((state) => state.blogState);
@@ -38,9 +39,8 @@ const blogs = () => {
   const handleOpenBlog = () => setOpenBlog(true);
   const handleViewClose = () => setOpenView(false);
 
-  const fetchBlog = async (title) => {
-    setOpenBlog(true);
-    await getBlog(dispatch, title);
+  const fetchBlog = (title) => {
+    getBlog(dispatch, title);
   };
 
   const handleInputChange = (event) => {
@@ -176,10 +176,12 @@ const blogs = () => {
                   onClick={() => handleDeleteArticle(blog)}
                 />
               )}
-              <VisibleIcon
-                style={iconStyles}
-                onClick={() => fetchBlog(blog.slug)}
-              />
+              <Link href={`/dashboard/blogs/${blog.id}/`} passHref>
+                <VisibleIcon
+                  style={iconStyles}
+                  onClick={() => fetchBlog(blog.slug)}
+                />
+              </Link>
             </div>
           </div>
         ))}
