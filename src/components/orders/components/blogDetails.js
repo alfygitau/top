@@ -23,6 +23,7 @@ const blogDetails = ({ section }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [published, setPublished] = useState(false);
 
   const dispatch = useDispatch();
   const { blogDetails, isLoading } = useSelector((state) => state.blogState);
@@ -84,7 +85,8 @@ const blogDetails = ({ section }) => {
   const handlePublish = (id) => {
     publishBlog(dispatch, id);
     // router.push("/dashboard/blogs");
-    toast.success("New blog published")
+    toast.success("New blog published");
+    setPublished(true);
   };
 
   const handleExit = () => {
@@ -113,12 +115,25 @@ const blogDetails = ({ section }) => {
               {blogDetails.id}:{blogDetails.title}
             </h3>
             <div className="buttons" style={{ marginTop: "20px" }}>
-              <span
-                style={{ marginRight: "30px", cursor: "pointer" }}
-                onClick={() => handlePublish(blogDetails.id)}
-              >
-                <CheckOutlineIcon style={iconStyles} /> Publish
-              </span>
+              {!published ? (
+                <span
+                  style={{ marginRight: "30px", cursor: "pointer" }}
+                  onClick={() => handlePublish(blogDetails.id)}
+                >
+                  <CheckOutlineIcon style={iconStyles} /> Publish
+                </span>
+              ) : (
+                <span
+                  style={{
+                    marginRight: "20px",
+                    backgroundColor: "rgb(76,176,51)",
+                    borderRadius: "10px",
+                    padding: "7px",
+                  }}
+                >
+                  Published
+                </span>
+              )}
               <span style={{ cursor: "pointer" }} onClick={handleShow} e>
                 <EditIcon style={iconStyles} /> Edit
               </span>
