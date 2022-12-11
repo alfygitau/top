@@ -205,21 +205,23 @@ export const publishBlog = async (dispatch, id) => {
     dispatch({
       type: PUBLISH_BLOG,
     });
-    const token = localStorage.getItem("authToken");
-    console.log(token);
-    return await axiosConfig
-      .put(`/top_articles/${id}/publish`, {
+    return await fetch(
+      `https://api.doctorateessays.com/top_articles/${id}/publish`,
+      {
+        method: "PUT",
         headers: {
-          "x-toprated-token": token,
+          "x-toprated-token": localStorage.token,
         },
-      })
-      .then((response) => {
+      }
+    ).then((response) =>
+      response.json().then((data) => {
         dispatch({
           type: PUBLISH_BLOG_SUCCESS,
-          blog: response.data,
+          blog: data,
         });
-        return response;
-      });
+        return data;
+      })
+    );
   } catch (error) {
     dispatch({
       type: PUBLISH_BLOG_ERROR,

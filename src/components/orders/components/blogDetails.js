@@ -109,95 +109,27 @@ const blogDetails = ({ section }) => {
         <Loader size="md" />
       ) : (
         <div style={detailsStyles}>
-          <h1>{blogId}:Blog Details</h1>
-          <h3>{blogDetails.title}</h3>
+          <div
+            className="preview"
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <h3>{blogId}:{blogDetails.title}</h3>
+            <div className="buttons" style={{ marginTop: "20px" }}>
+              <span
+                style={{ marginRight: "30px", cursor: "pointer" }}
+                onClick={() => handlePublish(blogId)}
+              >
+                <CheckOutlineIcon style={iconStyles} /> Publish
+              </span>
+              <span style={{ cursor: "pointer" }} onClick={handleShow} e>
+                <EditIcon style={iconStyles} /> Edit
+              </span>
+            </div>
+          </div>
           <p>{blogDetails.keywords}</p>
           <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
-          <div className="buttons" style={{ marginTop: "20px" }}>
-            <span
-              style={{ marginRight: "30px", cursor: "pointer" }}
-              onClick={() => handlePublish(blogId)}
-            >
-              <CheckOutlineIcon style={iconStyles} /> Publish
-            </span>
-            <span style={{ cursor: "pointer" }} onClick={handleShow} e>
-              <EditIcon style={iconStyles} /> Edit
-            </span>
-          </div>
         </div>
       )}
-      {/* <Modal
-        open={openUpdate}
-        onClose={handleUpdateClose}
-        size="md"
-        onEntered={handleEntered}
-        onExited={() => {
-          setRows(0);
-        }}
-      >
-        <Modal.Header>
-          <Modal.Title>Update Blog</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {rows ? (
-            <Box as="form" onSubmit={handleUpdateSubmit}>
-              <Label htmlFor="title">Title</Label>
-              <Input
-                id="title"
-                name="title"
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
-              />
-              <Label htmlFor="keywords">Blog Keywords</Label>
-              <Input
-                id="keywords"
-                name="keywords"
-                value={keywords}
-                onChange={(e) => setKeywords(e.target.value)}
-              />
-              <Label htmlFor="Blog_content">Blog Content</Label>
-              <Editor
-                apiKey="jm5weuex99fz17qyiv457ia53e6ignpzdupkd8vpszcywnoo"
-                value={instructions}
-                onInit={handleInit}
-                init={{
-                  height: 250,
-                  language: "en_US",
-                  menubar: false,
-                  plugins: [
-                    "advlist autolink lists link image",
-                    "charmap print preview anchor help",
-                    "searchreplace visualblocks code",
-                    "insertdatetime media table paste wordcount",
-                  ],
-                  toolbar:
-                    "link | undo redo | formatselect | bold italic | \
-                                              alignleft aligncenter alignright | \
-                                              bullist numlist outdent indent | help",
-                }}
-                onEditorChange={handleInstructionsChange}
-              />
-              <Button type="submit" style={{ marginTop: "10px" }}>
-                Update Blog
-              </Button>
-            </Box>
-          ) : (
-            <div style={{ textAlign: "center" }}>
-              <Loader size="md" />
-            </div>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={handleUpdateClose} appearance="subtle">
-            Cancel
-          </Button>
-          <Button onClick={handleUpdateClose} appearance="primary">
-            Ok
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
-
-      {/* bootstrap modal */}
       <Modal
         centered
         size="lg"
@@ -210,7 +142,7 @@ const blogDetails = ({ section }) => {
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form>
+          <form onSubmit={handleUpdateSubmit}>
             <Label htmlFor="title">Title</Label>
             <Input
               id="title"
