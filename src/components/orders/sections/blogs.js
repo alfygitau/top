@@ -100,13 +100,14 @@ const blogs = () => {
   const blogNavbar = {
     display: "flex",
     marginTop: "20px",
-    marginRight: "auto",
-    marginLeft: "auto",
+    // marginRight: "auto",
+    marginLeft: "60px",
     marginBottom: "10px",
     height: "70px",
     width: "80%",
     justifyContent: "space-around",
-    border:"1px solid rgb(218,230,242)"
+    alignItems:"center",
+    border: "1px solid rgb(218,230,242)",
   };
 
   const contentStyles = {
@@ -169,7 +170,7 @@ const blogs = () => {
           </Form.Group>
         </div>
       </div>
-      <div className="content">
+      <div className="content" style={{ marginBottom: "40px" }}>
         {blogs?.top_articles?.map((blog) => (
           <div className="bloging" style={contentStyles} key={blog.id}>
             <div className="blog">
