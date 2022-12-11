@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Loader } from "rsuite";
@@ -24,24 +24,15 @@ const blogDetails = ({ section }) => {
   const { blogDetails, isLoading } = useSelector((state) => state.blogState);
   console.log(blogDetails);
 
-  const [rows, setRows] = React.useState(0);
-  const [openUpdate, setOpenUpdate] = useState(false);
-  const handleUpdateClose = () => setOpenUpdate(false);
   const [instructions, setInstructions] = useState(blogDetails.blog_text);
   const [title, setTitle] = useState(blogDetails.title);
   const [keywords, setKeywords] = useState(blogDetails.keywords);
 
   const router = useRouter();
-  const { blogId } = router.query;
 
   const handleInit = (evt, editor) => {
     // setLength(editor.getContent({ format: 'text' }).length);
   };
-  const handleEntered = () => {
-    setTimeout(() => setRows(80), 2000);
-  };
-
-  // const reload = () => window.location.reload();
 
   const handleInstructionsChange = (value, editor) => {
     setInstructions(value);
@@ -58,9 +49,8 @@ const blogDetails = ({ section }) => {
     if (bodyData) {
       await updateBlog(dispatch, articleID, bodyData).then((response) => {
         if (response.status === 200) {
-          setOpenUpdate(false);
-          setOpenBlog(false);
-          setValue("active");
+          setShow(false);
+          router.push("/dashboard/blogs");
         }
       });
     } else {
@@ -77,7 +67,7 @@ const blogDetails = ({ section }) => {
   const detailsStyles = {
     display: "flex",
     flexDirection: "column",
-    padding: "20px",
+    padding: "40px",
     width: "70%",
   };
 
@@ -89,6 +79,7 @@ const blogDetails = ({ section }) => {
 
   const handlePublish = (id) => {
     publishBlog(dispatch, id);
+    router.push("/dashboard/blogs");
   };
 
   const handleExit = () => {
@@ -113,7 +104,9 @@ const blogDetails = ({ section }) => {
             className="preview"
             style={{ display: "flex", justifyContent: "space-between" }}
           >
-            <h3>{blogId}:{blogDetails.title}</h3>
+            <h3>
+              {blogDetails.id}:{blogDetails.title}
+            </h3>
             <div className="buttons" style={{ marginTop: "20px" }}>
               <span
                 style={{ marginRight: "30px", cursor: "pointer" }}
@@ -142,7 +135,7 @@ const blogDetails = ({ section }) => {
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleUpdateSubmit}>
+          <form onSubmit={(e) => handleUpdateSubmit(e, blogDetails.id)}>
             <Label htmlFor="title">Title</Label>
             <Input
               id="title"
