@@ -9,6 +9,7 @@ import "rc-drawer/assets/index.css";
 import "../styles/index.css";
 import "typeface-dm-sans";
 import Head from "next/head";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function TopRatedApp({ Component, pageProps }) {
   const store = useStore();

@@ -6,11 +6,20 @@ import EditIcon from "@rsuite/icons/Edit";
 import CheckOutlineIcon from "@rsuite/icons/CheckOutline";
 import { publishBlog, updateBlog } from "dataStore/actions/blogAction";
 import { useDispatch } from "react-redux";
-import { Modal, Button, Placeholder } from "rsuite";
+// import { Modal, Button, Placeholder } from "rsuite";
 import { Editor } from "@tinymce/tinymce-react";
 import { Box, Input, Label } from "theme-ui";
 
+// bootstrap
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+
 const blogDetails = ({ section }) => {
+  // bootstrap
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const dispatch = useDispatch();
   const { blogDetails, isLoading } = useSelector((state) => state.blogState);
   console.log(blogDetails);
@@ -82,6 +91,18 @@ const blogDetails = ({ section }) => {
     publishBlog(dispatch, id);
   };
 
+  const handleExit = () => {
+    setTitle("");
+    setInstructions("");
+    setKeywords("");
+  };
+
+  const showData = () => {
+    setTitle(blogDetails.title);
+    setKeywords(blogDetails.keywords);
+    setInstructions(blogDetails.blog_text);
+  };
+
   return (
     <>
       {isLoading ? (
@@ -99,16 +120,13 @@ const blogDetails = ({ section }) => {
             >
               <CheckOutlineIcon style={iconStyles} /> Publish
             </span>
-            <span
-              style={{ cursor: "pointer" }}
-              onClick={() => setOpenUpdate(true)}
-            >
+            <span style={{ cursor: "pointer" }} onClick={handleShow} e>
               <EditIcon style={iconStyles} /> Edit
             </span>
           </div>
         </div>
       )}
-      <Modal
+      {/* <Modal
         open={openUpdate}
         onClose={handleUpdateClose}
         size="md"
@@ -175,6 +193,70 @@ const blogDetails = ({ section }) => {
           </Button>
           <Button onClick={handleUpdateClose} appearance="primary">
             Ok
+          </Button>
+        </Modal.Footer>
+      </Modal> */}
+
+      {/* bootstrap modal */}
+      <Modal
+        centered
+        size="lg"
+        show={show}
+        onHide={handleClose}
+        onExited={handleExit}
+        onShow={showData}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+            <Label htmlFor="title">Title</Label>
+            <Input
+              id="title"
+              name="title"
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
+            />
+            <Label htmlFor="keywords">Blog Keywords</Label>
+            <Input
+              id="keywords"
+              name="keywords"
+              value={keywords}
+              onChange={(e) => setKeywords(e.target.value)}
+            />
+            <Editor
+              apiKey="jm5weuex99fz17qyiv457ia53e6ignpzdupkd8vpszcywnoo"
+              value={instructions}
+              onInit={handleInit}
+              init={{
+                height: 250,
+                language: "en_US",
+                menubar: false,
+                plugins: [
+                  "advlist autolink lists link image",
+                  "charmap print preview anchor help",
+                  "searchreplace visualblocks code",
+                  "insertdatetime media table paste wordcount",
+                ],
+                toolbar:
+                  "link | undo redo | formatselect | bold italic | \
+                                              alignleft aligncenter alignright | \
+                                              bullist numlist outdent indent | help",
+              }}
+              onEditorChange={handleInstructionsChange}
+            />
+            <Button type="submit" style={{ marginTop: "10px" }}>
+              Update Blog
+            </Button>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
