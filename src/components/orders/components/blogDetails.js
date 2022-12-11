@@ -115,7 +115,7 @@ const blogDetails = ({ section }) => {
               {blogDetails.id}:{blogDetails.title}
             </h3>
             <div className="buttons" style={{ marginTop: "20px" }}>
-              {!published ? (
+              {blogDetails.status !== "active" && !published ? (
                 <span
                   style={{ marginRight: "30px", cursor: "pointer" }}
                   onClick={() => handlePublish(blogDetails.id)}
