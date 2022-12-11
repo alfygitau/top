@@ -118,6 +118,7 @@ const blogDetails = ({ section }) => {
             </div>
             <p>{blogDetails.keywords}</p>
             <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
+            <p>POSTED ON {blogDetails.createdAt}</p>
           </div>
           <div className="buttons" style={{ marginTop: "20px" }}>
             <p>Blog Options</p>
