@@ -8,7 +8,7 @@ import {
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Radio, RadioGroup, Form } from "rsuite";
+import { Radio, RadioGroup, Form, Divider } from "rsuite";
 import TrashIcon from "@rsuite/icons/Trash";
 import AddOutlineIcon from "@rsuite/icons/AddOutline";
 import ModalContext from "../../helpers/ModalContext";
@@ -106,16 +106,17 @@ const blogs = () => {
     height: "70px",
     width: "80%",
     justifyContent: "space-around",
+    border:"1px solid rgb(218,230,242)"
   };
 
   const contentStyles = {
     padding: "30px",
-    border: "1px solid rgb(247,247,250)",
+    borderBottom: "1px solid rgb(218,230,242)",
     marginLeft: "40px",
     marginTop: "20px",
     // boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
     width: "80%",
-    borderRadius: "10px",
+    // borderRadius: "10px",
     display: "flex",
     justifyContent: "space-between",
   };
@@ -179,7 +180,7 @@ const blogs = () => {
                   __html: blog.blog_text.slice(0, 200),
                 }}
               />
-              <p style={{ fontStyle: "italic", color:"grey" }}>
+              <p style={{ fontStyle: "italic", color: "grey" }}>
                 POSTED ON {longEnUSFormatter.format(blog.createdAt)}
               </p>
             </div>
