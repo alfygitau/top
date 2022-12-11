@@ -106,7 +106,7 @@ const blogs = () => {
     height: "70px",
     width: "80%",
     justifyContent: "space-around",
-    alignItems:"center",
+    alignItems: "center",
     border: "1px solid rgb(218,230,242)",
   };
 
@@ -124,7 +124,8 @@ const blogs = () => {
 
   const titleStyles = {
     color: "black",
-    fontSize: "16px",
+    fontSize: "20px",
+    textTransform: "capitalize",
   };
   const optionStyles = {
     display: "flex",
