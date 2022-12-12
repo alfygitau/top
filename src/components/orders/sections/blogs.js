@@ -89,12 +89,6 @@ const blogs = () => {
     }
   };
 
-  const handleDeleteArticle = (article) => {
-    deleteBlog(dispatch, article.id);
-    setValue("deleted");
-    getBlogs(dispatch);
-  };
-
   useEffect(() => {
     filterBlog(dispatch, value);
   }, [dispatch, value]);

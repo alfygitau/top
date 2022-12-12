@@ -1,12 +1,12 @@
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Loader } from "rsuite";
 import EditIcon from "@rsuite/icons/Edit";
 import CheckOutlineIcon from "@rsuite/icons/CheckOutline";
-import { publishBlog, updateBlog } from "dataStore/actions/blogAction";
+import { deleteBlog, publishBlog, updateBlog } from "dataStore/actions/blogAction";
 import { useDispatch } from "react-redux";
-// import { Modal, Button, Placeholder } from "rsuite";
+import TrashIcon from "@rsuite/icons/Trash";
 import { Editor } from "@tinymce/tinymce-react";
 import { Box, Input, Label } from "theme-ui";
 
@@ -107,6 +107,12 @@ const blogDetails = ({ section }) => {
     day: "numeric",
   });
 
+  const handleDeleteArticle = (id) => {
+    deleteBlog(dispatch, id);
+    toast("Article Deleted");
+    router.push("/dashboard/blogs");
+  };
+
   return (
     <>
       {isLoading ? (
@@ -157,8 +163,18 @@ const blogDetails = ({ section }) => {
                 Published
               </span>
             )}
-            <span style={{ cursor: "pointer" }} onClick={handleShow} e>
+            <span
+              style={{ cursor: "pointer", marginRight: "20px" }}
+              onClick={handleShow}
+              e
+            >
               <EditIcon style={iconStyles} /> Edit
+            </span>
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={() => handleDeleteArticle(blogDetails.id)}
+            >
+              <TrashIcon style={iconStyles} /> Delete
             </span>
           </div>
         </div>
