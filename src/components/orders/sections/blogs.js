@@ -15,6 +15,8 @@ import ModalContext from "../../helpers/ModalContext";
 import VisibleIcon from "@rsuite/icons/Visible";
 import BlogModal from "components/helpers/BlogModal";
 import Link from "next/link";
+import styles from "../../../styles/Blog.module.css";
+import { BsBook } from "react-icons/bs";
 
 const blogs = () => {
   const blogSelector = useSelector((state) => state.blogState);
@@ -100,7 +102,6 @@ const blogs = () => {
   const blogNavbar = {
     display: "flex",
     marginTop: "20px",
-    // marginRight: "auto",
     marginLeft: "60px",
     marginBottom: "10px",
     height: "70px",
@@ -115,12 +116,9 @@ const blogs = () => {
     borderBottom: "1px solid rgb(218,230,242)",
     marginLeft: "40px",
     marginTop: "20px",
-    // boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
     width: "80%",
-    // borderRadius: "10px",
     display: "flex",
     justifyContent: "space-between",
-    position: "relative",
   };
 
   const titleStyles = {
@@ -144,16 +142,6 @@ const blogs = () => {
     month: "long",
     day: "numeric",
   });
-
-  const middleStyle = {
-    transition: ".5s ease",
-    opacity: "0",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    textAlign: "center",
-  };
 
   return (
     <div>
@@ -182,40 +170,35 @@ const blogs = () => {
           </Form.Group>
         </div>
       </div>
-      <div className="content" style={{ marginBottom: "40px" }}>
-        {blogs?.top_articles?.map((blog) => (
-          <div className="bloging" style={contentStyles} key={blog.id}>
-            <div className="blog">
-              <h3 style={titleStyles}>{blog.title}</h3>
-              <p>{blog.keywords}</p>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: blog.blog_text.slice(0, 250),
-                }}
-              />
-              <p style={{ fontStyle: "italic", color: "grey" }}>
-                POSTED ON {longEnUSFormatter.format(blog.createdAt)}
-              </p>
-            </div>
-            <div className="options" style={optionStyles}>
-              {blog.status !== "deleted" && (
-                <TrashIcon
-                  style={iconStyles}
-                  onClick={() => handleDeleteArticle(blog)}
+      <div>
+        <div style={{ marginBottom: "40px" }}>
+          {blogs?.top_articles?.map((blog) => (
+            <div style={contentStyles} key={blog.id} className={styles.content}>
+              <div className={styles.bloging}>
+                <h3 style={titleStyles}>{blog.title}</h3>
+                <p>{blog.keywords}</p>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: blog.blog_text.slice(0, 250),
+                  }}
                 />
-              )}
+                <p style={{ fontStyle: "italic", color: "grey" }}>
+                  POSTED ON {longEnUSFormatter.format(blog.createdAt)}
+                </p>
+              </div>
               <Link href={`/dashboard/blogs/${blog.id}/`} passHref>
-                <VisibleIcon
-                  style={iconStyles}
+                <div
+                  className={styles.middle}
                   onClick={() => fetchBlog(blog.slug)}
-                />
+                >
+                  <div className={styles.text}>
+                    <BsBook /> &nbsp; Read More....
+                  </div>
+                </div>
               </Link>
             </div>
-            <div class="middle" style={middleStyle}>
-              <div class="text">John Doe</div>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       <div className="modal">
         <ModalContext
