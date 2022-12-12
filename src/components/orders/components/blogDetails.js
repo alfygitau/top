@@ -110,7 +110,15 @@ const blogDetails = ({ section }) => {
   return (
     <>
       {isLoading ? (
-        <Loader size="md" />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Loader size="md" />
+        </div>
       ) : (
         <div style={{ display: "flex" }}>
           <div style={detailsStyles}>
