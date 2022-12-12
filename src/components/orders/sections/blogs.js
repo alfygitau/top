@@ -171,11 +171,13 @@ const blogs = () => {
               <div className={styles.bloging}>
                 <h3 style={titleStyles}>{blog.title}</h3>
                 <p>{blog.keywords}</p>
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: blog.blog_text.slice(0, 250),
-                  }}
-                />
+                <div className={styles.paragraph}>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: blog.blog_text,
+                    }}
+                  />
+                </div>
                 <p style={{ fontStyle: "italic", color: "grey" }}>
                   POSTED ON {longEnUSFormatter.format(blog.createdAt)}
                 </p>

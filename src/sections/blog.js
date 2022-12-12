@@ -23,116 +23,9 @@ import styles from "../styles/Blog.module.css";
 import Link from "next/link";
 
 const Blog = () => {
-  const [open, setOpen] = useState(false);
-  const [openUpdate, setOpenUpdate] = useState(false);
-  const [openView, setOpenView] = useState(false);
-  const [updateID, setUpdateID] = useState("");
-  const [blogDetails, setBlogDetails] = useState({
-    title: "",
-    blog_text: "",
-    keywords: "",
-  });
   const blogSelector = useSelector((state) => state.blogState);
-  const { blogs, blog } = blogSelector;
+  const { blogs } = blogSelector;
   const dispatch = useDispatch();
-
-  const [updateDetails, setUpdateDetails] = useState({
-    title: blog?.title,
-    blog_text: blog?.blog_text,
-    keywords: blog?.keywords,
-  });
-
-  const handleClose = () => setOpen(false);
-  const handleUpdateClose = () => setOpenUpdate(false);
-  const handleViewClose = () => setOpenView(false);
-
-  const handleInputChange = (event) => {
-    event.persist();
-    setBlogDetails((details) => ({
-      ...details,
-      [event.target.name]: event.target.value,
-    }));
-  };
-
-  const handleUpdateChange = (event) => {
-    let name = event.target.name;
-    let value = event.target.value;
-    setUpdateDetails({
-      ...updateDetails,
-      [name]: value,
-    });
-  };
-
-  const handleInstructionsChange = (value) => {
-    setBlogDetails((details) => ({
-      ...details,
-      blog_text: value,
-    }));
-  };
-
-  const handleUpdateSubmit = (event, articleID) => {
-    event.persist();
-    event.preventDefault();
-    const bodyData = {
-      title: updateDetails.title || blog.title,
-      blog_text: updateDetails.blog_text || blog.blog_text,
-      keywords: updateDetails.keywords || blog.keywords,
-    };
-    if (bodyData) {
-      updateBlog(dispatch, articleID, bodyData).then((response) => {
-        if (response.status === 200) {
-          setOpenUpdate(false);
-        }
-      });
-    } else {
-      dispatch({
-        type: "ERROR",
-        errorMessage: "Make sure all the fields all filled",
-      });
-      if (errorMessage.errorMessage) {
-        <Message type="error">Error</Message>;
-      }
-    }
-  };
-
-  const handleCreateArticle = (e) => {
-    e.preventDefault();
-    const { title, blog_text, keywords } = blogDetails;
-
-    const bodyData = {
-      title,
-      blog_text,
-      keywords,
-    };
-    if (
-      bodyData.title !== "" &&
-      bodyData.blog_text !== "" &&
-      bodyData.keywords !== ""
-    ) {
-      createBlog(dispatch, bodyData).then((response) => {
-        if (response.status === 200) getBlogs(dispatch);
-        setOpen(false);
-      });
-    } else {
-      dispatchCheckDetails({
-        type: "ERROR",
-        errorMessage: "Make sure all the fields all filled",
-      });
-    }
-  };
-
-  const handleDeleteArticle = (article) => {
-    deleleBlog(dispatch, article.id);
-  };
-
-  const handleBlogCreator = () => {
-    let blogCreator;
-    if (typeof window !== "undefined") {
-      // Perform localStorage action
-      blogCreator = blogCreator = localStorage.currentUser.id === 7 || null;
-    }
-    return blogCreator;
-  };
 
   useEffect(() => {
     getBlogs(dispatch);
@@ -201,11 +94,13 @@ const Blog = () => {
                         <div className={styles.bloging}>
                           <h3 style={titleStyles}>{blog.title}</h3>
                           <p>{blog.keywords}</p>
-                          <p
-                            dangerouslySetInnerHTML={{
-                              __html: blog.blog_text.slice(0, 250),
-                            }}
-                          />
+                          <div className={styles.paragraph}>
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: blog.blog_text,
+                              }}
+                            />
+                          </div>
                           <p style={{ fontStyle: "italic", color: "grey" }}>
                             POSTED ON {longEnUSFormatter.format(blog.createdAt)}
                           </p>

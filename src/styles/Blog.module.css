@@ -31,3 +31,11 @@
   font-size: 16px;
   padding: 16px 32px;
 }
+
+.paragraph {
+  max-width: "100%";
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
