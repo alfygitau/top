@@ -1,5 +1,5 @@
 import React from "react";
-import { Panel, Grid, Row, Col, List, Modal } from "rsuite";
+import { Panel, Grid, Row, Col, List, Modal, Loader } from "rsuite";
 import Calculator from "./calculator";
 import { FiCheckCircle, FiPhoneCall, FiEdit } from "react-icons/fi";
 import { FaListUl } from "react-icons/fa";
