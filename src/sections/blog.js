@@ -9,6 +9,7 @@ import { Button } from "theme-ui";
 import Calculator from "./calculator";
 import router from "next/router";
 import Image from "../assets/banner-thumb.png";
+import { BsBook } from "react-icons/bs";
 import {
   createBlog,
   getBlogs,
@@ -18,6 +19,8 @@ import {
 } from "dataStore/actions/blogAction";
 import { useDispatch, useSelector } from "react-redux";
 import ModalContext from "../components/helpers/ModalContext";
+import styles from "../styles/Blog.module.css";
+import Link from "next/link";
 
 const Blog = () => {
   const [open, setOpen] = useState(false);
@@ -134,6 +137,38 @@ const Blog = () => {
   useEffect(() => {
     getBlogs(dispatch);
   }, [dispatch]);
+
+  const contentStyles = {
+    padding: "30px",
+    borderBottom: "1px solid rgb(218,230,242)",
+    marginLeft: "40px",
+    marginTop: "20px",
+    width: "80%",
+    display: "flex",
+    justifyContent: "space-between",
+  };
+
+  const titleStyles = {
+    color: "black",
+    fontSize: "20px",
+    textTransform: "capitalize",
+  };
+  const optionStyles = {
+    display: "flex",
+    alignItems: "center",
+  };
+
+  const iconStyles = {
+    marginRight: "15px",
+    fontSize: "20px",
+    cursor: "pointer",
+  };
+
+  const longEnUSFormatter = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   return (
     <div style={{ paddingTop: "80px" }}>
       <div
@@ -154,27 +189,33 @@ const Blog = () => {
                 <Col xs={24}>
                   <Panel>
                     {blogs.top_articles?.map((blog) => (
-                      <div>
-                        <div
-                          style={{
-                            display: "flex",
-                            marginBottom: "5px",
-                            marginLeft: "5px",
-                          }}
-                        >
-                          <div>
-                            <div
-                              onClick={() => {
-                                getBlog(dispatch, blog.slug);
-                                setOpenView(true);
-                              }}
-                            >
-                              <h4>{blog.title} </h4>
-                              <div>{blog.keywords}</div>
+                      <div
+                        style={contentStyles}
+                        key={blog.id}
+                        className={styles.content}
+                      >
+                        <div className={styles.bloging}>
+                          <h3 style={titleStyles}>{blog.title}</h3>
+                          <p>{blog.keywords}</p>
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: blog.blog_text.slice(0, 250),
+                            }}
+                          />
+                          <p style={{ fontStyle: "italic", color: "grey" }}>
+                            POSTED ON {longEnUSFormatter.format(blog.createdAt)}
+                          </p>
+                        </div>
+                        <Link href={`/dashboard/blogs/${blog.id}/`} passHref>
+                          <div
+                            className={styles.middle}
+                            onClick={() => fetchBlog(blog.slug)}
+                          >
+                            <div className={styles.text}>
+                              <BsBook /> &nbsp; Read More....
                             </div>
                           </div>
-                        </div>
-                        <hr />
+                        </Link>
                       </div>
                     ))}
                     {/* {blogs.top_articles && (
