@@ -138,6 +138,10 @@ const Blog = () => {
     getBlogs(dispatch);
   }, [dispatch]);
 
+  const fetchBlog = (title) => {
+    getBlog(dispatch, title);
+  };
+
   const contentStyles = {
     padding: "30px",
     borderBottom: "1px solid rgb(218,230,242)",
@@ -206,7 +210,7 @@ const Blog = () => {
                             POSTED ON {longEnUSFormatter.format(blog.createdAt)}
                           </p>
                         </div>
-                        <Link href={`/dashboard/blogs/${blog.id}/`} passHref>
+                        <Link href={`/header/blog/${blog.id}/`} passHref>
                           <div
                             className={styles.middle}
                             onClick={() => fetchBlog(blog.slug)}
@@ -218,15 +222,6 @@ const Blog = () => {
                         </Link>
                       </div>
                     ))}
-                    {/* {blogs.top_articles && (
-                      <Pagination
-                        size="md"
-                        total={blogs.pagination.count}
-                        limit={per}
-                        activePage={activePage}
-                        onChangePage={(page) => setActivePage(page)}
-                      />
-                    )} */}
                   </Panel>
                 </Col>
               </Row>
