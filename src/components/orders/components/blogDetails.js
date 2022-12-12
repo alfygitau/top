@@ -170,7 +170,6 @@ const blogDetails = ({ section }) => {
             <span
               style={{ cursor: "pointer", marginRight: "20px" }}
               onClick={handleShow}
-              e
             >
               <EditIcon style={iconStyles} /> Edit
             </span>
