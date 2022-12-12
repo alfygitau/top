@@ -101,7 +101,13 @@ const Blog = () => {
                               }}
                             />
                           </div>
-                          <p style={{ fontStyle: "italic", color: "grey" }}>
+                          <p
+                            style={{
+                              fontStyle: "italic",
+                              color: "grey",
+                              marginTop: "10px",
+                            }}
+                          >
                             POSTED ON {longEnUSFormatter.format(blog.createdAt)}
                           </p>
                         </div>

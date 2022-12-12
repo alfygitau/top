@@ -109,11 +109,12 @@ const blogs = () => {
     padding: "30px",
     borderBottom: "1px solid rgb(218,230,242)",
     marginLeft: "40px",
+    marginRight: "10px",
     marginTop: "20px",
-    width: "60%",
+    // width: "60%",
     display: "flex",
     justifyContent: "space-between",
-    fontSize:"14px"
+    fontSize: "14px",
   };
 
   const titleStyles = {
@@ -166,35 +167,59 @@ const blogs = () => {
         </div>
       </div>
       <div>
-        <div style={{ marginBottom: "40px" }}>
-          {blogs?.top_articles?.map((blog) => (
-            <div style={contentStyles} key={blog.id} className={styles.content}>
-              <div className={styles.bloging}>
-                <h3 style={titleStyles}>{blog.title}</h3>
-                <p>{blog.keywords}</p>
-                <div className={styles.paragraph}>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: blog.blog_text,
-                    }}
-                  />
-                </div>
-                <p style={{ fontStyle: "italic", color: "grey" }}>
-                  POSTED ON {longEnUSFormatter.format(blog.createdAt)}
-                </p>
-              </div>
-              <Link href={`/dashboard/blogs/${blog.id}/`} passHref>
-                <div
-                  className={styles.middle}
-                  onClick={() => fetchBlog(blog.slug)}
-                >
-                  <div className={styles.text}>
-                    <BsBook /> &nbsp; Read More....
+        <div className="all-content" style={{ display: "flex" }}>
+          <div style={{ marginBottom: "40px", width: "60%" }}>
+            {blogs?.top_articles?.map((blog) => (
+              <div
+                style={contentStyles}
+                key={blog.id}
+                className={styles.content}
+              >
+                <div className={styles.bloging}>
+                  <h3 style={titleStyles}>{blog.title}</h3>
+                  <p>{blog.keywords}</p>
+                  <div className={styles.paragraph}>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: blog.blog_text,
+                      }}
+                    />
                   </div>
+                  <p
+                    style={{
+                      fontStyle: "italic",
+                      color: "grey",
+                      marginTop: "10px",
+                    }}
+                  >
+                    POSTED ON {longEnUSFormatter.format(blog.createdAt)}
+                  </p>
                 </div>
-              </Link>
-            </div>
-          ))}
+                <Link href={`/dashboard/blogs/${blog.id}/`} passHref>
+                  <div
+                    className={styles.middle}
+                    onClick={() => fetchBlog(blog.slug)}
+                  >
+                    <div className={styles.text}>
+                      <BsBook /> &nbsp; Read More....
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+          <div
+            style={{
+              width: "30%",
+              border: "1px solid rgb(218,230,242)",
+              height: "60vh",
+              marginRight: "auto",
+              marginLeft: "auto",
+              borderRadius: "10px",
+            }}
+          >
+            BlogList options
+          </div>
         </div>
       </div>
       <div className="modal">
