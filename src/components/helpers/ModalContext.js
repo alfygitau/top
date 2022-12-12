@@ -79,7 +79,11 @@ const ModalContext = (props) => {
               }}
               onEditorChange={onEditorChange}
             />
-            <Button type="submit" style={{ marginTop: "10px" }}>
+            <Button
+              type="submit"
+              style={{ marginTop: "10px" }}
+              appearance="primary"
+            >
               {button}
             </Button>
           </Box>
@@ -92,9 +96,6 @@ const ModalContext = (props) => {
       <Modal.Footer>
         <Button onClick={handleClose} appearance="subtle">
           Cancel
-        </Button>
-        <Button onClick={handleClose} appearance="primary">
-          Ok
         </Button>
       </Modal.Footer>
     </Modal>

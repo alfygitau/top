@@ -110,9 +110,10 @@ const blogs = () => {
     borderBottom: "1px solid rgb(218,230,242)",
     marginLeft: "40px",
     marginTop: "20px",
-    width: "80%",
+    width: "60%",
     display: "flex",
     justifyContent: "space-between",
+    fontSize:"14px"
   };
 
   const titleStyles = {
@@ -203,7 +204,7 @@ const blogs = () => {
           hadleClick={handleCreateArticle}
           handleInputChange={handleInputChange}
           blog={blogDetails}
-          button="Create"
+          button="Create Blog"
           main_title="Create Blog"
           onEditorChange={handleInstructionsChange}
         />
