@@ -33,7 +33,7 @@
     "next-optimized-images": "^2.5.4",
     "prettier": "^2.1.2",
     "rc-drawer": "^4.1.0",
-    "react": "^16.13.0",
+    "react": "^16.14.0",
     "react-bootstrap": "^2.7.0",
     "react-contenteditable": "^3.3.6",
     "react-countup": "^5.2.0",
