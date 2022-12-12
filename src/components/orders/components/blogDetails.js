@@ -4,7 +4,11 @@ import { useSelector } from "react-redux";
 import { Loader } from "rsuite";
 import EditIcon from "@rsuite/icons/Edit";
 import CheckOutlineIcon from "@rsuite/icons/CheckOutline";
-import { deleteBlog, publishBlog, updateBlog } from "dataStore/actions/blogAction";
+import {
+  deleteBlog,
+  publishBlog,
+  updateBlog,
+} from "dataStore/actions/blogAction";
 import { useDispatch } from "react-redux";
 import TrashIcon from "@rsuite/icons/Trash";
 import { Editor } from "@tinymce/tinymce-react";
@@ -170,12 +174,14 @@ const blogDetails = ({ section }) => {
             >
               <EditIcon style={iconStyles} /> Edit
             </span>
-            <span
-              style={{ cursor: "pointer" }}
-              onClick={() => handleDeleteArticle(blogDetails.id)}
-            >
-              <TrashIcon style={iconStyles} /> Delete
-            </span>
+            {blogDetails.status !== "deleted" && (
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => handleDeleteArticle(blogDetails.id)}
+              >
+                <TrashIcon style={iconStyles} /> Delete
+              </span>
+            )}
           </div>
         </div>
       )}
