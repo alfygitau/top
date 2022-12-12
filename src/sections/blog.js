@@ -76,7 +76,7 @@ const Blog = () => {
           marginRight: "20px",
         }}
       >
-        <h3>BLOGS</h3>
+        <h3 style={{ marginLeft: "80px" }}>BLOGS</h3>
       </div>
       <Grid fluid>
         <Row>
