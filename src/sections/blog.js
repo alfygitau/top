@@ -10,6 +10,7 @@ import Calculator from "./calculator";
 import router from "next/router";
 import Image from "../assets/banner-thumb.png";
 import { BsBook } from "react-icons/bs";
+import  moment  from "moment";
 import {
   createBlog,
   getBlogs,
@@ -108,7 +109,10 @@ const Blog = () => {
                               marginTop: "10px",
                             }}
                           >
-                            POSTED ON {longEnUSFormatter.format(blog.createdAt)}
+                            POSTED ON &nbsp;
+                            {moment(blog.created_at).format(
+                              "MMMM Do YYYY, h:mm:ss a"
+                            )}
                           </p>
                         </div>
                         <Link href={`/header/blog/${blog.id}/`} passHref>

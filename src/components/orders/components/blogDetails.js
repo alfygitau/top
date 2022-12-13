@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import TrashIcon from "@rsuite/icons/Trash";
 import { Editor } from "@tinymce/tinymce-react";
 import { Box, Input, Label } from "theme-ui";
+import moment from "moment";
 
 // bootstrap
 import Button from "react-bootstrap/Button";
@@ -143,7 +144,8 @@ const blogDetails = ({ section }) => {
             <p>{blogDetails.keywords}</p>
             <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
             <p style={{ fontStyle: "italic" }}>
-              POSTED ON {longEnUSFormatter.format(blogDetails.createdAt)}
+              POSTED ON &nbsp;
+              {moment(blogDetails.created_at).format("MMMM Do YYYY, h:mm:ss a")}
             </p>
           </div>
           <div className="buttons" style={{ marginTop: "20px" }}>

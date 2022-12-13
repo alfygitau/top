@@ -17,6 +17,7 @@ import BlogModal from "components/helpers/BlogModal";
 import Link from "next/link";
 import styles from "../../../styles/Blog.module.css";
 import { BsBook } from "react-icons/bs";
+import moment from "moment";
 
 const blogs = () => {
   const blogSelector = useSelector((state) => state.blogState);
@@ -133,6 +134,16 @@ const blogs = () => {
     cursor: "pointer",
   };
 
+  const categoriesStyles = {
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "20px",
+  };
+
+  const linkStyles = {
+    textDecoration: "none",
+  };
+
   const longEnUSFormatter = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "long",
@@ -192,7 +203,10 @@ const blogs = () => {
                       marginTop: "10px",
                     }}
                   >
-                    POSTED ON {longEnUSFormatter.format(blog.createdAt)}
+                    POSTED ON{" "}
+                    {moment(blog.published_at).format(
+                      "MMMM Do YYYY, h:mm:ss a"
+                    )}
                   </p>
                 </div>
                 <Link href={`/dashboard/blogs/${blog.id}/`} passHref>
@@ -216,9 +230,46 @@ const blogs = () => {
               marginRight: "auto",
               marginLeft: "auto",
               borderRadius: "10px",
+              padding: "20px",
             }}
           >
-            BlogList options
+            <h5>CATEGORIES</h5>
+            <div style={categoriesStyles}>
+              <h6 href="#">TopRated samples</h6>
+              <a href="#" style={linkStyles}>
+                Essay samples
+              </a>
+              <a href="#" style={linkStyles}>
+                Research Paper samples
+              </a>
+              <a href="#" style={linkStyles}>
+                Book Review Samples
+              </a>
+            </div>
+            <div style={categoriesStyles}>
+              <h6>TopRated Topics</h6>
+              <a href="#" style={linkStyles}>
+                Essay topics
+              </a>
+              <a href="#" style={linkStyles}>
+                Research Paper topics
+              </a>
+              <a href="#" style={linkStyles}>
+                Speech/presentation topics
+              </a>
+            </div>
+            <div style={categoriesStyles}>
+              <h6>TopRated Writing Guides</h6>
+              <a href="#" style={linkStyles}>
+                Essay writing
+              </a>
+              <a href="#" style={linkStyles}>
+                Academic writing
+              </a>
+              <a href="#" style={linkStyles}>
+                Research paper writing
+              </a>
+            </div>
           </div>
         </div>
       </div>
