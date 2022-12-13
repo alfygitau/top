@@ -218,7 +218,7 @@ const CreateOrder = () => {
       language_id: parseInt(localStorage.language_id, 10),
       phone: order.phone,
       topic: order.topic,
-      instructions: instructions.trim(),
+      instructions: instructions,
       pagesummary: false,
       plagreport: true,
       initialdraft: false,
@@ -246,6 +246,8 @@ const CreateOrder = () => {
     // document.getElementsByTagName('p')
     setinstructions(content);
   };
+
+  console.log(instructions);
 
   useEffect(() => {
     getLevels(dispatch);
