@@ -87,8 +87,8 @@ const OrderDetails = ({ section }) => {
   const [myurgency, setmyurgency] = React.useState(2.5);
   const [mypages, setmypages] = React.useState(1);
   const [mylevel, setmylevel] = React.useState(1);
+  const [mystyle, setmystyle] = React.useState(1);
   const [myspacing, setmyspacing] = React.useState(1);
-  const [openWithHeader, setOpenWithHeader] = React.useState(false);
   const [cancelOpen, setCancelOpen] = React.useState(false);
 
   const router = useRouter();
@@ -158,7 +158,6 @@ const OrderDetails = ({ section }) => {
   const messageSelector = useSelector((state) => state.messageState);
   const { messages } = messageSelector;
   const newMessages = [...messages];
-  // const formattedInstructructions = instructions?.trim().slice(2).slice(0, -2);
 
   const levelSelector = useSelector((state) => state.levelState);
   const pageSelector = useSelector((state) => state.pageState);
@@ -224,6 +223,19 @@ const OrderDetails = ({ section }) => {
         ...updateOrderDetails, // Spread Operator
         [name]: value,
       };
+    });
+  };
+
+  const parseStyleSelected = (event) => {
+    const valueToParse = event.target.value;
+    const style_id_index = Object.values(JSON.parse(valueToParse));
+    const style_id = style_id_index[0];
+    const itemSelected = JSON.parse(valueToParse);
+    setSelected(itemSelected);
+    setmystyle(itemSelected.factor);
+    setUpdateOrderDetails({
+      ...updateOrderDetails,
+      [event.target.name]: style_id,
     });
   };
 
@@ -342,18 +354,18 @@ const OrderDetails = ({ section }) => {
     const { id: userID } = JSON.parse(localStorage.currentUser);
     const bodyData = {
       user_id: parseInt(userID),
-      service_id: parseInt(updateOrderDetails.service_id) || service.id,
-      type_id: parseInt(updateOrderDetails.type_id) || type.id,
-      style_id: parseInt(updateOrderDetails.style_id) || style.id,
-      level_id: parseInt(updateOrderDetails.level_id) || level.id,
-      pages_id: parseInt(updateOrderDetails.pages_id) || page.id,
-      urgency_id: parseInt(updateOrderDetails.urgency_id) || urgency.id,
-      subject_id: parseInt(updateOrderDetails.subject_id) || subject.id,
-      sources_id: parseInt(updateOrderDetails.sources_id) || source.id,
-      spacing_id: parseInt(updateOrderDetails.spacing_id) || spacing.id,
-      language_id: parseInt(updateOrderDetails.language_id) || language.id,
-      phone: updateOrderDetails.phone ? updateOrderDetails.phone : phone,
-      topic: updateOrderDetails.topic ? updateOrderDetails.topic : topic,
+      service_id: parseInt(updateOrderDetails.service_id),
+      type_id: parseInt(updateOrderDetails.type_id),
+      style_id: parseInt(updateOrderDetails.style_id),
+      level_id: parseInt(updateOrderDetails.level_id),
+      pages_id: parseInt(updateOrderDetails.pages_id),
+      urgency_id: parseInt(updateOrderDetails.urgency_id),
+      subject_id: parseInt(updateOrderDetails.subject_id),
+      sources_id: parseInt(updateOrderDetails.sources_id),
+      spacing_id: parseInt(updateOrderDetails.spacing_id),
+      language_id: parseInt(updateOrderDetails.language_id),
+      phone: updateOrderDetails.phone,
+      topic: updateOrderDetails.topic,
       instructions: instructionsx,
       pagesummary: false,
       plagreport: true,
@@ -736,7 +748,7 @@ const OrderDetails = ({ section }) => {
                               <option
                                 key={stylex.id}
                                 selected={stylex.name === style_name}
-                                value={stylex.name}
+                                value={stylex.id}
                               >
                                 {stylex.name}
                               </option>
