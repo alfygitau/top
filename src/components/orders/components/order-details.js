@@ -67,6 +67,7 @@ const OrderDetails = ({ section }) => {
   const [cancelReasonValue, setCancelReasonValue] = useState(1);
   const fileInput = React.useRef();
   const [show, setShow] = useState(false);
+  const [reserveOpen, setReserveOpen] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [message, setMessage] = useState({
@@ -189,6 +190,8 @@ const OrderDetails = ({ section }) => {
   // const handleClose = () => setOpen(false);
   const handleCancelOpen = () => setCancelOpen(true);
   const handleCancelClose = () => setCancelOpen(false);
+  const handleReserveOpen = () => setReserveOpen(true);
+  const handleReserveClose = () => setReserveOpen(false);
 
   const handleOrderCancelChange = (event) => {
     let name = event.target.name;
@@ -1011,10 +1014,19 @@ const OrderDetails = ({ section }) => {
           >
             Cancel
           </Button>
-          <Button color="green" onClick={handleOpen} appearance="primary">
+          <Button
+            color="green"
+            onClick={handleReserveOpen}
+            appearance="primary"
+          >
             Reserve Payment
           </Button>
-          <Modal open={open} onClose={handleClose}>
+          <Modal
+            show={reserveOpen}
+            onHide={handleReserveClose}
+            size="lg"
+            centered
+          >
             {isLoading && <BoxLoading />}
             <Modal.Header>
               <Modal.Title>
@@ -1051,7 +1063,7 @@ const OrderDetails = ({ section }) => {
             </Modal.Body>
             <Divider />
             <Modal.Footer>
-              <Button onClick={handleClose} appearance="ghost">
+              <Button onClick={handleReserveClose} appearance="ghost">
                 Close
               </Button>
             </Modal.Footer>
