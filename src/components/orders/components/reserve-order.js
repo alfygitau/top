@@ -186,8 +186,18 @@ const ReserveOrder = () => {
                 </tr>
               </table>
               <div className="instructions" style={{ marginTop: "20px" }}>
-                <p>Order Instructions</p>
-                <div dangerouslySetInnerHTML={{ __html: instructions }} />
+                <p style={{ textDecoration: "underline" }}>
+                  Order Instructions
+                </p>
+                <div
+                  style={{
+                    border: "1px solid grey",
+                    padding: "10px 20px",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <div dangerouslySetInnerHTML={{ __html: instructions }} />
+                </div>
               </div>
             </Col>
           </Row>
