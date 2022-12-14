@@ -242,9 +242,9 @@ const CreateOrder = () => {
     }
   };
 
-  const handleEditorChange = (content, editor) => {
+  const handleEditorChange = (value) => {
     // document.getElementsByTagName('p')
-    setinstructions(content);
+    setinstructions(value);
   };
 
   console.log(instructions);
@@ -494,9 +494,10 @@ const CreateOrder = () => {
                   <Label htmlFor="instructions">Instructions*</Label>
                   <Editor
                     apiKey="jm5weuex99fz17qyiv457ia53e6ignpzdupkd8vpszcywnoo"
+                    value={instructions}
+                    initialValue=""
                     init={{
                       height: 300,
-                      directionality: "ltr",
                       language: "en_US",
                       menubar: false,
                       plugins: [

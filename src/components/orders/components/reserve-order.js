@@ -42,7 +42,6 @@ const ReserveOrder = () => {
   const router = useRouter();
   const { reserveID } = router.query;
   const dispatch = useDispatch();
-  const formattedInstructructions = instructions?.trim().slice(2).slice(0, -2);
 
   const handleReserveFromWallet = () => {
     payFromWallet(dispatch, orderId).then((response) => {
@@ -185,33 +184,11 @@ const ReserveOrder = () => {
                   </td>
                   <td style={styles.table.td}>{level && level.name}</td>
                 </tr>
-                <tr>
-                  <td style={styles.table.td}>
-                    <b>Instructions</b>
-                  </td>
-                  <td colSpan="3">
-                    <Editor
-                      apiKey="jm5weuex99fz17qyiv457ia53e6ignpzdupkd8vpszcywnoo"
-                      initialValue={formattedInstructructions}
-                      init={{
-                        height: 300,
-                        language: "en_US",
-                        menubar: false,
-                        plugins: [
-                          "advlist autolink lists link image",
-                          "charmap print preview anchor help",
-                          "searchreplace visualblocks code",
-                          "insertdatetime media table paste wordcount",
-                        ],
-                        toolbar:
-                          "undo redo | formatselect | bold italic | \
-                                                    alignleft aligncenter alignright | \
-                                                    bullist numlist outdent indent | help",
-                      }}
-                    />
-                  </td>
-                </tr>
               </table>
+              <div className="instructions" style={{ marginTop: "20px" }}>
+                <p>Order Instructions</p>
+                <div dangerouslySetInnerHTML={{ __html: instructions }} />
+              </div>
             </Col>
           </Row>
         </Grid>

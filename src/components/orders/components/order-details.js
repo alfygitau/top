@@ -2,13 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
+// import Button from 'react-bootstrap/Button';
+import Modal from "react-bootstrap/Modal";
 import {
   Panel,
   Divider,
   Uploader,
   Button,
   Input,
-  Modal,
+  // Modal,
   Message,
   Nav,
   Drawer,
@@ -64,6 +66,9 @@ const OrderDetails = ({ section }) => {
   const [messageInfo, setMessageInfo] = useState([]);
   const [cancelReasonValue, setCancelReasonValue] = useState(1);
   const fileInput = React.useRef();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [message, setMessage] = useState({
     sender_id: "",
     message: "",
@@ -83,7 +88,6 @@ const OrderDetails = ({ section }) => {
   const [mypages, setmypages] = React.useState(1);
   const [mylevel, setmylevel] = React.useState(1);
   const [myspacing, setmyspacing] = React.useState(1);
-  const [instructionsx, setinstructions] = React.useState("");
   const [openWithHeader, setOpenWithHeader] = React.useState(false);
   const [cancelOpen, setCancelOpen] = React.useState(false);
 
@@ -121,6 +125,9 @@ const OrderDetails = ({ section }) => {
     },
   } = orderSelector;
 
+  const [instructionsx, setinstructionsx] = React.useState(instructions);
+  console.log(instructionsx);
+
   const [updateOrderDetails, setUpdateOrderDetails] = useState({
     user_id: "",
     service_id: service?.id,
@@ -151,7 +158,7 @@ const OrderDetails = ({ section }) => {
   const messageSelector = useSelector((state) => state.messageState);
   const { messages } = messageSelector;
   const newMessages = [...messages];
-  const formattedInstructructions = instructions?.trim().slice(2).slice(0, -2);
+  // const formattedInstructructions = instructions?.trim().slice(2).slice(0, -2);
 
   const levelSelector = useSelector((state) => state.levelState);
   const pageSelector = useSelector((state) => state.pageState);
@@ -180,7 +187,7 @@ const OrderDetails = ({ section }) => {
     height: 200,
   });
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleClose = () => setOpen(false);
   const handleCancelOpen = () => setCancelOpen(true);
   const handleCancelClose = () => setCancelOpen(false);
 
@@ -312,8 +319,21 @@ const OrderDetails = ({ section }) => {
     });
   };
 
-  const handleInstructionsChange = (value) => {
-    setinstructions(value);
+  const handleInit = (evt, editor) => {
+    // setLength(editor.getContent({ format: 'text' }).length);
+    setinstructionsx(instructions);
+  };
+
+  const handleEditInstructionsChange = (value) => {
+    setinstructionsx(value);
+  };
+
+  const handleShowValues = () => {
+    setinstructionsx(instructions);
+  };
+
+  const handleExit = () => {
+    setinstructionsx("");
   };
 
   const handleUpdateOrderSubmit = (event) => {
@@ -334,7 +354,7 @@ const OrderDetails = ({ section }) => {
       language_id: parseInt(updateOrderDetails.language_id) || language.id,
       phone: updateOrderDetails.phone ? updateOrderDetails.phone : phone,
       topic: updateOrderDetails.topic ? updateOrderDetails.topic : topic,
-      instructions: instructionsx ? instructionsx : instructions,
+      instructions: instructionsx,
       pagesummary: false,
       plagreport: true,
       initialdraft: false,
@@ -346,7 +366,7 @@ const OrderDetails = ({ section }) => {
     if (bodyData) {
       updateOrder(dispatch, orderID, bodyData).then((response) => {
         if (response.status === 200) {
-          setOpenWithHeader(false);
+          setShow(false);
         }
       });
     } else {
@@ -559,37 +579,37 @@ const OrderDetails = ({ section }) => {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h4>Order Details</h4>
         <div style={{ display: "flex", gap: "1em" }}>
-          <Button
-            onClick={() => setOpenWithHeader(true)}
-            color="blue"
-            appearance="primary"
-          >
-            Update
+          <Button onClick={handleShow} color="blue" appearance="primary">
+            Edit Order
           </Button>
-          <Drawer
-            open={openWithHeader}
-            onClose={() => setOpenWithHeader(false)}
+          <Modal
+            show={show}
+            onHide={handleClose}
+            size="lg"
+            centered
+            onShow={handleShowValues}
+            onExited={handleExit}
           >
-            <Drawer.Header>
-              <Drawer.Title>
-                <h4>Update Order</h4>
-              </Drawer.Title>
-              <h4>
-                Price:
-                <span style={{ color: "blue" }}>
-                  $
-                  {(
-                    myservice *
-                    mytype *
-                    myurgency *
-                    mypages *
-                    mylevel *
-                    myspacing
-                  ).toFixed(2)}
-                </span>
-              </h4>
-            </Drawer.Header>
-            <Drawer.Body>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                <p>Update Order</p>
+                <h4>
+                  Price:
+                  <span style={{ color: "blue" }}>
+                    $
+                    {(
+                      myservice *
+                      mytype *
+                      myurgency *
+                      mypages *
+                      mylevel *
+                      myspacing
+                    ).toFixed(2)}
+                  </span>
+                </h4>
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
               <Box as="form" onSubmit={handleUpdateOrderSubmit}>
                 <Grid fluid>
                   <Row>
@@ -881,8 +901,8 @@ const OrderDetails = ({ section }) => {
                 <Label htmlFor="instructions">Instructions*</Label>
                 <Editor
                   apiKey="jm5weuex99fz17qyiv457ia53e6ignpzdupkd8vpszcywnoo"
-                  initialValue={formattedInstructructions}
-                  value={instructions}
+                  value={instructionsx}
+                  onInit={handleInit}
                   init={{
                     height: 250,
                     language: "en_US",
@@ -898,15 +918,33 @@ const OrderDetails = ({ section }) => {
                                                     alignleft aligncenter alignright | \
                                                     bullist numlist outdent indent | help",
                   }}
-                  onEditorChange={handleInstructionsChange}
+                  onEditorChange={handleEditInstructionsChange}
                 />
-                <Button type="submit" color="cyan" appearance="primary">
-                  Edit Order
+                <Button
+                  type="submit"
+                  color="cyan"
+                  appearance="primary"
+                  style={{ marginTop: "20px" }}
+                >
+                  Update Order
                 </Button>
               </Box>
-            </Drawer.Body>
-          </Drawer>
-          <Modal open={cancelOpen} onClose={handleCancelClose}>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleClose}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          <Modal
+            show={cancelOpen}
+            onHide={handleCancelClose}
+            size="lg"
+            centered
+          >
             <Modal.Header>
               <Modal.Title>Cancel Order #{order_number}</Modal.Title>
             </Modal.Header>
@@ -947,7 +985,7 @@ const OrderDetails = ({ section }) => {
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={handleCancelOrderSubmit} appearance="primary">
-                Ok
+                Submit
               </Button>
               <Button onClick={handleCancelClose} appearance="subtle">
                 Cancel
@@ -1183,33 +1221,21 @@ const OrderDetails = ({ section }) => {
                   </td>
                   <td style={styles.table.td}>{level && level.name}</td>
                 </tr>
-                <tr>
-                  <td style={styles.table.td}>
-                    <b>Instructions</b>
-                  </td>
-                  <td colSpan="3">
-                    <Editor
-                      apiKey="jm5weuex99fz17qyiv457ia53e6ignpzdupkd8vpszcywnoo"
-                      initialValue={formattedInstructructions}
-                      init={{
-                        height: 300,
-                        language: "en_US",
-                        menubar: false,
-                        plugins: [
-                          "advlist autolink lists link image",
-                          "charmap print preview anchor help",
-                          "searchreplace visualblocks code",
-                          "insertdatetime media table paste wordcount",
-                        ],
-                        toolbar:
-                          "undo redo | formatselect | bold italic | \
-                                                    alignleft aligncenter alignright | \
-                                                    bullist numlist outdent indent | help",
-                      }}
-                    />
-                  </td>
-                </tr>
               </table>
+              <div className="instructions">
+                <h6 style={{ marginTop: "20px", textDecoration: "underline" }}>
+                  Order Instructions
+                </h6>
+                <div
+                  style={{
+                    borderRadius: "10px",
+                    border: "1px solid grey",
+                    padding: "10px 20px",
+                  }}
+                >
+                  <div dangerouslySetInnerHTML={{ __html: instructions }} />
+                </div>
+              </div>
             </Col>
           </Row>
         </Grid>
