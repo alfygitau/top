@@ -186,7 +186,7 @@ const blogDetails = ({ section }) => {
             style={{
               marginLeft: "40px",
               marginRight: "40px",
-              marginTop: "110px",
+              marginTop: "90px",
               zIndex: "-1",
             }}
           >
