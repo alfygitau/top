@@ -2,8 +2,11 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Loader } from "rsuite";
+import { Panel, Placeholder, ButtonGroup } from "rsuite";
 import EditIcon from "@rsuite/icons/Edit";
 import CheckOutlineIcon from "@rsuite/icons/CheckOutline";
+import Card from "react-bootstrap/Card";
+import tick from "../../../assets/blog/tick.webp";
 import {
   deleteBlog,
   publishBlog,
@@ -22,6 +25,7 @@ import Modal from "react-bootstrap/Modal";
 // toastify
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Stack } from "react-bootstrap";
 
 const blogDetails = ({ section }) => {
   // bootstrap
@@ -106,12 +110,6 @@ const blogDetails = ({ section }) => {
     setInstructions(blogDetails.blog_text);
   };
 
-  const longEnUSFormatter = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
   const handleDeleteArticle = (id) => {
     deleteBlog(dispatch, id);
     toast("Article Deleted");
@@ -131,60 +129,134 @@ const blogDetails = ({ section }) => {
           <Loader size="md" />
         </div>
       ) : (
-        <div style={{ display: "flex" }}>
-          <div style={detailsStyles}>
-            <div
-              className="preview"
-              style={{ display: "flex", justifyContent: "space-between" }}
-            >
-              <h3>
-                {blogDetails.id}:{blogDetails.title}
-              </h3>
+        <div style={{ position: "relative" }}>
+          <Panel
+            bordered
+            style={{
+              marginLeft: "40px",
+              marginRight: "40px",
+              position: "fixed",
+              top: "56px",
+              right: "2px",
+              width: "77.5%",
+              zIndex: "1",
+              backgroundColor: "#fff",
+            }}
+            header={
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>{blogDetails.title}</span>
+                <div>
+                  {blogDetails.status !== "active" && !published ? (
+                    <span
+                      style={{ marginRight: "30px", cursor: "pointer" }}
+                      onClick={() => handlePublish(blogDetails.id)}
+                    >
+                      <CheckOutlineIcon style={iconStyles} /> Publish
+                    </span>
+                  ) : (
+                    <span
+                      style={{
+                        marginRight: "20px",
+                      }}
+                    >
+                      <img src={tick} alt="new" height="20px" /> &nbsp;
+                      Published
+                    </span>
+                  )}
+                  <span
+                    style={{ cursor: "pointer", marginRight: "20px" }}
+                    onClick={handleShow}
+                  >
+                    <EditIcon style={iconStyles} /> Edit
+                  </span>
+                  {blogDetails.status !== "deleted" && (
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleDeleteArticle(blogDetails.id)}
+                    >
+                      <TrashIcon style={iconStyles} /> Delete
+                    </span>
+                  )}
+                </div>
+              </div>
+            }
+          ></Panel>
+          <Panel
+            shaded
+            style={{
+              marginLeft: "40px",
+              marginRight: "40px",
+              marginTop: "110px",
+              zIndex: "-1",
+            }}
+          >
+            <div>
+              <img
+                src="https://via.placeholder.com/240x240"
+                width="100%"
+                height="240px"
+                style={{ zIndex: "-1" }}
+              />
             </div>
-            <p>{blogDetails.keywords}</p>
-            <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
             <p style={{ fontStyle: "italic" }}>
               POSTED ON &nbsp;
               {moment(blogDetails.created_at).format("MMMM Do YYYY, h:mm:ss a")}
             </p>
-          </div>
-          <div className="buttons" style={{ marginTop: "20px" }}>
-            <p>Blog Options</p>
-            {blogDetails.status !== "active" && !published ? (
-              <span
-                style={{ marginRight: "30px", cursor: "pointer" }}
-                onClick={() => handlePublish(blogDetails.id)}
-              >
-                <CheckOutlineIcon style={iconStyles} /> Publish
-              </span>
-            ) : (
-              <span
-                style={{
-                  marginRight: "20px",
-                  backgroundColor: "rgb(76,176,51)",
-                  borderRadius: "10px",
-                  padding: "7px",
-                }}
-              >
-                Published
-              </span>
-            )}
-            <span
-              style={{ cursor: "pointer", marginRight: "20px" }}
-              onClick={handleShow}
-            >
-              <EditIcon style={iconStyles} /> Edit
-            </span>
-            {blogDetails.status !== "deleted" && (
-              <span
-                style={{ cursor: "pointer" }}
-                onClick={() => handleDeleteArticle(blogDetails.id)}
-              >
-                <TrashIcon style={iconStyles} /> Delete
-              </span>
-            )}
-          </div>
+            <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
+          </Panel>
         </div>
+        // <div style={{ display: "flex" }}>
+        //   <div style={detailsStyles}>
+        //     <div
+        //       className="preview"
+        //       style={{ display: "flex", justifyContent: "space-between" }}
+        //     >
+        //       <h3>{blogDetails.title}</h3>
+        //     </div>
+        //     <p>{blogDetails.keywords}</p>
+        //     <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
+        //     <p style={{ fontStyle: "italic" }}>
+        //       POSTED ON &nbsp;
+        //       {moment(blogDetails.created_at).format("MMMM Do YYYY, h:mm:ss a")}
+        //     </p>
+        //   </div>
+        //   <div className="buttons" style={{ marginTop: "20px" }}>
+        //     <p>Blog Options</p>
+        //     {blogDetails.status !== "active" && !published ? (
+        //       <span
+        //         style={{ marginRight: "30px", cursor: "pointer" }}
+        //         onClick={() => handlePublish(blogDetails.id)}
+        //       >
+        //         <CheckOutlineIcon style={iconStyles} /> Publish
+        //       </span>
+        //     ) : (
+        //       <span
+        //         style={{
+        //           marginRight: "20px",
+        //           backgroundColor: "rgb(76,176,51)",
+        //           borderRadius: "10px",
+        //           padding: "7px",
+        //         }}
+        //       >
+        //         Published
+        //       </span>
+        //     )}
+        //     <span
+        //       style={{ cursor: "pointer", marginRight: "20px" }}
+        //       onClick={handleShow}
+        //     >
+        //       <EditIcon style={iconStyles} /> Edit
+        //     </span>
+        //     {blogDetails.status !== "deleted" && (
+        //       <span
+        //         style={{ cursor: "pointer" }}
+        //         onClick={() => handleDeleteArticle(blogDetails.id)}
+        //       >
+        //         <TrashIcon style={iconStyles} /> Delete
+        //       </span>
+        //     )}
+        //   </div>
+        // </div>
       )}
       <Modal
         centered
@@ -195,7 +267,7 @@ const blogDetails = ({ section }) => {
         onShow={showData}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Update a blog</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={(e) => handleUpdateSubmit(e, blogDetails.id)}>
