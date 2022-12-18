@@ -18,6 +18,7 @@ import Link from "next/link";
 import styles from "../../../styles/Blog.module.css";
 import { BsBook } from "react-icons/bs";
 import moment from "moment";
+import bloggy from "../../../assets/blog/blog.png";
 
 const blogs = () => {
   const blogSelector = useSelector((state) => state.blogState);
@@ -112,9 +113,7 @@ const blogs = () => {
     marginLeft: "40px",
     marginRight: "10px",
     marginTop: "20px",
-    // width: "60%",
     display: "flex",
-    justifyContent: "space-between",
     fontSize: "14px",
   };
 
@@ -186,9 +185,11 @@ const blogs = () => {
                 key={blog.id}
                 className={styles.content}
               >
+                <div style={{ marginRight: "10px" }}>
+                  <img src={bloggy} alt="blog" height="140px" width="240px" />
+                </div>
                 <div className={styles.bloging}>
                   <h3 style={titleStyles}>{blog.title}</h3>
-                  <p>{blog.keywords}</p>
                   <div className={styles.paragraph}>
                     <p
                       dangerouslySetInnerHTML={{
