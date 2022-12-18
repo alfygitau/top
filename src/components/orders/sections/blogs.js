@@ -211,10 +211,14 @@ const blogs = () => {
                         marginTop: "10px",
                       }}
                     >
-                      POSTED ON{" "}
-                      {moment(blog.published_at).format(
-                        "MMMM Do YYYY, h:mm:ss a"
-                      )}
+                      POSTED ON &nbsp;
+                      {blog.status === "active"
+                        ? moment(blog.published_at).format(
+                            "MMMM Do YYYY, h:mm:ss a"
+                          )
+                        : moment(blog.created_at).format(
+                            "MMMM Do YYYY, h:mm:ss a"
+                          )}
                     </p>
                   </div>
                 </div>
