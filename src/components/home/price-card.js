@@ -4,7 +4,7 @@ import { jsx, Box, Card, Text, Heading } from "theme-ui";
 import { FaAngleDoubleRight } from "react-icons/fa";
 
 export default function PriceCard({
-  data: { header, name, point1, point2, point3 },
+  data: { header, name, point1, point2, point3, image },
 }) {
   return (
     <Card
@@ -30,6 +30,7 @@ export default function PriceCard({
               <FaAngleDoubleRight /> {point3}
             </Text>
           )}
+          <img src={image} alt="how it works" height="450px" width="900" />
         </Box>
       </Box>
     </Card>

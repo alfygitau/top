@@ -7,6 +7,10 @@ import { jsx, Box, Flex } from "theme-ui";
 import PatternBG from "assets/patternBG.png";
 import ArrowOdd from "assets/arrowOdd.svg";
 import ArrowEven from "assets/arrowEven.svg";
+import pricing from "../assets/blog/pricing.png";
+import register from "../assets/blog/register.png";
+import order from "../assets/blog/order.png";
+import wallet from "../assets/blog/wallet.png";
 
 const packages = {
   instructions: [
@@ -16,6 +20,7 @@ const packages = {
       point1:
         "Visit our website to fill up your order form, indicating the service you need, " +
         "the number of pages, and the exact time you need it. Give as detailed instructions as possible.",
+      image: pricing,
     },
   ],
   reserve_funds: [
@@ -28,6 +33,7 @@ const packages = {
         "You can decide to add funds to your wallet or reserve the funds directly from PayPal.",
       point3:
         "We will assign your order to the best writer in your field, and he/she will start working on your paper immediately.",
+      image: register,
     },
   ],
   completed_work: [
@@ -40,6 +46,7 @@ const packages = {
         "You can decide to add funds to your wallet or reserve the funds directly from PayPal.",
       point3:
         "We will assign your order to the best writer in your field, and he/she will start working on your paper immediately.",
+      image: order,
     },
   ],
   pay_your_writer: [
@@ -52,6 +59,7 @@ const packages = {
         "You can decide to add funds to your wallet or reserve the funds directly from PayPal.",
       point3:
         "We will assign your order to the best writer in your field, and he/she will start working on your paper immediately.",
+      image: wallet,
     },
   ],
 };
@@ -79,7 +87,9 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works">
       <Box sx={styles.workflow}>
-        <SectionHeader title="How it works" isWhite={false} />
+        <center>
+          <h1 style={{ marginTop: "80px" }}>Follow the following steps</h1>
+        </center>
         {open && (
           <div>
             <Flex sx={styles.buttonGroup}>
