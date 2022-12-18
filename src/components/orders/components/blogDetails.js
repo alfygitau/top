@@ -7,6 +7,7 @@ import EditIcon from "@rsuite/icons/Edit";
 import CheckOutlineIcon from "@rsuite/icons/CheckOutline";
 import Card from "react-bootstrap/Card";
 import tick from "../../../assets/blog/tick.webp";
+import blog from "../../../assets/blog/blog.png";
 import {
   deleteBlog,
   publishBlog,
@@ -192,9 +193,9 @@ const blogDetails = ({ section }) => {
           >
             <div>
               <img
-                src="https://via.placeholder.com/240x240"
+                src={blogDetails.image ? blogDetails.image : blog}
                 width="100%"
-                height="240px"
+                height="300px"
                 style={{ zIndex: "-1" }}
               />
             </div>
@@ -205,58 +206,6 @@ const blogDetails = ({ section }) => {
             <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
           </Panel>
         </div>
-        // <div style={{ display: "flex" }}>
-        //   <div style={detailsStyles}>
-        //     <div
-        //       className="preview"
-        //       style={{ display: "flex", justifyContent: "space-between" }}
-        //     >
-        //       <h3>{blogDetails.title}</h3>
-        //     </div>
-        //     <p>{blogDetails.keywords}</p>
-        //     <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
-        //     <p style={{ fontStyle: "italic" }}>
-        //       POSTED ON &nbsp;
-        //       {moment(blogDetails.created_at).format("MMMM Do YYYY, h:mm:ss a")}
-        //     </p>
-        //   </div>
-        //   <div className="buttons" style={{ marginTop: "20px" }}>
-        //     <p>Blog Options</p>
-        //     {blogDetails.status !== "active" && !published ? (
-        //       <span
-        //         style={{ marginRight: "30px", cursor: "pointer" }}
-        //         onClick={() => handlePublish(blogDetails.id)}
-        //       >
-        //         <CheckOutlineIcon style={iconStyles} /> Publish
-        //       </span>
-        //     ) : (
-        //       <span
-        //         style={{
-        //           marginRight: "20px",
-        //           backgroundColor: "rgb(76,176,51)",
-        //           borderRadius: "10px",
-        //           padding: "7px",
-        //         }}
-        //       >
-        //         Published
-        //       </span>
-        //     )}
-        //     <span
-        //       style={{ cursor: "pointer", marginRight: "20px" }}
-        //       onClick={handleShow}
-        //     >
-        //       <EditIcon style={iconStyles} /> Edit
-        //     </span>
-        //     {blogDetails.status !== "deleted" && (
-        //       <span
-        //         style={{ cursor: "pointer" }}
-        //         onClick={() => handleDeleteArticle(blogDetails.id)}
-        //       >
-        //         <TrashIcon style={iconStyles} /> Delete
-        //       </span>
-        //     )}
-        //   </div>
-        // </div>
       )}
       <Modal
         centered
