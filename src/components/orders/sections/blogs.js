@@ -185,30 +185,38 @@ const blogs = () => {
                 key={blog.id}
                 className={styles.content}
               >
-                <div style={{ marginRight: "10px" }}>
-                  <img src={bloggy} alt="blog" height="140px" width="240px" />
-                </div>
-                <div className={styles.bloging}>
-                  <h3 style={titleStyles}>{blog.title}</h3>
-                  <div className={styles.paragraph}>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: blog.blog_text,
-                      }}
+                <div className={styles.bloging} style={{ display: "flex" }}>
+                  <div style={{ marginRight: "10px" }}>
+                    <img
+                      src={blog.image ? blog.image : bloggy}
+                      alt="blog"
+                      height="180px"
+                      width="240px"
+                      className={styles.image}
                     />
                   </div>
-                  <p
-                    style={{
-                      fontStyle: "italic",
-                      color: "grey",
-                      marginTop: "10px",
-                    }}
-                  >
-                    POSTED ON{" "}
-                    {moment(blog.published_at).format(
-                      "MMMM Do YYYY, h:mm:ss a"
-                    )}
-                  </p>
+                  <div>
+                    <h3 style={titleStyles}>{blog.title}</h3>
+                    <div className={styles.paragraph}>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: blog.blog_text,
+                        }}
+                      />
+                    </div>
+                    <p
+                      style={{
+                        fontStyle: "italic",
+                        color: "grey",
+                        marginTop: "10px",
+                      }}
+                    >
+                      POSTED ON{" "}
+                      {moment(blog.published_at).format(
+                        "MMMM Do YYYY, h:mm:ss a"
+                      )}
+                    </p>
+                  </div>
                 </div>
                 <Link href={`/dashboard/blogs/${blog.id}/`} passHref>
                   <div

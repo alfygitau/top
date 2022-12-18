@@ -10,7 +10,8 @@ import Calculator from "./calculator";
 import router from "next/router";
 import Image from "../assets/banner-thumb.png";
 import { BsBook } from "react-icons/bs";
-import  moment  from "moment";
+import moment from "moment";
+import bloggy from "../assets/blog/blog.png";
 import {
   createBlog,
   getBlogs,
@@ -43,7 +44,6 @@ const Blog = () => {
     marginTop: "20px",
     width: "80%",
     display: "flex",
-    justifyContent: "space-between",
   };
 
   const titleStyles = {
@@ -92,28 +92,42 @@ const Blog = () => {
                         key={blog.id}
                         className={styles.content}
                       >
-                        <div className={styles.bloging}>
-                          <h3 style={titleStyles}>{blog.title}</h3>
-                          <p>{blog.keywords}</p>
-                          <div className={styles.paragraph}>
-                            <p
-                              dangerouslySetInnerHTML={{
-                                __html: blog.blog_text,
-                              }}
+                        <div
+                          className={styles.bloging}
+                          style={{ display: "flex" }}
+                        >
+                          <div style={{ marginRight: "10px" }}>
+                            <img
+                              src={blog.image ? blog.image : bloggy}
+                              alt="blog"
+                              height="180px"
+                              width="240px"
+                              className={styles.image}
                             />
                           </div>
-                          <p
-                            style={{
-                              fontStyle: "italic",
-                              color: "grey",
-                              marginTop: "10px",
-                            }}
-                          >
-                            POSTED ON &nbsp;
-                            {moment(blog.created_at).format(
-                              "MMMM Do YYYY, h:mm:ss a"
-                            )}
-                          </p>
+                          <div>
+                            <h3 style={titleStyles}>{blog.title}</h3>
+                            <p>{blog.keywords}</p>
+                            <div className={styles.paragraph1}>
+                              <p
+                                dangerouslySetInnerHTML={{
+                                  __html: blog.blog_text,
+                                }}
+                              />
+                            </div>
+                            <p
+                              style={{
+                                fontStyle: "italic",
+                                color: "grey",
+                                marginTop: "10px",
+                              }}
+                            >
+                              POSTED ON &nbsp;
+                              {moment(blog.created_at).format(
+                                "MMMM Do YYYY, h:mm:ss a"
+                              )}
+                            </p>
+                          </div>
                         </div>
                         <Link href={`/header/blog/${blog.id}/`} passHref>
                           <div
