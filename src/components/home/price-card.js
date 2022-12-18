@@ -2,6 +2,7 @@
 import React from "react";
 import { jsx, Box, Card, Text, Heading } from "theme-ui";
 import { FaAngleDoubleRight } from "react-icons/fa";
+import pricing from "../../assets/blog/pricing.png"
 
 export default function PriceCard({
   data: { header, name, point1, point2, point3 },
@@ -20,6 +21,7 @@ export default function PriceCard({
           <Text as="p">
             <FaAngleDoubleRight /> {point1}
           </Text>
+          <img src={pricing} alt="price" />
           {point2 && (
             <Text as="p">
               <FaAngleDoubleRight /> {point2}

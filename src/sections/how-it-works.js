@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React, { useState } from "react";
-import { Grid } from "theme-ui";
 import { keyframes } from "@emotion/core";
 import SectionHeader from "components/home/section-header";
 import PriceCard from "components/home/price-card";
@@ -8,13 +7,12 @@ import { jsx, Box, Flex } from "theme-ui";
 import PatternBG from "assets/patternBG.png";
 import ArrowOdd from "assets/arrowOdd.svg";
 import ArrowEven from "assets/arrowEven.svg";
-import { Button } from "rsuite";
 
 const packages = {
   instructions: [
     {
       id: 1,
-      name: "INSTRUCTIONS",
+      name: "Calculate the Minimum Price and click Continue",
       point1:
         "Visit our website to fill up your order form, indicating the service you need, " +
         "the number of pages, and the exact time you need it. Give as detailed instructions as possible.",
@@ -23,7 +21,7 @@ const packages = {
   reserve_funds: [
     {
       id: 1,
-      name: "RESERVE FUNDS",
+      name: "Create an account with us",
       point1:
         "After filling your order form and placing your order, you get the total order price at the bottom of the order form.",
       point2:
@@ -35,7 +33,7 @@ const packages = {
   completed_work: [
     {
       id: 1,
-      name: "COMPLETED WORK",
+      name: "Fill the Order Form and Place Order",
       point1:
         "After filling your order form and placing your order, you get the total order price at the bottom of the order form.",
       point2:
@@ -47,7 +45,7 @@ const packages = {
   pay_your_writer: [
     {
       id: 1,
-      name: "PAY YOUR WRITER",
+      name: "Reserve payment",
       point1:
         "After filling your order form and placing your order, you get the total order price at the bottom of the order form.",
       point2:
@@ -57,34 +55,6 @@ const packages = {
     },
   ],
 };
-
-const data = [
-  {
-    id: 1,
-    title: "We assign the writer",
-    text: "Get your blood tests delivered at home collect a sample from the your blood tests.",
-  },
-  {
-    id: 2,
-    title: "The writer prepares sources for your work",
-    text: "Get your blood tests delivered at home collect a sample from the your blood tests.",
-  },
-  {
-    id: 3,
-    title: "The writer completes your paper",
-    text: "Get your blood tests delivered at home collect a sample from the your blood tests.",
-  },
-  {
-    id: 4,
-    title: "The writer polishes your paper",
-    text: "Get your blood tests delivered at home collect a sample from the your blood tests.",
-  },
-  {
-    id: 5,
-    title: "We send the completed paper to you",
-    text: "Get your blood tests delivered at home collect a sample from the your blood tests.",
-  },
-];
 
 export default function HowItWorks() {
   const { instructions, reserve_funds, completed_work, pay_your_writer } =
@@ -110,34 +80,8 @@ export default function HowItWorks() {
     <section id="how-it-works">
       <Box sx={styles.workflow}>
         <SectionHeader title="How it works" isWhite={false} />
-        <br />
-        <Grid sx={styles.grid}>
-          {data.map((item) => (
-            <Box key={item.id} sx={styles.card}>
-              <Box sx={styles.iconBox}>{`0${item.id}`}</Box>
-              <Box sx={styles.wrapper}>
-                <h4>{item.title}</h4>
-              </Box>
-            </Box>
-          ))}
-        </Grid>
-        <br />
-        <center>
-          <Button
-            onClick={() => setOpen((open) => !open)}
-            style={{
-              background: "#17c671",
-              borderRadius: "50px",
-              color: "white",
-              padding: "15px",
-              fontSize: "20px",
-            }}
-          >
-            Read more
-          </Button>
-        </center>
         {open && (
-          <div style={{ marginTop: "10px" }}>
+          <div>
             <Flex sx={styles.buttonGroup}>
               <Box sx={styles.buttonGroupInner}>
                 <button
@@ -146,7 +90,7 @@ export default function HowItWorks() {
                   aria-label="Monthly"
                   onClick={() => handlePricingPlan("instructions")}
                 >
-                  Instructions
+                  Price calculation
                 </button>
                 <button
                   className={state.active === "reserve_funds" ? "active" : ""}
@@ -154,7 +98,7 @@ export default function HowItWorks() {
                   aria-label="Reserve Funds"
                   onClick={() => handlePricingPlan("reserve_funds")}
                 >
-                  Reserve Funds
+                  Sign Up
                 </button>
                 <button
                   className={state.active === "completed_work" ? "active" : ""}
@@ -162,7 +106,7 @@ export default function HowItWorks() {
                   aria-label="Completed Work"
                   onClick={() => handlePricingPlan("completed_work")}
                 >
-                  Completed Work
+                  Create and place order
                 </button>
                 <button
                   className={state.active === "pay_your_writer" ? "active" : ""}
@@ -174,7 +118,6 @@ export default function HowItWorks() {
                 </button>
               </Box>
             </Flex>
-            <br />
             <Box sx={styles.pricingWrapper} className="pricing__wrapper">
               {state.openTab.map((packageData) => (
                 <Box sx={styles.pricingItem} key={packageData.id}>
@@ -182,7 +125,6 @@ export default function HowItWorks() {
                 </Box>
               ))}
             </Box>
-            <br />
           </div>
         )}
       </Box>

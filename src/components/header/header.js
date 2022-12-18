@@ -24,6 +24,9 @@ const Header = ({ className }) => {
         </a>
       </Link>
       <Flex as="nav" sx={styles.nav}>
+        <Link href="/header/how-to-start">
+          <a>How it works</a>
+        </Link>
         <Link href="/header/about-us">
           <a>About Us</a>
         </Link>
@@ -89,7 +92,7 @@ const Header = ({ className }) => {
               variant="secondary"
               aria-label="Get Started"
             >
-              Go To Dashboard
+              Dashboard
             </Button>
           </Link>
         )}
