@@ -59,7 +59,7 @@ const packages = {
 export default function HowItWorks() {
   const { instructions, reserve_funds, completed_work, pay_your_writer } =
     packages;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [state, setState] = useState({
     active: "instructions",
     openTab: instructions,

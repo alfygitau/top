@@ -145,7 +145,7 @@ const blogDetails = ({ section }) => {
             }}
             header={
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span>{blogDetails.title}</span>
+                <span style={{ fontSize: "24px", fontWeight:"bold" }}>{blogDetails.title}</span>
                 <div>
                   {blogDetails.status !== "active" && !published ? (
                     <span

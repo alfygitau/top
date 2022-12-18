@@ -23,7 +23,7 @@ const Start = () => {
           <Header className={`${isSticky ? "sticky" : "unSticky"}`} />
         </Sticky>
         <HowItWorks/>
-        <Footer/>
+        <Footer />
       </ThemeProvider>
     </div>
   );

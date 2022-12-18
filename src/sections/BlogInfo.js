@@ -8,6 +8,8 @@ import { BiRevision } from "react-icons/bi";
 import { GoMail } from "react-icons/go";
 import { Button } from "theme-ui";
 import { useSelector } from "react-redux";
+import blog from "../assets/blog/blog.png";
+import moment from "moment"
 
 const BlogInfo = () => {
   const { blogDetails, isLoading } = useSelector((state) => state.blogState);
@@ -45,30 +47,37 @@ const BlogInfo = () => {
                         <Loader size="md" />
                       </div>
                     ) : (
-                      <div style={{ display: "flex" }}>
-                        <div style={detailsStyles}>
-                          <div
-                            className="preview"
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <h3>
-                              {blogDetails.id}:{blogDetails.title}
-                            </h3>
+                      <div style={{ position: "relative" }}>
+                        <Panel
+                          shaded
+                          header={blogDetails.title}
+                          style={{
+                            marginLeft: "40px",
+                            marginRight: "40px",
+                            marginTop: "10px",
+                            zIndex: "-1",
+                          }}
+                        >
+                          <div>
+                            <img
+                              src={blogDetails.image ? blogDetails.image : blog}
+                              width="100%"
+                              height="300px"
+                              style={{ zIndex: "-1" }}
+                            />
                           </div>
-                          <p>{blogDetails.keywords}</p>
+                          <p style={{ fontStyle: "italic" }}>
+                            POSTED ON &nbsp;
+                            {moment(blogDetails.created_at).format(
+                              "MMMM Do YYYY, h:mm:ss a"
+                            )}
+                          </p>
                           <div
                             dangerouslySetInnerHTML={{
                               __html: blogDetails.blog_text,
                             }}
                           />
-                          <p style={{ fontStyle: "italic" }}>
-                            POSTED ON{" "}
-                            {longEnUSFormatter.format(blogDetails.createdAt)}
-                          </p>
-                        </div>
+                        </Panel>
                       </div>
                     )}
                   </>
