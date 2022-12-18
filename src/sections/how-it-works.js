@@ -89,6 +89,7 @@ export default function HowItWorks() {
       <Box sx={styles.workflow}>
         <center>
           <h1 style={{ marginTop: "80px" }}>How it works</h1>
+          <p>Follow the following steps</p>
         </center>
         {open && (
           <div>
