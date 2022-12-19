@@ -84,6 +84,7 @@ const blogDetails = ({ section }) => {
     flexDirection: "column",
     padding: "40px",
     width: "70%",
+    fontFamily:"Quicksand"
   };
 
   const iconStyles = {
@@ -125,6 +126,7 @@ const blogDetails = ({ section }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            fontFamily:"Quicksand"
           }}
         >
           <Loader size="md" />

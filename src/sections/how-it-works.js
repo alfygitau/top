@@ -19,7 +19,7 @@ const packages = {
       name: "Calculate the Minimum Price and click Continue",
       point1:
         "Visit our website to fill up your order form, indicating the service you need, " +
-        "the number of pages, and the exact time you need it. Give as detailed instructions as possible.",
+        "the number of pages, and the exact time you need it. Provide detailed instructions as possible.",
       image: pricing,
     },
   ],
@@ -28,9 +28,9 @@ const packages = {
       id: 1,
       name: "Create an account with us",
       point1:
-        "After filling your order form and placing your order, you get the total order price at the bottom of the order form.",
+        "Complete a registration process to view, edit and add additional information to your order",
       point2:
-        "You can decide to add funds to your wallet or reserve the funds directly from PayPal.",
+        "If you have an account already, login to restart the process of order placement",
       point3:
         "We will assign your order to the best writer in your field, and he/she will start working on your paper immediately.",
       image: register,
@@ -41,11 +41,7 @@ const packages = {
       id: 1,
       name: "Fill the Order Form and Place Order",
       point1:
-        "After filling your order form and placing your order, you get the total order price at the bottom of the order form.",
-      point2:
-        "You can decide to add funds to your wallet or reserve the funds directly from PayPal.",
-      point3:
-        "We will assign your order to the best writer in your field, and he/she will start working on your paper immediately.",
+        "Upon registration, add additional information to your order including attachments, messages, deadline, more instructions, styles and methodology.",
       image: order,
     },
   ],
@@ -54,12 +50,10 @@ const packages = {
       id: 1,
       name: "Reserve payment",
       point1:
-        "After filling your order form and placing your order, you get the total order price at the bottom of the order form.",
-      point2:
         "You can decide to add funds to your wallet or reserve the funds directly from PayPal.",
-      point3:
-        "We will assign your order to the best writer in your field, and he/she will start working on your paper immediately.",
-      image: wallet,
+      point2:
+        "Your order with be completed by a professional writer within the stipulated dealine",
+        image: wallet,
     },
   ],
 };
