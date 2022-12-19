@@ -107,7 +107,7 @@ const CreateOrder = () => {
 
     setOrder((order) => {
       return {
-        ...order, // Spread Operator
+        ...order,
         [name]: value,
       };
     });
@@ -119,7 +119,7 @@ const CreateOrder = () => {
 
     setOrder((order) => {
       return {
-        ...order, // Spread Operator
+        ...order, 
         [name]: value,
       };
     });
@@ -243,7 +243,6 @@ const CreateOrder = () => {
   };
 
   const handleEditorChange = (value) => {
-    // document.getElementsByTagName('p')
     setinstructions(value);
   };
 
