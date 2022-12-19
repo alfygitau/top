@@ -25,6 +25,16 @@ const CalculatorCard = ({
   parseUrgencySelected,
 }) => {
   const router = useRouter();
+  let userFromStorage = () => {
+    if (typeof window !== "undefined") {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      return user;
+    }
+  };
+
+  let user = userFromStorage();
+  console.log(user);
+
   return (
     <div>
       <Head>
@@ -230,7 +240,9 @@ const CalculatorCard = ({
         </Box>
         <Button
           onClick={() => {
-            router.push("dashboard/create_order");
+            user
+              ? router.push("dashboard/create_order")
+              : router.push("/user/login");
             localStorage.minimumPrice = (
               myService *
               myType *
