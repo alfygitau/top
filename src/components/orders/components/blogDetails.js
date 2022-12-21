@@ -269,7 +269,7 @@ const blogDetails = ({ section }) => {
             <p style={{ fontSize: "24px", fontWeight: "600" }}>
               {blogDetails.title}
             </p>
-            {blogDetails?.assets?.length > 1 ? (
+            {blogDetails?.assets?.length > 0 ? (
               <Carousel
                 autoplay
                 style={{
