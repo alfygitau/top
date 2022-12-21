@@ -19,11 +19,16 @@ import styles from "../../../styles/Blog.module.css";
 import { BsBook } from "react-icons/bs";
 import moment from "moment";
 import bloggy from "../../../assets/blog/blog.png";
+import { Button, Modal } from "react-bootstrap";
+import { useRouter } from "next/router";
+
+let baseUrl = "https://toprated.s3.eu-central-1.amazonaws.com";
 
 const blogs = () => {
   const blogSelector = useSelector((state) => state.blogState);
   const { blogs } = blogSelector;
   const [rows, setRows] = useState(0);
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const [value, setValue] = useState("active");
@@ -188,7 +193,11 @@ const blogs = () => {
                 <div className={styles.bloging} style={{ display: "flex" }}>
                   <div style={{ marginRight: "10px" }}>
                     <img
-                      src={blog.image ? blog.image : bloggy}
+                      src={
+                        blog.assets?.length > 0
+                          ? `${baseUrl}/${blog.assets[0].key}`
+                          : bloggy
+                      }
                       alt="blog"
                       height="180px"
                       width="240px"

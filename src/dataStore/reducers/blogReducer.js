@@ -20,6 +20,12 @@ import {
   PUBLISH_BLOG,
   PUBLISH_BLOG_SUCCESS,
   PUBLISH_BLOG_ERROR,
+  IMAGE_UPLOADING,
+  IMAGE_UPLOADING_SUCCESS,
+  IMAGE_UPLOADING_ERROR,
+  DELETE_BLOG_FILES,
+  DELETE_BLOG_FILES_SUCCESS,
+  DELETE_BLOG_FILES_ERROR,
 } from "../dispatchTypes";
 
 export const initialBlogState = {
@@ -34,6 +40,9 @@ export const initialBlogState = {
   deletedBlog: {},
   updatedBlog: {},
   publishedBlog: {},
+  assets: [],
+  images: [],
+  deletedBlogFile:[]
 };
 
 export const blogReducers = (state = initialBlogState, action) => {
@@ -202,6 +211,52 @@ export const blogReducers = (state = initialBlogState, action) => {
       return {
         ...state,
         isError: true,
+        isSuccess: false,
+        isLoading: false,
+        errorMessage: action.errorMessage,
+      };
+    }
+    case IMAGE_UPLOADING: {
+      return {
+        ...state,
+        isError: false,
+        isLoading: true,
+      };
+    }
+    case IMAGE_UPLOADING_SUCCESS: {
+      return {
+        ...state,
+        isSuccess: false,
+        isLoading: false,
+        assets: action.uploaded_file,
+      };
+    }
+    case IMAGE_UPLOADING_ERROR: {
+      return {
+        ...state,
+        isSuccess: false,
+        isLoading: false,
+        errorMessage: action.errorMessage,
+      };
+    }
+    case DELETE_BLOG_FILES: {
+      return {
+        ...state,
+        isError: false,
+        isLoading: true,
+      };
+    }
+    case DELETE_BLOG_FILES_SUCCESS: {
+      return {
+        ...state,
+        isSuccess: false,
+        isLoading: false,
+        deletedBlogFile: action.uploaded_file,
+      };
+    }
+    case DELETE_BLOG_FILES_ERROR: {
+      return {
+        ...state,
         isSuccess: false,
         isLoading: false,
         errorMessage: action.errorMessage,

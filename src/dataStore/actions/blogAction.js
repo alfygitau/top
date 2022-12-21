@@ -1,3 +1,4 @@
+import axios from "axios";
 import axiosConfig from "../../config/axios";
 import {
   CREATE_BLOG,
@@ -20,6 +21,12 @@ import {
   PUBLISH_BLOG,
   PUBLISH_BLOG_SUCCESS,
   PUBLISH_BLOG_ERROR,
+  IMAGE_UPLOADING,
+  IMAGE_UPLOADING_SUCCESS,
+  IMAGE_UPLOADING_ERROR,
+  DELETE_BLOG_FILES,
+  DELETE_BLOG_FILES_SUCCESS,
+  DELETE_BLOG_FILES_ERROR,
 } from "../dispatchTypes";
 
 export const tokenFromStorage = () => {
@@ -226,6 +233,65 @@ export const publishBlog = async (dispatch, id) => {
     dispatch({
       type: PUBLISH_BLOG_ERROR,
       errorMessage: error.response?.data.message,
+    });
+
+    return error.response;
+  }
+};
+
+export const UploadBlogImages = async (dispatch, uploadedFiles) => {
+  dispatch({
+    type: IMAGE_UPLOADING,
+  });
+  try {
+    return await axiosConfig
+      .post("/top_article_assets", uploadedFiles, {
+        headers: {
+          "x-toprated-token": localStorage.token,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        let asset = response.data;
+        dispatch({
+          type: IMAGE_UPLOADING_SUCCESS,
+          uploaded_file: response.data,
+        });
+        return response;
+      });
+  } catch (error) {
+    dispatch({
+      type: IMAGE_UPLOADING_ERROR,
+      errorMessage: error.response.data.message,
+    });
+
+    return error.response;
+  }
+};
+
+export const deleteBlogFile = async (dispatch, blogId, fileID) => {
+  dispatch({
+    type: DELETE_BLOG_FILES,
+  });
+  try {
+    return await axiosConfig
+      .delete(`/top_articles/${blogId}/assets/${fileID}`, {
+        headers: {
+          "x-toprated-token": localStorage.token,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: DELETE_BLOG_FILES_SUCCESS,
+          blog_file: response.data,
+          fileID: fileID,
+        });
+        return response;
+      });
+  } catch (error) {
+    dispatch({
+      type: DELETE_BLOG_FILES_ERROR,
+      errorMessage: error.response.data.message,
     });
 
     return error.response;

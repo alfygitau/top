@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Loader } from "rsuite";
 import { Panel, Placeholder, ButtonGroup } from "rsuite";
@@ -8,10 +8,15 @@ import CheckOutlineIcon from "@rsuite/icons/CheckOutline";
 import Card from "react-bootstrap/Card";
 import tick from "../../../assets/blog/tick.webp";
 import blog from "../../../assets/blog/blog.png";
+import { Carousel } from "rsuite";
+import AttachmentIcon from "@rsuite/icons/Attachment";
 import {
   deleteBlog,
+  deleteBlogFile,
+  getBlog,
   publishBlog,
   updateBlog,
+  UploadBlogImages,
 } from "dataStore/actions/blogAction";
 import { useDispatch } from "react-redux";
 import TrashIcon from "@rsuite/icons/Trash";
@@ -28,16 +33,22 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Stack } from "react-bootstrap";
 
+let baseUrl = "https://toprated.s3.eu-central-1.amazonaws.com";
+
 const blogDetails = ({ section }) => {
   // bootstrap
   const [show, setShow] = useState(false);
+  const [showUpload, setShowUpload] = useState(false);
+  const inputRef = useRef();
+
   const handleClose = () => setShow(false);
+  const handleCloseUpload = () => setShowUpload(false);
+
   const handleShow = () => setShow(true);
   const [published, setPublished] = useState(false);
 
   const dispatch = useDispatch();
   const { blogDetails, isLoading } = useSelector((state) => state.blogState);
-  console.log(blogDetails);
 
   const [instructions, setInstructions] = useState(blogDetails.blog_text);
   const [title, setTitle] = useState(blogDetails.title);
@@ -79,16 +90,63 @@ const blogDetails = ({ section }) => {
     }
   };
 
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(",")[1]);
+      reader.onerror = (error) => reject(error);
+    });
+
+  const handleUploadImages = (e) => {
+    setShowUpload(true);
+    e.preventDefault();
+    let newArr = inputRef.current.files;
+    for (let i = 0; i < newArr.length; i++) {
+      handleFileUploadChange(newArr[i]);
+    }
+  };
+
+  const handleFileUploadChange = async (file) => {
+    try {
+      const fileBase64 = await toBase64(file);
+      const objectData = {
+        top_article_id: blogDetails.id,
+        uploaded_files: [
+          {
+            content_type: file.type,
+            filename: file.name,
+            data: fileBase64,
+          },
+        ],
+      };
+      await UploadBlogImages(dispatch, objectData).then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          getBlog(dispatch, blogDetails.slug);
+          toast.success("File uploaded Successfully!", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          setShowUpload(false);
+        }
+      });
+    } catch (error) {
+      toast.error("File not uploaded Successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
+
   const detailsStyles = {
     display: "flex",
     flexDirection: "column",
     padding: "40px",
     width: "70%",
-    fontFamily:"Quicksand"
+    fontFamily: "Quicksand",
   };
 
   const iconStyles = {
-    marginRight: "5px",
+    marginRight: "2px",
     fontSize: "20px",
     cursor: "pointer",
   };
@@ -118,6 +176,12 @@ const blogDetails = ({ section }) => {
     router.push("/dashboard/blogs");
   };
 
+  const handleDeleteBlogFile = async (blogId, fileId) => {
+    await deleteBlogFile(dispatch, blogId, fileId);
+    setShowUpload(false);
+    await getBlog(dispatch, blogDetails.slug);
+  };
+
   return (
     <>
       {isLoading ? (
@@ -126,7 +190,7 @@ const blogDetails = ({ section }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontFamily:"Quicksand"
+            fontFamily: "Quicksand",
           }}
         >
           <Loader size="md" />
@@ -140,15 +204,23 @@ const blogDetails = ({ section }) => {
               marginRight: "40px",
               position: "fixed",
               top: "56px",
-              right: "2px",
-              width: "77.5%",
+              right: "14px",
+              width: "77%",
               zIndex: "1",
               backgroundColor: "#fff",
             }}
             header={
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ fontSize: "24px", fontWeight:"bold" }}>{blogDetails.title}</span>
+                <span style={{ fontSize: "24px", fontWeight: "bold" }}>
+                  {blogDetails.title}
+                </span>
                 <div>
+                  <span
+                    style={{ marginRight: "30px", cursor: "pointer" }}
+                    onClick={() => setShowUpload(true)}
+                  >
+                    <AttachmentIcon style={iconStyles} /> Add/remove images
+                  </span>
                   {blogDetails.status !== "active" && !published ? (
                     <span
                       style={{ marginRight: "30px", cursor: "pointer" }}
@@ -193,14 +265,24 @@ const blogDetails = ({ section }) => {
               zIndex: "-1",
             }}
           >
-            <div>
-              <img
-                src={blogDetails.image ? blogDetails.image : blog}
-                width="100%"
-                height="300px"
-                style={{ zIndex: "-1" }}
-              />
-            </div>
+            <Carousel
+              autoplay
+              style={{
+                zIndex: "-1",
+                float: "left",
+                margin: "10px",
+                width: "50%",
+                height: "300px",
+              }}
+            >
+              {blogDetails?.assets?.map((asset) => (
+                <img
+                  key={asset.id}
+                  src={asset.key ? `${baseUrl}/${asset.key}` : blog}
+                  height="100%"
+                />
+              ))}
+            </Carousel>
             <p style={{ fontStyle: "italic" }}>
               POSTED ON &nbsp;
               {moment(blogDetails.created_at).format("MMMM Do YYYY, h:mm:ss a")}
@@ -265,6 +347,46 @@ const blogDetails = ({ section }) => {
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showUpload} onHide={handleCloseUpload} size="lg" centered>
+        <Modal.Header>Upload/remove images</Modal.Header>
+        <Modal.Body>
+          <p>Images</p>
+          {blogDetails?.assets?.map((asset) => (
+            <div style={{ display: "flex" }}>
+              <div style={{ display: "flex", flex: "7" }}>{asset.filename}</div>
+              <div
+                style={{
+                  display: "flex",
+                  flex: "2",
+                  marginBottom: "15px",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <TrashIcon
+                  style={iconStyles}
+                  onClick={() => handleDeleteBlogFile(blogDetails.id, asset.id)}
+                />
+              </div>
+            </div>
+          ))}
+          <p style={{ textDecoration: "underline" }}>Upload multiple images</p>
+          <form onSubmit={(e) => handleUploadImages(e, blogDetails.id)}>
+            <input type="file" multiple ref={inputRef} />
+            <Button
+              appearance="primary"
+              type="submit"
+              style={{ marginTop: "10px" }}
+            >
+              Upload
+            </Button>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={handleCloseUpload} appearance="subtle">
+            Cancel
           </Button>
         </Modal.Footer>
       </Modal>
