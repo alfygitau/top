@@ -10,6 +10,7 @@ import tick from "../../../assets/blog/tick.webp";
 import blogg from "../../../assets/blog/blog.png";
 import { Carousel } from "rsuite";
 import AttachmentIcon from "@rsuite/icons/Attachment";
+import styles from "../../../styles/Blog.module.css";
 import {
   deleteBlog,
   deleteBlogFile,
@@ -196,7 +197,7 @@ const blogDetails = ({ section }) => {
           <Loader size="md" />
         </div>
       ) : (
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative" }} className={styles.fonts}>
           <Panel
             bordered
             style={{

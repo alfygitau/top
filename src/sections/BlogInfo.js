@@ -10,6 +10,7 @@ import { Button } from "theme-ui";
 import { useSelector } from "react-redux";
 import blog from "../assets/blog/blog.png";
 import moment from "moment";
+import styles from "../styles/Blog.module.css";
 
 let baseUrl = "https://toprated.s3.eu-central-1.amazonaws.com";
 
@@ -24,7 +25,7 @@ const BlogInfo = () => {
   };
 
   return (
-    <div style={{ paddingTop: "80px" }}>
+    <div style={{ paddingTop: "80px" }} className={styles.fonts}>
       <Grid fluid>
         <Row>
           <Col xs={24} sm={16} md={16}>
@@ -49,7 +50,7 @@ const BlogInfo = () => {
                           style={{
                             marginLeft: "40px",
                             marginRight: "40px",
-                            marginTop: "90px",
+                            marginTop: "10px",
                             zIndex: "-1",
                           }}
                         >

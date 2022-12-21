@@ -47,3 +47,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.fonts {
+  font-family: "Quicksand";
+}
