@@ -7,7 +7,7 @@ import EditIcon from "@rsuite/icons/Edit";
 import CheckOutlineIcon from "@rsuite/icons/CheckOutline";
 import Card from "react-bootstrap/Card";
 import tick from "../../../assets/blog/tick.webp";
-import blog from "../../../assets/blog/blog.png";
+import blogg from "../../../assets/blog/blog.png";
 import { Carousel } from "rsuite";
 import AttachmentIcon from "@rsuite/icons/Attachment";
 import {
@@ -265,24 +265,33 @@ const blogDetails = ({ section }) => {
               zIndex: "-1",
             }}
           >
-            <Carousel
-              autoplay
-              style={{
-                zIndex: "-1",
-                float: "left",
-                margin: "10px",
-                width: "50%",
-                height: "300px",
-              }}
-            >
-              {blogDetails?.assets?.map((asset) => (
+            {blogDetails?.assets?.length > 1 ? (
+              <Carousel
+                autoplay
+                style={{
+                  zIndex: "-1",
+                  float: "left",
+                  margin: "10px",
+                  width: "50%",
+                  height: "300px",
+                }}
+              >
+                {blogDetails?.assets?.map((asset) => (
+                  <img key={asset.id} src={`${baseUrl}/${asset.key}`} />
+                ))}
+              </Carousel>
+            ) : (
+              <div>
                 <img
-                  key={asset.id}
-                  src={asset.key ? `${baseUrl}/${asset.key}` : blog}
-                  height="100%"
+                  src={blogg}
+                  alt="blog"
+                  height="300"
+                  width="50%"
+                  style={{ float: "left", margin: "10px" }}
                 />
-              ))}
-            </Carousel>
+              </div>
+            )}
+
             <p style={{ fontStyle: "italic" }}>
               POSTED ON &nbsp;
               {moment(blogDetails.created_at).format("MMMM Do YYYY, h:mm:ss a")}
@@ -353,10 +362,12 @@ const blogDetails = ({ section }) => {
       <Modal show={showUpload} onHide={handleCloseUpload} size="lg" centered>
         <Modal.Header>Upload/remove images</Modal.Header>
         <Modal.Body>
-          <p>Images</p>
+          <p style={{ textDecoration: "underline" }}>Images/Uploads</p>
           {blogDetails?.assets?.map((asset) => (
             <div style={{ display: "flex" }}>
-              <div style={{ display: "flex", flex: "7" }}>{asset.filename}</div>
+              <div style={{ display: "flex", flex: "7" }}>
+                <li>{asset.filename}</li>
+              </div>
               <div
                 style={{
                   display: "flex",
