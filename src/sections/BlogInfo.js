@@ -1,5 +1,5 @@
 import React from "react";
-import { Panel, Grid, Row, Col, List, Modal, Loader } from "rsuite";
+import { Panel, Grid, Row, Col, List, Modal, Loader, Carousel } from "rsuite";
 import Calculator from "./calculator";
 import { FiCheckCircle, FiPhoneCall, FiEdit } from "react-icons/fi";
 import { FaListUl } from "react-icons/fa";
@@ -9,16 +9,12 @@ import { GoMail } from "react-icons/go";
 import { Button } from "theme-ui";
 import { useSelector } from "react-redux";
 import blog from "../assets/blog/blog.png";
-import moment from "moment"
+import moment from "moment";
+
+let baseUrl = "https://toprated.s3.eu-central-1.amazonaws.com";
 
 const BlogInfo = () => {
   const { blogDetails, isLoading } = useSelector((state) => state.blogState);
-
-  const longEnUSFormatter = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
 
   const detailsStyles = {
     display: "flex",
@@ -50,22 +46,46 @@ const BlogInfo = () => {
                       <div style={{ position: "relative" }}>
                         <Panel
                           shaded
-                          header={blogDetails.title}
                           style={{
                             marginLeft: "40px",
                             marginRight: "40px",
-                            marginTop: "10px",
+                            marginTop: "90px",
                             zIndex: "-1",
                           }}
                         >
-                          <div>
-                            <img
-                              src={blogDetails.image ? blogDetails.image : blog}
-                              width="100%"
-                              height="300px"
-                              style={{ zIndex: "-1" }}
-                            />
-                          </div>
+                          <p style={{ fontSize: "24px", fontWeight: "600" }}>
+                            {blogDetails.title}
+                          </p>
+                          {blogDetails?.assets?.length > 1 ? (
+                            <Carousel
+                              autoplay
+                              style={{
+                                zIndex: "-1",
+                                float: "left",
+                                margin: "10px",
+                                width: "60%",
+                                height: "300px",
+                              }}
+                            >
+                              {blogDetails?.assets?.map((asset) => (
+                                <img
+                                  key={asset.id}
+                                  src={`${baseUrl}/${asset.key}`}
+                                />
+                              ))}
+                            </Carousel>
+                          ) : (
+                            <div>
+                              <img
+                                src={blog}
+                                alt="blog"
+                                height="300"
+                                width="50%"
+                                style={{ float: "left", margin: "10px" }}
+                              />
+                            </div>
+                          )}
+
                           <p style={{ fontStyle: "italic" }}>
                             POSTED ON &nbsp;
                             {moment(blogDetails.created_at).format(

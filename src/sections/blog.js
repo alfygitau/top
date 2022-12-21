@@ -24,6 +24,8 @@ import ModalContext from "../components/helpers/ModalContext";
 import styles from "../styles/Blog.module.css";
 import Link from "next/link";
 
+let baseUrl = "https://toprated.s3.eu-central-1.amazonaws.com";
+
 const Blog = () => {
   const blogSelector = useSelector((state) => state.blogState);
   const { blogs } = blogSelector;
@@ -98,7 +100,11 @@ const Blog = () => {
                         >
                           <div style={{ marginRight: "10px" }}>
                             <img
-                              src={blog.image ? blog.image : bloggy}
+                              src={
+                                blog.assets?.length > 0
+                                  ? `${baseUrl}/${blog.assets[0].key}`
+                                  : bloggy
+                              }
                               alt="blog"
                               height="180px"
                               width="240px"
@@ -107,8 +113,7 @@ const Blog = () => {
                           </div>
                           <div>
                             <h3 style={titleStyles}>{blog.title}</h3>
-                            <p>{blog.keywords}</p>
-                            <div className={styles.paragraph1}>
+                            <div className={styles.paragraph}>
                               <p
                                 dangerouslySetInnerHTML={{
                                   __html: blog.blog_text,
@@ -123,9 +128,13 @@ const Blog = () => {
                               }}
                             >
                               POSTED ON &nbsp;
-                              {moment(blog.created_at).format(
-                                "MMMM Do YYYY, h:mm:ss a"
-                              )}
+                              {blog.status === "active"
+                                ? moment(blog.published_at).format(
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                  )
+                                : moment(blog.created_at).format(
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                  )}
                             </p>
                           </div>
                         </div>
