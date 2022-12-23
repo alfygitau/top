@@ -65,21 +65,21 @@ const BlogInfo = () => {
                             marginLeft: "40px",
                             marginRight: "40px",
                             marginTop: "10px",
-                            marginBottom:"20px",
+                            marginBottom: "20px",
                             zIndex: "-1",
                           }}
                         >
                           <p style={{ fontSize: "24px", fontWeight: "600" }}>
                             {blogDetails.title}
                           </p>
-                          {blogDetails?.assets?.length > 1 ? (
+                          {blogDetails?.assets?.length > 1 && (
                             <Carousel
                               autoplay
                               style={{
                                 zIndex: "-1",
                                 float: "left",
                                 margin: "10px",
-                                width: "60%",
+                                width: "50%",
                                 height: "300px",
                                 border: "1px solid rgb(218,230,242)",
                                 borderRadius: "10px",
@@ -92,14 +92,35 @@ const BlogInfo = () => {
                                 />
                               ))}
                             </Carousel>
-                          ) : (
+                          )}
+                          {blogDetails?.assets?.length < 1 && (
                             <div>
                               <img
-                                src={blog}
+                                src={blogg}
                                 alt="blog"
                                 height="300"
                                 width="50%"
-                                style={{ float: "left", margin: "10px" }}
+                                style={{
+                                  float: "left",
+                                  margin: "10px",
+                                  border: "1px solid rgb(218,230,242)",
+                                  borderRadius: "10px",
+                                }}
+                              />
+                            </div>
+                          )}
+                          {blogDetails?.assets?.length === 1 && (
+                            <div>
+                              <img
+                                height="300"
+                                width="50%"
+                                style={{
+                                  float: "left",
+                                  margin: "10px",
+                                  border: "1px solid rgb(218,230,242)",
+                                  borderRadius: "10px",
+                                }}
+                                src={`${baseUrl}/${blogDetails.assets[0].key}`}
                               />
                             </div>
                           )}

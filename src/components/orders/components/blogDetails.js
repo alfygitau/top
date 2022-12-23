@@ -218,7 +218,7 @@ const blogDetails = ({ section }) => {
               marginLeft: "40px",
               marginRight: "40px",
               marginTop: "10px",
-              marginBottom:"20px",
+              marginBottom: "20px",
               zIndex: "-1",
               width: "80%",
             }}
@@ -226,7 +226,7 @@ const blogDetails = ({ section }) => {
             <p style={{ fontSize: "24px", fontWeight: "600" }}>
               {blogDetails.title}
             </p>
-            {blogDetails?.assets?.length > 0 ? (
+            {blogDetails?.assets?.length > 1 && (
               <Carousel
                 autoplay
                 style={{
@@ -243,18 +243,38 @@ const blogDetails = ({ section }) => {
                   <img key={asset.id} src={`${baseUrl}/${asset.key}`} />
                 ))}
               </Carousel>
-            ) : (
+            )}
+            {blogDetails?.assets?.length < 1 && (
               <div>
                 <img
                   src={blogg}
                   alt="blog"
                   height="300"
                   width="50%"
-                  style={{ float: "left", margin: "10px" }}
+                  style={{
+                    float: "left",
+                    margin: "10px",
+                    border: "1px solid rgb(218,230,242)",
+                    borderRadius: "10px",
+                  }}
                 />
               </div>
             )}
-
+            {blogDetails?.assets?.length === 1 && (
+              <div>
+                <img
+                  height="300"
+                  width="50%"
+                  style={{
+                    float: "left",
+                    margin: "10px",
+                    border: "1px solid rgb(218,230,242)",
+                    borderRadius: "10px",
+                  }}
+                  src={`${baseUrl}/${blogDetails.assets[0].key}`}
+                />
+              </div>
+            )}
             <p style={{ fontStyle: "italic" }}>
               POSTED ON &nbsp;
               {moment(blogDetails.created_at).format("MMMM Do YYYY, h:mm:ss a")}
