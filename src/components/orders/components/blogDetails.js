@@ -286,7 +286,7 @@ const blogDetails = ({ section }) => {
                 }}
               >
                 <span style={{ cursor: "pointer" }} onClick={handleShow}>
-                  <EditIcon style={iconStyles} /> &nbsp; Edit Blog
+                  <EditIcon style={iconStyles} /> &nbsp; Edit blog
                 </span>
                 <span
                   style={{ cursor: "pointer" }}
@@ -304,7 +304,7 @@ const blogDetails = ({ section }) => {
                 ) : (
                   <span>
                     <img src={tick} alt="new" height="20px" /> &nbsp; Blog
-                    Published
+                    published
                   </span>
                 )}
                 {blogDetails.status !== "deleted" && (
@@ -312,7 +312,7 @@ const blogDetails = ({ section }) => {
                     style={{ cursor: "pointer" }}
                     onClick={() => handleDeleteArticle(blogDetails.id)}
                   >
-                    <TrashIcon style={iconStyles} /> Delete Blog
+                    <TrashIcon style={iconStyles} /> Delete blog
                   </span>
                 )}
               </div>
