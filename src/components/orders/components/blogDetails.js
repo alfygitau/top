@@ -256,9 +256,9 @@ const blogDetails = ({ section }) => {
               display: "flex",
               marginTop: "10px",
               marginRight: "10px",
-              position:"fixed",
-              top:"56px",
-              right:"10px"
+              position: "fixed",
+              top: "56px",
+              right: "10px",
             }}
           >
             <div
@@ -267,9 +267,12 @@ const blogDetails = ({ section }) => {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 // alignItems:"center",
-                height: "400px",
+                height: "300px",
               }}
             >
+              <span style={{ cursor: "pointer" }} onClick={handleShow}>
+                <EditIcon style={iconStyles} /> &nbsp; Edit Blog
+              </span>
               <span
                 style={{ cursor: "pointer" }}
                 onClick={() => setShowUpload(true)}
@@ -289,9 +292,6 @@ const blogDetails = ({ section }) => {
                   Published
                 </span>
               )}
-              <span style={{ cursor: "pointer" }} onClick={handleShow}>
-                <EditIcon style={iconStyles} /> Edit Blog
-              </span>
               {blogDetails.status !== "deleted" && (
                 <span
                   style={{ cursor: "pointer" }}
