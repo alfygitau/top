@@ -147,7 +147,7 @@ const blogDetails = ({ section }) => {
   };
 
   const iconStyles = {
-    marginRight: "2px",
+    marginRight: "0px",
     fontSize: "20px",
     cursor: "pointer",
   };
@@ -197,7 +197,10 @@ const blogDetails = ({ section }) => {
           <Loader size="md" />
         </div>
       ) : (
-        <div style={{ display: "flex" }} className={styles.fonts}>
+        <div
+          style={{ display: "flex", position: "relative" }}
+          className={styles.fonts}
+        >
           <Panel
             shaded
             style={{
@@ -250,48 +253,53 @@ const blogDetails = ({ section }) => {
             style={{
               width: "10%",
               height: "500px",
-              backgroundColor: "#fff",
               display: "flex",
               marginTop: "10px",
+              marginRight: "10px",
+              position:"fixed",
+              top:"56px",
+              right:"10px"
             }}
           >
-            <div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                // alignItems:"center",
+                height: "400px",
+              }}
+            >
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => setShowUpload(true)}
               >
+                <AttachmentIcon style={iconStyles} /> Add/remove images
+              </span>
+              {blogDetails.status !== "active" && !published ? (
                 <span
                   style={{ cursor: "pointer" }}
-                  onClick={() => setShowUpload(true)}
+                  onClick={() => handlePublish(blogDetails.id)}
                 >
-                  <AttachmentIcon style={iconStyles} /> Add/remove images
+                  <CheckOutlineIcon style={iconStyles} /> <span>Publish</span>
                 </span>
-                {blogDetails.status !== "active" && !published ? (
-                  <span
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handlePublish(blogDetails.id)}
-                  >
-                    <CheckOutlineIcon style={iconStyles} /> Publish
-                  </span>
-                ) : (
-                  <span>
-                    <img src={tick} alt="new" height="20px" /> &nbsp; Published
-                  </span>
-                )}
-                <span style={{ cursor: "pointer" }} onClick={handleShow}>
-                  <EditIcon style={iconStyles} /> Edit
+              ) : (
+                <span>
+                  <img src={tick} alt="new" height="20px" /> &nbsp; Blog
+                  Published
                 </span>
-                {blogDetails.status !== "deleted" && (
-                  <span
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleDeleteArticle(blogDetails.id)}
-                  >
-                    <TrashIcon style={iconStyles} /> Delete
-                  </span>
-                )}
-              </div>
+              )}
+              <span style={{ cursor: "pointer" }} onClick={handleShow}>
+                <EditIcon style={iconStyles} /> Edit Blog
+              </span>
+              {blogDetails.status !== "deleted" && (
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleDeleteArticle(blogDetails.id)}
+                >
+                  <TrashIcon style={iconStyles} /> Delete Blog
+                </span>
+              )}
             </div>
           </Panel>
         </div>
