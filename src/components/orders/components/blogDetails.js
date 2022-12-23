@@ -218,6 +218,7 @@ const blogDetails = ({ section }) => {
               marginLeft: "40px",
               marginRight: "40px",
               marginTop: "10px",
+              marginBottom:"20px",
               zIndex: "-1",
               width: "80%",
             }}
@@ -234,6 +235,8 @@ const blogDetails = ({ section }) => {
                   margin: "10px",
                   width: "50%",
                   height: "300px",
+                  border: "1px solid rgb(143,142,148)",
+                  borderRadius: "10px",
                 }}
               >
                 {blogDetails?.assets?.map((asset) => (

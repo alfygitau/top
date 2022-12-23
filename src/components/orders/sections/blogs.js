@@ -192,7 +192,15 @@ const blogs = () => {
                 className={styles.content}
               >
                 <div className={styles.bloging} style={{ display: "flex" }}>
-                  <div style={{ marginRight: "10px" }}>
+                  <div
+                    style={{
+                      marginRight: "10px",
+                      border: "1px solid rgb(143,142,148)",
+                      display: "flex",
+                      flex: "1",
+                      height: "180px",
+                    }}
+                  >
                     <img
                       src={
                         blog.assets?.length > 0
@@ -200,19 +208,25 @@ const blogs = () => {
                           : bloggy
                       }
                       alt="blog"
-                      height="180px"
-                      width="240px"
+                      height="100%"
+                      width="100%"
                       className={styles.image}
+                      style={{ backgroundSize: "cover" }}
                     />
                   </div>
-                  <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flex: "2",
+                      flexDirection: "column",
+                    }}
+                  >
                     <h3 style={titleStyles}>{blog.title}</h3>
                     <div className={styles.paragraph}>
                       <p
                         dangerouslySetInnerHTML={{
                           __html: blog.blog_text,
                         }}
-                        style={{ lineHeight: "2" }}
                       />
                     </div>
                     <p
