@@ -247,61 +247,63 @@ const blogDetails = ({ section }) => {
             </p>
             <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
           </Panel>
-          <Panel
-            bordered
-            shaded
-            style={{
-              width: "10%",
-              height: "500px",
-              display: "flex",
-              marginTop: "10px",
-              marginRight: "10px",
-              position: "fixed",
-              top: "56px",
-              right: "10px",
-            }}
-          >
-            <div
+          {blogDetails.status !== "deleted" && (
+            <Panel
+              bordered
+              shaded
               style={{
+                width: "10%",
+                height: "500px",
                 display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                // alignItems:"center",
-                height: "300px",
+                marginTop: "10px",
+                marginRight: "10px",
+                position: "fixed",
+                top: "56px",
+                right: "10px",
               }}
             >
-              <span style={{ cursor: "pointer" }} onClick={handleShow}>
-                <EditIcon style={iconStyles} /> &nbsp; Edit Blog
-              </span>
-              <span
-                style={{ cursor: "pointer" }}
-                onClick={() => setShowUpload(true)}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  // alignItems:"center",
+                  height: "300px",
+                }}
               >
-                <AttachmentIcon style={iconStyles} /> Add/remove images
-              </span>
-              {blogDetails.status !== "active" && !published ? (
+                <span style={{ cursor: "pointer" }} onClick={handleShow}>
+                  <EditIcon style={iconStyles} /> &nbsp; Edit Blog
+                </span>
                 <span
                   style={{ cursor: "pointer" }}
-                  onClick={() => handlePublish(blogDetails.id)}
+                  onClick={() => setShowUpload(true)}
                 >
-                  <CheckOutlineIcon style={iconStyles} /> <span>Publish</span>
+                  <AttachmentIcon style={iconStyles} /> Add/remove images
                 </span>
-              ) : (
-                <span>
-                  <img src={tick} alt="new" height="20px" /> &nbsp; Blog
-                  Published
-                </span>
-              )}
-              {blogDetails.status !== "deleted" && (
-                <span
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleDeleteArticle(blogDetails.id)}
-                >
-                  <TrashIcon style={iconStyles} /> Delete Blog
-                </span>
-              )}
-            </div>
-          </Panel>
+                {blogDetails.status !== "active" && !published ? (
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handlePublish(blogDetails.id)}
+                  >
+                    <CheckOutlineIcon style={iconStyles} /> <span>Publish</span>
+                  </span>
+                ) : (
+                  <span>
+                    <img src={tick} alt="new" height="20px" /> &nbsp; Blog
+                    Published
+                  </span>
+                )}
+                {blogDetails.status !== "deleted" && (
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleDeleteArticle(blogDetails.id)}
+                  >
+                    <TrashIcon style={iconStyles} /> Delete Blog
+                  </span>
+                )}
+              </div>
+            </Panel>
+          )}
         </div>
       )}
       <Modal
