@@ -197,73 +197,15 @@ const blogDetails = ({ section }) => {
           <Loader size="md" />
         </div>
       ) : (
-        <div style={{ position: "relative" }} className={styles.fonts}>
-          <Panel
-            bordered
-            style={{
-              marginLeft: "40px",
-              marginRight: "40px",
-              position: "fixed",
-              top: "56px",
-              right: "14px",
-              width: "77%",
-              zIndex: "1",
-              backgroundColor: "#fff",
-            }}
-            header={
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ fontSize: "24px", fontWeight: "bold" }}>
-                  {blogDetails.title}
-                </span>
-                <div>
-                  <span
-                    style={{ marginRight: "30px", cursor: "pointer" }}
-                    onClick={() => setShowUpload(true)}
-                  >
-                    <AttachmentIcon style={iconStyles} /> Add/remove images
-                  </span>
-                  {blogDetails.status !== "active" && !published ? (
-                    <span
-                      style={{ marginRight: "30px", cursor: "pointer" }}
-                      onClick={() => handlePublish(blogDetails.id)}
-                    >
-                      <CheckOutlineIcon style={iconStyles} /> Publish
-                    </span>
-                  ) : (
-                    <span
-                      style={{
-                        marginRight: "20px",
-                      }}
-                    >
-                      <img src={tick} alt="new" height="20px" /> &nbsp;
-                      Published
-                    </span>
-                  )}
-                  <span
-                    style={{ cursor: "pointer", marginRight: "20px" }}
-                    onClick={handleShow}
-                  >
-                    <EditIcon style={iconStyles} /> Edit
-                  </span>
-                  {blogDetails.status !== "deleted" && (
-                    <span
-                      style={{ cursor: "pointer" }}
-                      onClick={() => handleDeleteArticle(blogDetails.id)}
-                    >
-                      <TrashIcon style={iconStyles} /> Delete
-                    </span>
-                  )}
-                </div>
-              </div>
-            }
-          ></Panel>
+        <div style={{ display: "flex" }} className={styles.fonts}>
           <Panel
             shaded
             style={{
               marginLeft: "40px",
               marginRight: "40px",
-              marginTop: "90px",
+              marginTop: "10px",
               zIndex: "-1",
+              width: "80%",
             }}
           >
             <p style={{ fontSize: "24px", fontWeight: "600" }}>
@@ -301,6 +243,56 @@ const blogDetails = ({ section }) => {
               {moment(blogDetails.created_at).format("MMMM Do YYYY, h:mm:ss a")}
             </p>
             <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
+          </Panel>
+          <Panel
+            bordered
+            shaded
+            style={{
+              width: "10%",
+              height: "500px",
+              backgroundColor: "#fff",
+              display: "flex",
+              marginTop: "10px",
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowUpload(true)}
+                >
+                  <AttachmentIcon style={iconStyles} /> Add/remove images
+                </span>
+                {blogDetails.status !== "active" && !published ? (
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handlePublish(blogDetails.id)}
+                  >
+                    <CheckOutlineIcon style={iconStyles} /> Publish
+                  </span>
+                ) : (
+                  <span>
+                    <img src={tick} alt="new" height="20px" /> &nbsp; Published
+                  </span>
+                )}
+                <span style={{ cursor: "pointer" }} onClick={handleShow}>
+                  <EditIcon style={iconStyles} /> Edit
+                </span>
+                {blogDetails.status !== "deleted" && (
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleDeleteArticle(blogDetails.id)}
+                  >
+                    <TrashIcon style={iconStyles} /> Delete
+                  </span>
+                )}
+              </div>
+            </div>
           </Panel>
         </div>
       )}
