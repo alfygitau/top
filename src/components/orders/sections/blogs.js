@@ -227,6 +227,7 @@ const blogs = () => {
                         dangerouslySetInnerHTML={{
                           __html: blog.blog_text,
                         }}
+                        style={{ lineHeight: "2" }}
                       />
                     </div>
                     <p
