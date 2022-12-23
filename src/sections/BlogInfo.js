@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Panel, Grid, Row, Col, List, Modal, Loader, Carousel } from "rsuite";
 import Calculator from "./calculator";
 import { FiCheckCircle, FiPhoneCall, FiEdit } from "react-icons/fi";
@@ -11,10 +11,13 @@ import { useSelector } from "react-redux";
 import blog from "../assets/blog/blog.png";
 import moment from "moment";
 import styles from "../styles/Blog.module.css";
+import { useDispatch } from "react-redux";
+import { getBlog } from "dataStore/actions/blogAction";
 
 let baseUrl = "https://toprated.s3.eu-central-1.amazonaws.com";
 
 const BlogInfo = () => {
+  const dispatch = useDispatch();
   const { blogDetails, isLoading } = useSelector((state) => state.blogState);
 
   const detailsStyles = {
@@ -23,6 +26,17 @@ const BlogInfo = () => {
     padding: "40px",
     width: "100%",
   };
+
+  const slugFromStorage = () => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("slug");
+    }
+  };
+
+  let res = slugFromStorage();
+  useEffect(() => {
+    getBlog(dispatch, res);
+  }, [dispatch, res]);
 
   return (
     <div style={{ paddingTop: "80px" }} className={styles.fonts}>

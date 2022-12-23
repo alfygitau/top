@@ -187,7 +187,6 @@ const OrderDetails = ({ section }) => {
     height: 200,
   });
   const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
   const handleCancelOpen = () => setCancelOpen(true);
   const handleCancelClose = () => setCancelOpen(false);
   const handleReserveOpen = () => setReserveOpen(true);
@@ -212,7 +211,7 @@ const OrderDetails = ({ section }) => {
 
     setUpdateOrderDetails((order) => {
       return {
-        ...updateOrderDetails, // Spread Operator
+        ...updateOrderDetails,
         [name]: value,
       };
     });
@@ -223,7 +222,7 @@ const OrderDetails = ({ section }) => {
 
     setUpdateOrderDetails((order) => {
       return {
-        ...updateOrderDetails, // Spread Operator
+        ...updateOrderDetails,
         [name]: value,
       };
     });
@@ -335,7 +334,6 @@ const OrderDetails = ({ section }) => {
   };
 
   const handleInit = (evt, editor) => {
-    // setLength(editor.getContent({ format: 'text' }).length);
     setinstructionsx(instructions);
   };
 

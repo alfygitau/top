@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Loader } from "rsuite";
 import { Panel, Placeholder, ButtonGroup } from "rsuite";
@@ -60,6 +60,17 @@ const blogDetails = ({ section }) => {
   const handleInit = (evt, editor) => {
     // setLength(editor.getContent({ format: 'text' }).length);
   };
+
+  const slugFromStorage = () => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("slug");
+    }
+  };
+
+  let res = slugFromStorage();
+  useEffect(() => {
+    getBlog(dispatch, res);
+  }, [dispatch, res]);
 
   const handleInstructionsChange = (value, editor) => {
     setInstructions(value);
