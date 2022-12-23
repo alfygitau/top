@@ -195,7 +195,7 @@ const blogs = () => {
                   <div
                     style={{
                       marginRight: "10px",
-                      border: "1px solid rgb(143,142,148)",
+                      border: "1px solid rgb(218,230,242)",
                       display: "flex",
                       flex: "1",
                       height: "180px",
