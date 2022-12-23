@@ -256,7 +256,10 @@ const blogDetails = ({ section }) => {
               POSTED ON &nbsp;
               {moment(blogDetails.created_at).format("MMMM Do YYYY, h:mm:ss a")}
             </p>
-            <div dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: blogDetails.blog_text }}
+              style={{ lineHeight: "1.7" }}
+            />
           </Panel>
           {blogDetails.status !== "deleted" && (
             <Panel
