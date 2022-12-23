@@ -37,6 +37,7 @@ const Blog = () => {
 
   const fetchBlog = (title) => {
     getBlog(dispatch, title);
+    localStorage.setItem("slug", title);
   };
 
   const contentStyles = {
