@@ -12,7 +12,7 @@ const BlogModal = ({ open, handleClose, setOpenBlog }) => {
   const inputRef = useRef();
 
   const blogStyles = {
-    width: "85%",
+    width: "60%",
     margin: "auto",
     height: "70%",
   };
@@ -52,7 +52,7 @@ const BlogModal = ({ open, handleClose, setOpenBlog }) => {
         console.log(response);
         if (response.status === 201) {
           getBlog(dispatch, createdBlog.slug);
-          toast.success("File uploaded Successfully!", {
+          toast.success("Blog created successfully!", {
             position: toast.POSITION.TOP_RIGHT,
           });
           setOpenBlog(false);
@@ -69,31 +69,13 @@ const BlogModal = ({ open, handleClose, setOpenBlog }) => {
     <>
       <Modal open={open} onClose={handleClose} style={blogStyles}>
         <Modal.Header>
-          <Modal.Title>Upload Files/images</Modal.Title>
+          <Modal.Title>
+            <p style={{ textDecoration: "underline" }}>
+              Upload multiple images
+            </p>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p style={{ textDecoration: "underline" }}>Images/Uploads</p>
-          {createdBlog?.assets?.map((asset) => (
-            <div style={{ display: "flex" }}>
-              <div style={{ display: "flex", flex: "7" }}>
-                <li>{asset.filename}</li>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flex: "2",
-                  marginBottom: "15px",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <TrashIcon
-                  style={iconStyles}
-                  onClick={() => handleDeleteBlogFile(createdBlog.id, asset.id)}
-                />
-              </div>
-            </div>
-          ))}
-          <p style={{ textDecoration: "underline" }}>Upload multiple images</p>
           <form onSubmit={(e) => handleUploadImages(e, createdBlog.id)}>
             <input type="file" multiple ref={inputRef} />
             <Button
@@ -116,7 +98,7 @@ const BlogModal = ({ open, handleClose, setOpenBlog }) => {
           </div>
         </Modal.Footer>
       </Modal>
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 };
