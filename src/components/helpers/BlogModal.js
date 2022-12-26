@@ -12,7 +12,7 @@ const BlogModal = ({ open, handleClose, setOpenBlog }) => {
   const inputRef = useRef();
 
   const blogStyles = {
-    width: "60%",
+    width: "70%",
     margin: "auto",
     height: "70%",
   };
