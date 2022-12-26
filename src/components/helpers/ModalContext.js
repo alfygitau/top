@@ -66,6 +66,8 @@ const ModalContext = (props) => {
                 height: 250,
                 language: "en_US",
                 menubar: false,
+                link_quicklink: true,
+                link_assume_external_targets: true,
                 plugins: [
                   "advlist autolink lists link image",
                   "charmap print preview anchor help",

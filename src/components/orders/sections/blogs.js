@@ -91,6 +91,7 @@ const blogs = () => {
           blog_text: "",
           keywords: "",
         });
+        setOpenBlog(true);
       });
     } else {
       console.log("Provide all required fields");
