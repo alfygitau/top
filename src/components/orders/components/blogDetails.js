@@ -289,8 +289,8 @@ const blogDetails = ({ section }) => {
               bordered
               shaded
               style={{
-                width: "10%",
-                height: "500px",
+                width: "110px",
+                height: "300px",
                 display: "flex",
                 marginTop: "10px",
                 marginRight: "10px",
@@ -305,18 +305,12 @@ const blogDetails = ({ section }) => {
                   flexDirection: "column",
                   justifyContent: "space-between",
                   // alignItems:"center",
-                  height: "300px",
+                  height: "200px",
                 }}
               >
                 <span style={{ cursor: "pointer" }} onClick={handleShow}>
-                  <EditIcon style={iconStyles} /> &nbsp; Edit blog
+                  <EditIcon style={iconStyles} /> &nbsp; Edit
                 </span>
-                {/* <span
-                  style={{ cursor: "pointer" }}
-                  onClick={() => setShowUpload(true)}
-                >
-                  <AttachmentIcon style={iconStyles} /> Add/remove images
-                </span> */}
                 {blogDetails.status !== "active" && !published ? (
                   <span
                     style={{ cursor: "pointer" }}
@@ -325,9 +319,8 @@ const blogDetails = ({ section }) => {
                     <CheckOutlineIcon style={iconStyles} /> <span>Publish</span>
                   </span>
                 ) : (
-                  <span>
-                    <img src={tick} alt="new" height="20px" /> &nbsp; Blog
-                    published
+                  <span style={{ display: "inline-block" }}>
+                    <img src={tick} alt="new" height="20px" /> &nbsp; Published
                   </span>
                 )}
                 {blogDetails.status !== "deleted" && (
@@ -335,7 +328,7 @@ const blogDetails = ({ section }) => {
                     style={{ cursor: "pointer" }}
                     onClick={() => handleDeleteArticle(blogDetails.id)}
                   >
-                    <TrashIcon style={iconStyles} /> Delete blog
+                    <TrashIcon style={iconStyles} /> Delete
                   </span>
                 )}
               </div>
@@ -402,48 +395,6 @@ const blogDetails = ({ section }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      {/* <Modal show={showUpload} onHide={handleCloseUpload} size="lg" centered>
-        <Modal.Header>Upload/remove images</Modal.Header>
-        <Modal.Body>
-          <p style={{ textDecoration: "underline" }}>Images/Uploads</p>
-          {blogDetails?.assets?.map((asset) => (
-            <div style={{ display: "flex" }}>
-              <div style={{ display: "flex", flex: "7" }}>
-                <li>{asset.filename}</li>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flex: "2",
-                  marginBottom: "15px",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <TrashIcon
-                  style={iconStyles}
-                  onClick={() => handleDeleteBlogFile(blogDetails.id, asset.id)}
-                />
-              </div>
-            </div>
-          ))}
-          <p style={{ textDecoration: "underline" }}>Upload multiple images</p>
-          <form onSubmit={(e) => handleUploadImages(e, blogDetails.id)}>
-            <input type="file" multiple ref={inputRef} />
-            <Button
-              appearance="primary"
-              type="submit"
-              style={{ marginTop: "10px" }}
-            >
-              Upload
-            </Button>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={handleCloseUpload} appearance="subtle">
-            Cancel
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
       <ToastContainer />
     </>
   );
