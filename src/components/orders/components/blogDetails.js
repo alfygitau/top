@@ -311,12 +311,12 @@ const blogDetails = ({ section }) => {
                 <span style={{ cursor: "pointer" }} onClick={handleShow}>
                   <EditIcon style={iconStyles} /> &nbsp; Edit blog
                 </span>
-                <span
+                {/* <span
                   style={{ cursor: "pointer" }}
                   onClick={() => setShowUpload(true)}
                 >
                   <AttachmentIcon style={iconStyles} /> Add/remove images
-                </span>
+                </span> */}
                 {blogDetails.status !== "active" && !published ? (
                   <span
                     style={{ cursor: "pointer" }}
@@ -402,7 +402,7 @@ const blogDetails = ({ section }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Modal show={showUpload} onHide={handleCloseUpload} size="lg" centered>
+      {/* <Modal show={showUpload} onHide={handleCloseUpload} size="lg" centered>
         <Modal.Header>Upload/remove images</Modal.Header>
         <Modal.Body>
           <p style={{ textDecoration: "underline" }}>Images/Uploads</p>
@@ -443,7 +443,7 @@ const blogDetails = ({ section }) => {
             Cancel
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
       <ToastContainer />
     </>
   );
