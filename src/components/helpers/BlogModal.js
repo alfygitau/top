@@ -1,7 +1,7 @@
 import { getBlog, UploadBlogImages } from "dataStore/actions/blogAction";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal, Button, Placeholder, Loader } from "rsuite";
+import { Modal, Button } from "rsuite";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
