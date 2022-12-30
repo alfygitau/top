@@ -10,7 +10,7 @@ import ArrowEven from "assets/arrowEven.svg";
 import pricing from "../assets/blog/pricing.png";
 import register from "../assets/blog/register.png";
 import order from "../assets/blog/order.png";
-import wallet from "../assets/blog/wallet.png";
+import download from "../assets/blog/download.jpg";
 
 const packages = {
   instructions: [
@@ -45,22 +45,25 @@ const packages = {
       image: order,
     },
   ],
-  pay_your_writer: [
+  Download_and_release_funds: [
     {
       id: 1,
-      name: "Reserve payment",
+      name: "Download and release funds",
       point1:
-        "You can decide to add funds to your wallet or reserve the funds directly from PayPal.",
-      point2:
-        "Your order with be completed by a professional writer within the stipulated dealine",
-        image: wallet,
+        "Upon successful completion of an assignment, you will download the order/service",
+      point2: "Downloading the order will also realease funds to the writer",
+      image: download,
     },
   ],
 };
 
 export default function HowItWorks() {
-  const { instructions, reserve_funds, completed_work, pay_your_writer } =
-    packages;
+  const {
+    instructions,
+    reserve_funds,
+    completed_work,
+    Download_and_release_funds,
+  } = packages;
   const [open, setOpen] = useState(true);
   const [state, setState] = useState({
     active: "instructions",
@@ -72,8 +75,11 @@ export default function HowItWorks() {
       setState({ active: "reserve_funds", openTab: reserve_funds });
     } else if (plan === "completed_work") {
       setState({ active: "completed_work", openTab: completed_work });
-    } else if (plan === "pay_your_writer") {
-      setState({ active: "pay_your_writer", openTab: pay_your_writer });
+    } else if (plan === "Download_and_release_funds") {
+      setState({
+        active: "Download_and_release_funds",
+        openTab: Download_and_release_funds,
+      });
     } else {
       setState({ active: "instructions", openTab: instructions });
     }
@@ -114,12 +120,18 @@ export default function HowItWorks() {
                   Create and place order
                 </button>
                 <button
-                  className={state.active === "pay_your_writer" ? "active" : ""}
+                  className={
+                    state.active === "Download_and_release_funds"
+                      ? "active"
+                      : ""
+                  }
                   type="button"
-                  aria-label="Pay_your_writer"
-                  onClick={() => handlePricingPlan("pay_your_writer")}
+                  aria-label="Download_and_release_funds"
+                  onClick={() =>
+                    handlePricingPlan("Download_and_release_funds")
+                  }
                 >
-                  Pay Your Writer
+                  Download and release funds
                 </button>
               </Box>
             </Flex>
