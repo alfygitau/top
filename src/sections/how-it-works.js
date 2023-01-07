@@ -23,6 +23,15 @@ const packages = {
       image: pricing,
     },
   ],
+  completed_work: [
+    {
+      id: 1,
+      name: "Fill the Order Form and Place Order",
+      point1:
+        "Upon registration, add additional information to your order including attachments, messages, deadline, more instructions, styles and methodology.",
+      image: order,
+    },
+  ],
   reserve_funds: [
     {
       id: 1,
@@ -34,15 +43,6 @@ const packages = {
       point3:
         "We will assign your order to the best writer in your field, and he/she will start working on your paper immediately.",
       image: register,
-    },
-  ],
-  completed_work: [
-    {
-      id: 1,
-      name: "Fill the Order Form and Place Order",
-      point1:
-        "Upon registration, add additional information to your order including attachments, messages, deadline, more instructions, styles and methodology.",
-      image: order,
     },
   ],
   Download_and_release_funds: [
@@ -104,14 +104,6 @@ export default function HowItWorks() {
                   Price calculation
                 </button>
                 <button
-                  className={state.active === "reserve_funds" ? "active" : ""}
-                  type="button"
-                  aria-label="Reserve Funds"
-                  onClick={() => handlePricingPlan("reserve_funds")}
-                >
-                  Sign Up
-                </button>
-                <button
                   className={state.active === "completed_work" ? "active" : ""}
                   type="button"
                   aria-label="Completed Work"
@@ -119,6 +111,14 @@ export default function HowItWorks() {
                 >
                   Create and place order
                 </button>
+                <button
+                  className={state.active === "reserve_funds" ? "active" : ""}
+                  type="button"
+                  aria-label="Reserve Funds"
+                  onClick={() => handlePricingPlan("reserve_funds")}
+                >
+                  Order complete
+                </button>            
                 <button
                   className={
                     state.active === "Download_and_release_funds"
