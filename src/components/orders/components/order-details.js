@@ -60,6 +60,7 @@ import dayjs from "dayjs";
 
 const OrderDetails = ({ section }) => {
   const [open, setOpen] = React.useState(false);
+  const [orderUpdated, setOrderUpdated] = useState(false);
   const [uploadOpen, setUploadOpen] = useState(false);
   const [openOrderDetails, setOpenOrderDetails] = useState(true);
   const [messageOpen, setMessageOpen] = useState(false);
@@ -69,7 +70,9 @@ const OrderDetails = ({ section }) => {
   const [show, setShow] = useState(false);
   const [reserveOpen, setReserveOpen] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+  };
   const [message, setMessage] = useState({
     sender_id: "",
     message: "",
@@ -155,7 +158,6 @@ const OrderDetails = ({ section }) => {
   });
 
   // console.log(updateOrderDetails)
-  const [orderPrice, setOrderPrice] = useState(amount);
 
   const walletSelector = useSelector((state) => state.walletState);
   const { isLoading } = walletSelector;
@@ -168,7 +170,7 @@ const OrderDetails = ({ section }) => {
   const levelSelector = useSelector((state) => state.levelState);
   const pageSelector = useSelector((state) => state.pageState);
   const serviceSelector = useSelector((state) => state.serviceState);
-  console.log(serviceSelector)
+  console.log(serviceSelector);
   const sourcesSelector = useSelector((state) => state.sourceState);
   const spacingSelector = useSelector((state) => state.spacingState);
   const styleSelector = useSelector((state) => state.styleState);
@@ -612,20 +614,27 @@ const OrderDetails = ({ section }) => {
             <Modal.Header closeButton>
               <Modal.Title>
                 <p>Update Order</p>
-                <h4>
-                  Price:
-                  <span style={{ color: "blue" }}>
-                    $ {amount.toFixed(2)} ||
-                    {(
-                      myservice *
-                      mytype *
-                      myurgency *
-                      mypages *
-                      mylevel *
-                      myspacing
-                    ).toFixed(2)}
-                  </span>
-                </h4>
+                {!orderUpdated ? (
+                  <h4>
+                    Total Price:
+                    <span style={{ color: "blue" }}>$ {amount.toFixed(2)}</span>
+                  </h4>
+                ) : (
+                  <h4>
+                    Updated Price:
+                    <span style={{ color: "blue" }}>
+                      $
+                      {(
+                        myservice *
+                        mytype *
+                        myurgency *
+                        mypages *
+                        mylevel *
+                        myspacing
+                      ).toFixed(2)}
+                    </span>
+                  </h4>
+                )}
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
