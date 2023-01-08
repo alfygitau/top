@@ -67,6 +67,7 @@ const CreateOrder = () => {
   const levelSelector = useSelector((state) => state.levelState);
   const pageSelector = useSelector((state) => state.pageState);
   const serviceSelector = useSelector((state) => state.serviceState);
+  console.log(serviceSelector)
   const sourcesSelector = useSelector((state) => state.sourceState);
   const spacingSelector = useSelector((state) => state.spacingState);
   const styleSelector = useSelector((state) => state.styleState);

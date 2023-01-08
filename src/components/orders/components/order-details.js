@@ -127,7 +127,7 @@ const OrderDetails = ({ section }) => {
   } = orderSelector;
 
   const [instructionsx, setinstructionsx] = React.useState(instructions);
-  console.log(instructionsx);
+  console.log(service, type, page, level, subject, urgency, spacing);
 
   const [updateOrderDetails, setUpdateOrderDetails] = useState({
     user_id: "",
@@ -152,6 +152,8 @@ const OrderDetails = ({ section }) => {
     promocode: false,
   });
 
+  console.log(updateOrderDetails)
+
   const walletSelector = useSelector((state) => state.walletState);
   const { isLoading } = walletSelector;
   const reserveSelector = useSelector((state) => state.orderState);
@@ -163,6 +165,7 @@ const OrderDetails = ({ section }) => {
   const levelSelector = useSelector((state) => state.levelState);
   const pageSelector = useSelector((state) => state.pageState);
   const serviceSelector = useSelector((state) => state.serviceState);
+  console.log(serviceSelector)
   const sourcesSelector = useSelector((state) => state.sourceState);
   const spacingSelector = useSelector((state) => state.spacingState);
   const styleSelector = useSelector((state) => state.styleState);

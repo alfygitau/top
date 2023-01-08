@@ -131,7 +131,7 @@ export default function HowItWorks() {
                     handlePricingPlan("Download_and_release_funds")
                   }
                 >
-                  Download and release funds
+                  Download and Review
                 </button>
               </Box>
             </Flex>
