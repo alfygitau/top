@@ -38,10 +38,10 @@ const packages = {
   reserve_funds: [
     {
       id: 1,
-      name: "An order is complete if it passes these tests",
-      point1: "Grammar Check - 100%",
+      name: "An order is considered complete if it passes these tests",
+      point1: "Plagiarism Check - 0%",
       image1: grammar,
-      point2: "Plagiarism Check - 0%",
+      point2: "Grammar Check - 100%",
       image2: plag,
       point3: "Quality Check - 100%",
       image3: quality,
