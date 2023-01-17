@@ -11,6 +11,9 @@ import pricing from "../assets/blog/pricing.png";
 import register from "../assets/blog/register.png";
 import order from "../assets/blog/order.png";
 import download from "../assets/blog/download.jpg";
+import grammar from "../assets/blog/grammar.webp";
+import plag from "../assets/blog/plag.png";
+import quality from "../assets/blog/quality.jpg";
 
 const packages = {
   instructions: [
@@ -35,14 +38,13 @@ const packages = {
   reserve_funds: [
     {
       id: 1,
-      name: "Create an account with us",
-      point1:
-        "Complete a registration process to view, edit and add additional information to your order",
-      point2:
-        "If you have an account already, login to restart the process of order placement",
-      point3:
-        "We will assign your order to the best writer in your field, and he/she will start working on your paper immediately.",
-      image: register,
+      name: "An order is complete if it passes these tests",
+      point1: "Grammar Check - 100%",
+      image1: grammar,
+      point2: "Plagiarism Check - 0%",
+      image2: plag,
+      point3: "Quality Check - 100%",
+      image3: quality,
     },
   ],
   Download_and_release_funds: [
@@ -118,7 +120,7 @@ export default function HowItWorks() {
                   onClick={() => handlePricingPlan("reserve_funds")}
                 >
                   Order complete
-                </button>            
+                </button>
                 <button
                   className={
                     state.active === "Download_and_release_funds"
