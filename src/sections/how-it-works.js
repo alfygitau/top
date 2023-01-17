@@ -14,6 +14,7 @@ import download from "../assets/blog/download.jpg";
 import grammar from "../assets/blog/grammar.webp";
 import plag from "../assets/blog/plag.png";
 import quality from "../assets/blog/quality.jpg";
+import tick from "../assets/blog/tick.webp"
 
 const packages = {
   instructions: [
@@ -41,10 +42,13 @@ const packages = {
       name: "An order is considered complete if it passes these tests",
       point1: "Plagiarism Check - 0%",
       image1: grammar,
+      image4: tick,
       point2: "Grammar Check - 100%",
       image2: plag,
+      image5: tick,
       point3: "Quality Check - 100%",
       image3: quality,
+      image6: tick,
     },
   ],
   Download_and_release_funds: [
