@@ -617,7 +617,7 @@ const OrderDetails = ({ section }) => {
                 {!orderUpdated ? (
                   <h4>
                     Total Price:
-                    <span style={{ color: "blue" }}>$ {amount.toFixed(2)}</span>
+                    <span style={{ color: "blue" }}>$ {amount?.toFixed(2)}</span>
                   </h4>
                 ) : (
                   <h4>
