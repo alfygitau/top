@@ -351,6 +351,20 @@ const OrderDetails = ({ section }) => {
 
   const handleShowValues = () => {
     setinstructionsx(instructions);
+    setUpdateOrderDetails({
+      service_id: parseInt(service?.id),
+      type_id: parseInt(type?.id),
+      style_id: parseInt(style?.id),
+      level_id: parseInt(level?.id),
+      pages_id: parseInt(page?.id),
+      urgency_id: parseInt(urgency?.id),
+      subject_id: parseInt(subject?.id),
+      sources_id: parseInt(source?.id),
+      spacing_id: parseInt(spacing?.id),
+      language_id: parseInt(language?.id),
+      phone: phone,
+      topic: topic,
+    });
   };
 
   const handleExit = () => {
@@ -617,7 +631,9 @@ const OrderDetails = ({ section }) => {
                 {!orderUpdated ? (
                   <h4>
                     Total Price:
-                    <span style={{ color: "blue" }}>$ {amount?.toFixed(2)}</span>
+                    <span style={{ color: "blue" }}>
+                      $ {amount?.toFixed(2)}
+                    </span>
                   </h4>
                 ) : (
                   <h4>
