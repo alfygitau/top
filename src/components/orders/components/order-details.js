@@ -351,6 +351,7 @@ const OrderDetails = ({ section }) => {
 
   const handleShowValues = () => {
     setinstructionsx(instructions);
+    setUpdateOrderDetails.topic(topic)
   };
 
   const handleExit = () => {
