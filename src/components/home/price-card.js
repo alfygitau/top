@@ -33,7 +33,7 @@ export default function PriceCard({
           <Text as="p">
             <FaAngleDoubleRight />{" "}
             {image2 && (
-              <img src={image2} alt="how it works" height="100px" width="100" />
+              <img src={image2} alt="how it works" height="100px" width="150"  />
             )}
             {point1} &nbsp;
             {image2 && (
@@ -53,12 +53,7 @@ export default function PriceCard({
               )}
               {point2} &nbsp;
               {image2 && (
-                <img
-                  src={image5}
-                  alt="how it works"
-                  height="30px"
-                  width="30"
-                />
+                <img src={image5} alt="how it works" height="30px" width="30" />
               )}
             </Text>
           )}
@@ -75,12 +70,7 @@ export default function PriceCard({
               )}
               {point3} &nbsp;
               {image6 && (
-                <img
-                  src={image4}
-                  alt="how it works"
-                  height="30px"
-                  width="30"
-                />
+                <img src={image4} alt="how it works" height="30px" width="30" />
               )}
             </Text>
           )}

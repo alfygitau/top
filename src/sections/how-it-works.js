@@ -11,8 +11,8 @@ import pricing from "../assets/blog/pricing.png";
 import register from "../assets/blog/register.png";
 import order from "../assets/blog/order.png";
 import download from "../assets/blog/download.jpg";
-import grammar from "../assets/blog/grammar.webp";
-import plag from "../assets/blog/plag.png";
+import grammar from "../assets/blog/grammar.png";
+import plag from "../assets/blog/plag.webp";
 import quality from "../assets/blog/quality.jpg";
 import tick from "../assets/blog/tick.webp"
 
