@@ -1,14 +1,12 @@
 /** @jsx jsx */
 import React, { useState } from "react";
 import { keyframes } from "@emotion/core";
-import SectionHeader from "components/home/section-header";
 import PriceCard from "components/home/price-card";
 import { jsx, Box, Flex } from "theme-ui";
 import PatternBG from "assets/patternBG.png";
 import ArrowOdd from "assets/arrowOdd.svg";
 import ArrowEven from "assets/arrowEven.svg";
 import pricing from "../assets/blog/pricing.png";
-import register from "../assets/blog/register.png";
 import order from "../assets/blog/order.png";
 import download from "../assets/blog/download.jpg";
 import grammar from "../assets/blog/grammar.png";

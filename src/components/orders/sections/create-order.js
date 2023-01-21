@@ -41,6 +41,9 @@ const CreateOrder = () => {
   const [mypages, setmypages] = React.useState(1);
   const [mylevel, setmylevel] = React.useState(1);
   const [myspacing, setmyspacing] = React.useState(1);
+
+  let cal = [myservice, mytype, myurgency, mypages, mylevel, myspacing];
+
   const [instructions, setinstructions] = React.useState("");
   const [order, setOrder] = React.useState({
     user_id: "",
@@ -67,7 +70,7 @@ const CreateOrder = () => {
   const levelSelector = useSelector((state) => state.levelState);
   const pageSelector = useSelector((state) => state.pageState);
   const serviceSelector = useSelector((state) => state.serviceState);
-  console.log(serviceSelector)
+  console.log(serviceSelector);
   const sourcesSelector = useSelector((state) => state.sourceState);
   const spacingSelector = useSelector((state) => state.spacingState);
   const styleSelector = useSelector((state) => state.styleState);
@@ -120,7 +123,7 @@ const CreateOrder = () => {
 
     setOrder((order) => {
       return {
-        ...order, 
+        ...order,
         [name]: value,
       };
     });
@@ -133,6 +136,7 @@ const CreateOrder = () => {
     const itemSelected = JSON.parse(valueToParse);
     setSelected(itemSelected);
     setmyservice(itemSelected.factor);
+    localStorage.setItem("myservice", JSON.stringify(itemSelected.factor));
     setOrder({
       ...order,
       [event.target.name]: service_id,
@@ -145,6 +149,7 @@ const CreateOrder = () => {
     const itemSelected = JSON.parse(valueToParse);
     setSelected(itemSelected);
     setmytype(itemSelected.factor);
+    localStorage.setItem("mytype", JSON.stringify(itemSelected.factor));
     setOrder({
       ...order,
       [event.target.name]: type_id,
@@ -157,6 +162,7 @@ const CreateOrder = () => {
     const itemSelected = JSON.parse(valueToParse);
     setSelected(itemSelected);
     setmyurgency(itemSelected.factor);
+    localStorage.setItem("myurgency", JSON.stringify(itemSelected.factor));
     setOrder({
       ...order,
       [event.target.name]: urgency_id,
@@ -169,6 +175,7 @@ const CreateOrder = () => {
     const itemSelected = JSON.parse(valueToParse);
     setSelected(itemSelected);
     setmypages(itemSelected.factor);
+    localStorage.setItem("mypages", JSON.stringify(itemSelected.factor));
     setOrder({
       ...order,
       [event.target.name]: page_id,
@@ -181,6 +188,7 @@ const CreateOrder = () => {
     const itemSelected = JSON.parse(valueToParse);
     setSelected(itemSelected);
     setmylevel(itemSelected.factor);
+    localStorage.setItem("mylevel", JSON.stringify(itemSelected.factor));
     setOrder({
       ...order,
       [event.target.name]: level_id,
@@ -193,6 +201,7 @@ const CreateOrder = () => {
     const itemSelected = JSON.parse(valueToParse);
     setSelected(itemSelected);
     setmyspacing(itemSelected.factor);
+    localStorage.setItem("myspacing", JSON.stringify(itemSelected.factor));
     setOrder({
       ...order,
       [event.target.name]: spacing_id,

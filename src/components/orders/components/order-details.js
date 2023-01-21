@@ -84,16 +84,13 @@ const OrderDetails = ({ section }) => {
     title: "",
     description: "",
   });
-  const [active, setActive] = React.useState("2");
-  const [selected, setSelected] = React.useState("");
-  const [myservice, setmyservice] = React.useState(8);
-  const [mytype, setmytype] = React.useState(1.2);
-  const [myurgency, setmyurgency] = React.useState(2.5);
-  const [mypages, setmypages] = React.useState(1);
-  const [mylevel, setmylevel] = React.useState(1);
-  const [mystyle, setmystyle] = React.useState(1);
-  const [myspacing, setmyspacing] = React.useState(1);
-  const [cancelOpen, setCancelOpen] = React.useState(false);
+
+  // let serv = localStorage.getItem("myservice") ? JSON.parse(localStorage.getItem("myservice")) : 8
+  // let ty = localStorage.getItem("mytype") ? JSON.parse(localStorage.getItem("mytype")) : 1.2
+  // let urg = localStorage.getItem("myurgency") ? JSON.parse(localStorage.getItem("myurgency")) : 2.5
+  // let pag = localStorage.getItem("mypages") ? JSON.parse(localStorage.getItem("mypages")) : 1
+  // let lev = localStorage.getItem("mylevel") ? JSON.parse(localStorage.getItem("mylevel")) : 1
+  // let space = localStorage.getItem("myspacing") ? JSON.parse(localStorage.getItem("myspacing")) : 1
 
   const router = useRouter();
   const { orderID } = router.query;
@@ -129,7 +126,7 @@ const OrderDetails = ({ section }) => {
     },
   } = orderSelector;
 
-  console.log(amount);
+  console.log(orderSelector.order);
 
   const [instructionsx, setinstructionsx] = React.useState(instructions);
   // console.log(service, type, page, level, subject, urgency, spacing);
@@ -177,7 +174,49 @@ const OrderDetails = ({ section }) => {
   const subjectSelector = useSelector((state) => state.subjectState);
   const typeSelector = useSelector((state) => state.typeState);
   const urgencySelector = useSelector((state) => state.urgencyState);
+  console.log(urgencySelector);
   const languageSelector = useSelector((state) => state.languageState);
+
+  console.log(spacingSelector);
+  console.log(orderSelector?.order?.service?.name);
+
+  let serv = serviceSelector.services.filter(
+    (service) => service.name === orderSelector?.order?.service?.name
+  );
+  let urg = urgencySelector.urgencies.filter(
+    (urgency) => urgency.name === orderSelector?.order?.urgency?.name
+  );
+  let ty = typeSelector.types.filter(
+    (type) => type.name === orderSelector?.order?.type?.name
+  );
+  let space = spacingSelector.spacings.filter(
+    (spacing) => spacing.name === orderSelector?.order?.spacing?.name
+  );
+  let pag = pageSelector.pages.filter(
+    (page) => page.name === orderSelector?.order?.page?.name
+  );
+  let lev = levelSelector.levels.filter(
+    (level) => level.name === orderSelector?.order?.level?.name
+  );
+  console.log(serv[0]?.factor);
+  console.log(urg[0]?.factor);
+  console.log(ty[0]?.factor);
+  console.log(space[0]?.factor);
+  console.log(pag[0]?.factor);
+  console.log(lev[0]?.factor);
+
+  const [active, setActive] = React.useState("2");
+  const [selected, setSelected] = React.useState("");
+  const [myservice, setmyservice] = React.useState(serv[0]?.factor);
+  const [mytype, setmytype] = React.useState(ty[0]?.factor);
+  const [myurgency, setmyurgency] = React.useState(urg[0]?.factor);
+  const [mypages, setmypages] = React.useState(pag[0]?.factor);
+  const [mylevel, setmylevel] = React.useState(lev[0]?.factor);
+  const [myspacing, setmyspacing] = React.useState(space[0]?.factor);
+  const [cancelOpen, setCancelOpen] = React.useState(false);
+
+  let calc = [myservice, mytype, myurgency, mypages, mylevel, myspacing];
+  console.log(calc);
 
   const service_name = service ? service.name : "";
   const subject_name = subject ? subject.name : "";
@@ -628,29 +667,20 @@ const OrderDetails = ({ section }) => {
             <Modal.Header closeButton>
               <Modal.Title>
                 <p>Update Order</p>
-                {!orderUpdated ? (
-                  <h4>
-                    Total Price:
-                    <span style={{ color: "blue" }}>
-                      $ {amount?.toFixed(2)}
-                    </span>
-                  </h4>
-                ) : (
-                  <h4>
-                    Updated Price:
-                    <span style={{ color: "blue" }}>
-                      $
-                      {(
-                        myservice *
-                        mytype *
-                        myurgency *
-                        mypages *
-                        mylevel *
-                        myspacing
-                      ).toFixed(2)}
-                    </span>
-                  </h4>
-                )}
+                <h4>
+                  Updated Price:
+                  <span style={{ color: "blue" }}>
+                    $
+                    {(
+                      mylevel *
+                      myspacing *
+                      mypages *
+                      myservice *
+                      myurgency *
+                      mytype
+                    ).toFixed(2)}
+                  </span>
+                </h4>
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
