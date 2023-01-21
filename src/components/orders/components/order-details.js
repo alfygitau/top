@@ -404,6 +404,12 @@ const OrderDetails = ({ section }) => {
       phone: phone,
       topic: topic,
     });
+    setmytype(ty[0]?.factor);
+    setmyurgency(urg[0]?.factor);
+    setmypages(pag[0]?.factor);
+    setmylevel(lev[0]?.factor);
+    setmyspacing(space[0]?.factor);
+    setmyservice(serv[0]?.factor);
   };
 
   const handleExit = () => {
