@@ -221,8 +221,10 @@ const Pending = () => {
         </Modal.Header>
         <Modal.Body>
           <p style={{ fontSize: "18px" }}>
-            Choose one of the options to reserve the payment for the order.
+            Choose one of the options to reserve order{" "}
+            {localStorage.walletOrderNumber}.
           </p>
+          <p>Amount - ${(JSON.parse(localStorage.walletOrderAmount)).toFixed(2)}</p>
           <div
             style={{
               display: "flex",
