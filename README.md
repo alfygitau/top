@@ -9,3 +9,4 @@ npm run dev
 yarn
 yarn dev
 ```
+A nextJs based app meant to allows individuals with writing assignments to to create orders just so their essays and assignments can be done for them
