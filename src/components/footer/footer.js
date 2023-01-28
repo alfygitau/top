@@ -67,25 +67,6 @@ export default function Footer() {
                     <li><img src={Paypal} alt="paypal" width="100px"/></li>
                     <li><img src={Visa} alt="visa" width="100px"/></li>
                 </ul>
-            <p style={{lineHeight: 1.5, textAlign: 'center',  color: '#A1A9B3', paddingLeft: "50px", paddingRight:"50px"}}>
-                Write My Paper for Cheap |
-                Fast Essay Writing Service |
-                Pay for Term Papers  |
-                How to Write a Good Essay  |
-                Buy Cheap Essays |
-                Free Essays |
-                Cheap Custom Essays |
-                Research Papers for Sale |
-                College Essay Writing Service |
-                Term Paper Writing Service |
-                Write My College Essay |
-                Buy College Essays |
-                Cheap Dissertation |
-                Buy Apa Papers |
-                Case Study Writing Service |
-                Article Review Writing Service  |
-                Research Proposal Writing Service
-            </p>
             <Text sx={{textAlign: 'center',color: '#A1A9B3'}}>Rated 4.8 / 5 based on Reviews. |All Reviews</Text>
             <Text sx={{textAlign: 'center',  color: '#A1A9B3'}}>All Rights Reserved</Text>
         </Grid>
