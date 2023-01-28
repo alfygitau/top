@@ -85,13 +85,6 @@ const OrderDetails = ({ section }) => {
     description: "",
   });
 
-  // let serv = localStorage.getItem("myservice") ? JSON.parse(localStorage.getItem("myservice")) : 8
-  // let ty = localStorage.getItem("mytype") ? JSON.parse(localStorage.getItem("mytype")) : 1.2
-  // let urg = localStorage.getItem("myurgency") ? JSON.parse(localStorage.getItem("myurgency")) : 2.5
-  // let pag = localStorage.getItem("mypages") ? JSON.parse(localStorage.getItem("mypages")) : 1
-  // let lev = localStorage.getItem("mylevel") ? JSON.parse(localStorage.getItem("mylevel")) : 1
-  // let space = localStorage.getItem("myspacing") ? JSON.parse(localStorage.getItem("myspacing")) : 1
-
   const router = useRouter();
   const { orderID } = router.query;
   const dispatch = useDispatch();
@@ -360,6 +353,9 @@ const OrderDetails = ({ section }) => {
       [event.target.name]: spacing_id,
     });
   };
+
+  console.log(order_number, amount);
+
   const handleReserveOrder = () => {
     const { id: userID } = JSON.parse(localStorage.currentUser);
     const bodyData = {
@@ -367,8 +363,11 @@ const OrderDetails = ({ section }) => {
       order_amount: amount,
       user_id: userID,
     };
+    // console.log(bodyData);
     makePayment(dispatch, bodyData).then((response) => {
       const links = response.data.links[1].href;
+      console.log(links);
+      localStorage.setItem("link", JSON.stringify(links));
       if (response.status === 200) {
         router.push(links);
       } else if (response.status !== 200) {

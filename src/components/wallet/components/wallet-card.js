@@ -58,6 +58,7 @@ const WalletCard = ({ section }) => {
     if (payment.order_amount !== "") {
       makePayment(dispatch, bodyData).then((response) => {
         const links = response.data.links[1].href;
+        console.log(links);
         if (response.status === 200) router.push(links);
       });
     } else {
