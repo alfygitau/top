@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatDeadline } from "../../../utils/dates";
 import Modal from "react-bootstrap/Modal";
 import {
+  getOrder,
   getPendingOrders,
   payFromWallet,
 } from "dataStore/actions/ordersAction";
@@ -32,6 +33,9 @@ const Pending = () => {
   const reserveSelector = useSelector((state) => state.orderState);
   const { errorMessage: walletError } = reserveSelector;
 
+  const { order } = orderSelector;
+  console.log(order);
+
   const openWalletModal = (wholeOrder) => {
     setReserveOpen(true);
     console.log(wholeOrder);
@@ -46,18 +50,10 @@ const Pending = () => {
       );
       localStorage.setItem("walletOrderId", JSON.stringify(wholeOrder.id));
     }
+    getOrder(dispatch, wholeOrder.id);
   };
 
   const per = 10;
-
-  // const valuesFromStorage = () => {
-  //   if (typeof window !== "undefined") {
-  //     let order_number = JSON.parse(localStorage.walletOrderNumber);
-  //     let amount = JSON.parse(localStorage.walletOrderAmount);
-  //     let orderId = JSON.parse(localStorage.walletOrderId);
-  //     return { order_number, amount, orderId };
-  //   }
-  // };
 
   const handleReserveOrder = () => {
     const { id: userID } = JSON.parse(localStorage.currentUser);
@@ -223,8 +219,8 @@ const Pending = () => {
           <p style={{ fontSize: "18px" }}>
             Choose one of the options to reserve payment for the order
           </p>
-          {/* <p>Order - {order_number}</p> */}
-          {/* <p>Amount - ${amount}</p> */}
+          <p>Order - {order.order_number}</p>
+          <p>Amount - ${order.amount.toFixed(2)}</p>
           <div
             style={{
               display: "flex",
