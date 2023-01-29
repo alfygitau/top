@@ -19,8 +19,9 @@ import { ToastContainer, toast } from "react-toastify";
 
 const Pending = () => {
   const [activePage, setActivePage] = useState(1);
-  const [show, setShow] = useState(false);
   const [reserveOpen, setReserveOpen] = useState(false);
+  const handleReserveOpen = () => setReserveOpen(true);
+  const handleReserveClose = () => setReserveOpen(false);
   const dispatch = useDispatch();
   const router = useRouter();
   const orderSelector = useSelector((state) => state.orderState);
@@ -35,7 +36,6 @@ const Pending = () => {
     setReserveOpen(true);
     console.log(wholeOrder);
     if (typeof window !== "undefined") {
-      // Perform localStorage action
       localStorage.setItem(
         "walletOrderNumber",
         JSON.stringify(wholeOrder.order_number)
@@ -48,30 +48,26 @@ const Pending = () => {
     }
   };
 
-  const handleReserveOpen = () => setReserveOpen(true);
-  const handleReserveClose = () => setReserveOpen(false);
-
   const per = 10;
 
-  const valuesFromStorage = () => {
-    if (typeof window !== "undefined") {
-      const { id: userID } = JSON.parse(localStorage.currentUser);
-      let order_number = JSON.parse(localStorage.walletOrderNumber);
-      let amount = JSON.parse(localStorage.walletOrderAmount);
-      let orderId = JSON.parse(localStorage.walletOrderId);
-      return { userID, order_number, amount, orderId };
-    }
-  };
+  // const valuesFromStorage = () => {
+  //   if (typeof window !== "undefined") {
+  //     let order_number = JSON.parse(localStorage.walletOrderNumber);
+  //     let amount = JSON.parse(localStorage.walletOrderAmount);
+  //     let orderId = JSON.parse(localStorage.walletOrderId);
+  //     return { order_number, amount, orderId };
+  //   }
+  // };
 
   const handleReserveOrder = () => {
-    const { userID, order_number, amount, orderId } = valuesFromStorage();
-    console.log(userID, order_number, amount);
+    const { id: userID } = JSON.parse(localStorage.currentUser);
+    const order_number = JSON.parse(localStorage.walletOrderNumber);
+    const amount = JSON.parse(localStorage.walletOrderAmount);
     const bodyData = {
       order_number: order_number,
       order_amount: amount,
       user_id: userID,
     };
-    // console.log(bodyData);
     makePayment(dispatch, bodyData).then((response) => {
       const links = response.data.links[1].href;
       console.log(links);
@@ -88,7 +84,7 @@ const Pending = () => {
   };
 
   const handleReserveFromWallet = () => {
-    const { userID, order_number, amount, orderId } = valuesFromStorage();
+    const orderId = JSON.parse(localStorage.walletOrderId);
     payFromWallet(dispatch, orderId).then((response) => {
       if (response.status === 200) {
         toast.success("Paid from wallet successfully!", {
@@ -117,6 +113,9 @@ const Pending = () => {
     const { id: userID } = JSON.parse(localStorage.currentUser);
     userWalletSummary(dispatch, userID);
   }, [dispatch]);
+
+  // const { order_number, amount, orderId } = valuesFromStorage();
+
   return (
     <>
       <ToastContainer />
@@ -224,10 +223,8 @@ const Pending = () => {
           <p style={{ fontSize: "18px" }}>
             Choose one of the options to reserve payment for the order
           </p>
-          <p>Order - {localStorage.walletOrderNumber}</p>
-          <p>
-            Amount - ${JSON.parse(localStorage.walletOrderAmount).toFixed(2)}
-          </p>
+          {/* <p>Order - {order_number}</p> */}
+          {/* <p>Amount - ${amount}</p> */}
           <div
             style={{
               display: "flex",
