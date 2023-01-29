@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Tag, Panel, Divider, Pagination, Button } from "rsuite";
+import { Tag, Panel, Divider, Pagination, Button, Loader } from "rsuite";
 import Link from "next/link";
 import NoData from "assets/no-open.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,7 +34,7 @@ const Pending = () => {
   const { errorMessage: walletError } = reserveSelector;
 
   const { order } = orderSelector;
-  console.log(order);
+  const { isLoading } = orderSelector;
 
   const openWalletModal = (wholeOrder) => {
     setReserveOpen(true);
@@ -216,8 +216,15 @@ const Pending = () => {
           <p style={{ fontSize: "18px" }}>
             Choose one of the options to reserve payment for the order
           </p>
-          <p>Order - {order.order_number}</p>
-          <p>Amount - ${order.amount?.toFixed(2)}</p>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <>
+              <p>Order - {order.order_number}</p>
+              <p>Amount - ${order.amount?.toFixed(2)}</p>
+            </>
+          )}
+
           <div
             style={{
               display: "flex",
