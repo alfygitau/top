@@ -58,12 +58,13 @@ const Pending = () => {
       const { id: userID } = JSON.parse(localStorage.currentUser);
       let order_number = JSON.parse(localStorage.walletOrderNumber);
       let amount = JSON.parse(localStorage.walletOrderAmount);
-      return { userID, order_number, amount };
+      let orderId = JSON.parse(localStorage.walletOrderId);
+      return { userID, order_number, amount, orderId };
     }
   };
 
   const handleReserveOrder = () => {
-    const { userID, order_number, amount } = valuesFromStorage();
+    const { userID, order_number, amount, orderId } = valuesFromStorage();
     console.log(userID, order_number, amount);
     const bodyData = {
       order_number: order_number,
@@ -87,7 +88,7 @@ const Pending = () => {
   };
 
   const handleReserveFromWallet = () => {
-    let orderId = JSON.parse(localStorage.walletOrderId);
+    const { userID, order_number, amount, orderId } = valuesFromStorage();
     payFromWallet(dispatch, orderId).then((response) => {
       if (response.status === 200) {
         toast.success("Paid from wallet successfully!", {
