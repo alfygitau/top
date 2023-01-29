@@ -110,8 +110,6 @@ const Pending = () => {
     userWalletSummary(dispatch, userID);
   }, [dispatch]);
 
-  // const { order_number, amount, orderId } = valuesFromStorage();
-
   return (
     <>
       <ToastContainer />
@@ -167,7 +165,7 @@ const Pending = () => {
                     </center>
                   </td>
                   <td style={styles.table.td}>{data.page && data.page.name}</td>
-                  <td style={styles.table.td}>$ {data.amount.toFixed(2)}</td>
+                  <td style={styles.table.td}>$ {data.amount?.toFixed(2)}</td>
                   <td style={styles.table.td}>
                     <Box>
                       <Button
@@ -208,7 +206,6 @@ const Pending = () => {
         )}
       </div>
       <Modal show={reserveOpen} onHide={handleReserveClose} size="lg" centered>
-        {/* {isLoading && <BoxLoading />} */}
         <Modal.Header>
           <Modal.Title>
             <h5>Reserve Payment</h5>
@@ -220,7 +217,7 @@ const Pending = () => {
             Choose one of the options to reserve payment for the order
           </p>
           <p>Order - {order.order_number}</p>
-          <p>Amount - ${order.amount.toFixed(2)}</p>
+          <p>Amount - ${order.amount?.toFixed(2)}</p>
           <div
             style={{
               display: "flex",
