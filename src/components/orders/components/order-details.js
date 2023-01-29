@@ -516,7 +516,7 @@ const OrderDetails = ({ section }) => {
         uploaded_files: [
           {
             content_type: file.type,
-            file_name: file.name,
+            filename: file.name,
             data: fileBase64,
           },
         ],
