@@ -7,7 +7,7 @@ import EditIcon from "@rsuite/icons/Edit";
 import CheckOutlineIcon from "@rsuite/icons/CheckOutline";
 import Card from "react-bootstrap/Card";
 import tick from "../../../assets/blog/tick.webp";
-import blogg from "../../../assets/blog/blog.png";
+import blogg from "../../../assets/blog/blog.jpg";
 import { Carousel } from "rsuite";
 import AttachmentIcon from "@rsuite/icons/Attachment";
 import styles from "../../../styles/Blog.module.css";

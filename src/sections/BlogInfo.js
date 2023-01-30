@@ -8,7 +8,7 @@ import { BiRevision } from "react-icons/bi";
 import { GoMail } from "react-icons/go";
 import { Button } from "theme-ui";
 import { useSelector } from "react-redux";
-import blog from "../assets/blog/blog.png";
+import blog from "../assets/blog/blog.jpg";
 import moment from "moment";
 import styles from "../styles/Blog.module.css";
 import { useDispatch } from "react-redux";

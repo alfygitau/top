@@ -18,7 +18,7 @@ import Link from "next/link";
 import styles from "../../../styles/Blog.module.css";
 import { BsBook } from "react-icons/bs";
 import moment from "moment";
-import bloggy from "../../../assets/blog/blog.png";
+import bloggy from "../../../assets/blog/blog.jpg";
 import { Button, Modal } from "react-bootstrap";
 import { useRouter } from "next/router";
 

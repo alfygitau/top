@@ -11,7 +11,7 @@ import router from "next/router";
 import Image from "../assets/banner-thumb.png";
 import { BsBook } from "react-icons/bs";
 import moment from "moment";
-import bloggy from "../assets/blog/blog.png";
+import bloggy from "../assets/blog/blog.jpg";
 import {
   createBlog,
   getBlogs,
