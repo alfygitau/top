@@ -185,7 +185,7 @@ const blogs = () => {
       </div>
       <div>
         <div className="all-content" style={{ display: "flex" }}>
-          <div style={{ marginBottom: "40px", width: "60%" }}>
+          <div style={{ marginBottom: "40px", width: "80%" }}>
             {blogs?.top_articles?.map((blog) => (
               <div
                 style={contentStyles}
@@ -261,55 +261,6 @@ const blogs = () => {
                 </Link>
               </div>
             ))}
-          </div>
-          <div
-            style={{
-              width: "30%",
-              border: "1px solid rgb(218,230,242)",
-              height: "60vh",
-              marginRight: "auto",
-              marginLeft: "auto",
-              borderRadius: "10px",
-              padding: "20px",
-            }}
-          >
-            <h5>CATEGORIES</h5>
-            <div style={categoriesStyles}>
-              <h6 href="#">TopRated samples</h6>
-              <a href="#" style={linkStyles}>
-                Essay samples
-              </a>
-              <a href="#" style={linkStyles}>
-                Research Paper samples
-              </a>
-              <a href="#" style={linkStyles}>
-                Book Review Samples
-              </a>
-            </div>
-            <div style={categoriesStyles}>
-              <h6>TopRated Topics</h6>
-              <a href="#" style={linkStyles}>
-                Essay topics
-              </a>
-              <a href="#" style={linkStyles}>
-                Research Paper topics
-              </a>
-              <a href="#" style={linkStyles}>
-                Speech/presentation topics
-              </a>
-            </div>
-            <div style={categoriesStyles}>
-              <h6>TopRated Writing Guides</h6>
-              <a href="#" style={linkStyles}>
-                Essay writing
-              </a>
-              <a href="#" style={linkStyles}>
-                Academic writing
-              </a>
-              <a href="#" style={linkStyles}>
-                Research paper writing
-              </a>
-            </div>
           </div>
         </div>
       </div>
