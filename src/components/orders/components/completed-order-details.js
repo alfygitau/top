@@ -117,7 +117,6 @@ const OrderCompletedDetails = ({ section }) => {
   const { completedOrderID } = router.query;
   const dispatch = useDispatch();
   const uploaderRef = React.useRef();
-  const formattedInstructruction = instructions?.trim().slice(2).slice(0, -2);
 
   const handleOpen = () => setReleaseFundsOpen(true);
   const handleClose = () => setReleaseFundsOpen(false);
@@ -561,33 +560,23 @@ const OrderCompletedDetails = ({ section }) => {
                     </td>
                     <td style={styles.table.td}>{level && level.name}</td>
                   </tr>
-                  <tr>
-                    <td style={styles.table.td}>
-                      <b>Instructions</b>
-                    </td>
-                    <td colSpan="3">
-                      <Editor
-                        apiKey="jm5weuex99fz17qyiv457ia53e6ignpzdupkd8vpszcywnoo"
-                        initialValue={formattedInstructruction}
-                        init={{
-                          height: 300,
-                          language: "en_US",
-                          menubar: false,
-                          plugins: [
-                            "advlist autolink lists link image",
-                            "charmap print preview anchor help",
-                            "searchreplace visualblocks code",
-                            "insertdatetime media table paste wordcount",
-                          ],
-                          toolbar:
-                            "undo redo | formatselect | bold italic | \
-                                                    alignleft aligncenter alignright | \
-                                                    bullist numlist outdent indent | help",
-                        }}
-                      />
-                    </td>
-                  </tr>
                 </table>
+                <div className="instructions">
+                  <h6
+                    style={{ marginTop: "20px", textDecoration: "underline" }}
+                  >
+                    Order Instructions
+                  </h6>
+                  <div
+                    style={{
+                      borderRadius: "10px",
+                      border: "1px solid grey",
+                      padding: "10px 20px",
+                    }}
+                  >
+                    <div dangerouslySetInnerHTML={{ __html: instructions }} />
+                  </div>
+                </div>
               </Panel>
             </Col>
           </Row>

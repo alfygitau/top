@@ -120,6 +120,7 @@ export const getCompletedOrders = async (dispatch, userId, page, per) => {
         }
       )
       .then((response) => {
+        console.log(response);
         dispatch({
           type: GET_COMPLETED_ORDERS_SUCCESS,
           completed_orders: response.data,

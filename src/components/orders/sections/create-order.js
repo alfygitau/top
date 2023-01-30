@@ -35,6 +35,9 @@ import { Editor } from "@tinymce/tinymce-react";
 const CreateOrder = () => {
   const [step, setStep] = React.useState(0);
   const [selected, setSelected] = React.useState("");
+  const [selectedSpacing, setSelectedSpacing] = React.useState("Double Spaced");
+  const [selectedPages, setSelectedPages] =
+    React.useState("275 words / 1 page");
   const [myservice, setmyservice] = React.useState(8);
   const [mytype, setmytype] = React.useState(1.2);
   const [myurgency, setmyurgency] = React.useState(2.5);
@@ -43,6 +46,7 @@ const CreateOrder = () => {
   const [myspacing, setmyspacing] = React.useState(1);
 
   let cal = [myservice, mytype, myurgency, mypages, mylevel, myspacing];
+  console.log(selectedSpacing);
 
   const [instructions, setinstructions] = React.useState("");
   const [order, setOrder] = React.useState({
@@ -70,9 +74,12 @@ const CreateOrder = () => {
   const levelSelector = useSelector((state) => state.levelState);
   const pageSelector = useSelector((state) => state.pageState);
   const serviceSelector = useSelector((state) => state.serviceState);
-  console.log(serviceSelector);
+  let newPages = pageSelector.pages.map((page) => page);
+  let namesPages = newPages.slice(200);
+  console.log(namesPages);
   const sourcesSelector = useSelector((state) => state.sourceState);
   const spacingSelector = useSelector((state) => state.spacingState);
+  console.log(spacingSelector);
   const styleSelector = useSelector((state) => state.styleState);
   const subjectSelector = useSelector((state) => state.subjectState);
   const typeSelector = useSelector((state) => state.typeState);
@@ -173,7 +180,7 @@ const CreateOrder = () => {
     const page_id_index = Object.values(JSON.parse(valueToParse));
     const page_id = page_id_index[0];
     const itemSelected = JSON.parse(valueToParse);
-    setSelected(itemSelected);
+    setSelectedPages(itemSelected.name);
     setmypages(itemSelected.factor);
     localStorage.setItem("mypages", JSON.stringify(itemSelected.factor));
     setOrder({
@@ -196,10 +203,13 @@ const CreateOrder = () => {
   };
   const parseSpacingSelected = (event) => {
     const valueToParse = event.target.value;
+    console.log(JSON.parse(valueToParse));
     const spacing_id_index = Object.values(JSON.parse(valueToParse));
     const spacing_id = spacing_id_index[0];
     const itemSelected = JSON.parse(valueToParse);
-    setSelected(itemSelected);
+    console.log(itemSelected.name);
+    // setSelected(itemSelected);
+    setSelectedSpacing(itemSelected.name);
     setmyspacing(itemSelected.factor);
     localStorage.setItem("myspacing", JSON.stringify(itemSelected.factor));
     setOrder({
@@ -241,7 +251,7 @@ const CreateOrder = () => {
       addOrder(bodyData).then((response) => {
         if (response.status === 201) {
           const orderID = response.data.id;
-          router.push(`/dashboard/${orderID}`);
+          router.push(`/dashboard/order/${orderID}`);
         }
       });
     } else {
@@ -463,20 +473,37 @@ const CreateOrder = () => {
                       })}
                     </Select>
                     <Label htmlFor="sound">Pages</Label>
-                    <Select
-                      onChange={parsePageSelected}
-                      name="pages_id"
-                      id="pages_id"
-                      mb={3}
-                    >
-                      {pageSelector.pages.map((page) => {
-                        return (
-                          <option key={page.id} value={JSON.stringify(page)}>
-                            {page.name}
-                          </option>
-                        );
-                      })}
-                    </Select>
+                    {selectedSpacing === "Double Spaced" ? (
+                      <Select
+                        onChange={parsePageSelected}
+                        name="pages_id"
+                        id="pages_id"
+                        mb={3}
+                      >
+                        {pageSelector.pages.slice(0, 150).map((page) => {
+                          return (
+                            <option key={page.id} value={JSON.stringify(page)}>
+                              {page.name}
+                            </option>
+                          );
+                        })}
+                      </Select>
+                    ) : (
+                      <Select
+                        onChange={parsePageSelected}
+                        name="pages_id"
+                        id="pages_id"
+                        mb={3}
+                      >
+                        {pageSelector.pages.slice(200).map((page) => {
+                          return (
+                            <option key={page.id} value={JSON.stringify(page)}>
+                              {page.name}
+                            </option>
+                          );
+                        })}
+                      </Select>
+                    )}
                   </Col>
                 </Box>
               )}

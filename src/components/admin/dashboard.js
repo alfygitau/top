@@ -77,7 +77,7 @@ const Dashboard = ({ section }) => {
     <div>
       <Head>
         <title>
-          {section.toUpperCase().replace(/_/g, " ")} - TopRated Professors
+          {section.toUpperCase().replace(/_/g, " ")} - Top Rated Professors
         </title>
         <link rel="shortcut icon" href="/logo.ico" />
         <link

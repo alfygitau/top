@@ -65,21 +65,28 @@ export default function Login() {
   }, [dispatch, router]);
 
   return (
+    <>
     <Box>
       <Box>
-        <Head>
-          <title>Login</title>
-          <link rel="icon" href="/favicon.ico" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
-            rel="stylesheet"
-          />
-        </Head>
+      <Head>
+        <title>
+          Login - Top Rated Professors
+        </title>
+        <link rel="shortcut icon" href="/logo.ico" />
+        <link
+          href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       </Box>
       <Box sx={styles.login}>
         <Box sx={styles.loginImage}>
           <Box sx={styles.home} onClick={() => router.push("/")}>
-            TopRated Professors
+            Top Rated Professors
           </Box>
           <Image src={PatternBG} alt="" sx={styles.patternImage} />
         </Box>
@@ -87,7 +94,7 @@ export default function Login() {
           <Box sx={styles.formLogin} as="form" onSubmit={handleUserLogin}>
             <center>
               <Box sx={{ textAlign: "center", fontSize: "35px" }}>
-                Welcome to TopRated Professors
+                Welcome to Top Rated Professors
               </Box>
               <br />
               {checkDetailsData.errorMessage && (
@@ -132,6 +139,7 @@ export default function Login() {
         </Box>
       </Box>
     </Box>
+    </>
   );
 }
 

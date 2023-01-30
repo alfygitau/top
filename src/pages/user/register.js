@@ -80,19 +80,25 @@ export default function Register() {
   return (
     <Box>
       <Box>
-        <Head>
-          <title>Register</title>
-          <link rel="icon" href="/favicon.ico" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
-            rel="stylesheet"
-          />
-        </Head>
+      <Head>
+        <title>
+          Register - Top Rated Professors
+        </title>
+        <link rel="shortcut icon" href="/logo.ico" />
+        <link
+          href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       </Box>
       <Box sx={styles.login}>
         <Box sx={styles.loginImage}>
           <Box sx={styles.home} onClick={() => router.push("/")}>
-            TopRated Professors
+            Top Rated Professors
           </Box>
           <Image src={PatternBG} alt="" sx={styles.patternImage} />
         </Box>
@@ -100,7 +106,7 @@ export default function Register() {
           <Box sx={styles.formLogin} as="form" onSubmit={handleRegisterUser}>
             <center>
               <Box sx={{ textAlign: "center", fontSize: "35px" }}>
-                Welcome to TopRated Professors
+                Welcome to Top Rated Professors
               </Box>
               {checkDetailsData.errorMessage && (
                 <Message closable type="error">
