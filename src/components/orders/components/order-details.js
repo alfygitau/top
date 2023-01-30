@@ -153,7 +153,7 @@ const OrderDetails = ({ section }) => {
   const { isLoading } = walletSelector;
   const reserveSelector = useSelector((state) => state.orderState);
   const { errorMessage: walletError } = reserveSelector;
-  console.log(walletError?.data.error_message)
+  // console.log(walletError?.data.error_message);
   const messageSelector = useSelector((state) => state.messageState);
   const { messages } = messageSelector;
   const newMessages = [...messages];
@@ -558,19 +558,22 @@ const OrderDetails = ({ section }) => {
     }
   };
   const handleReserveFromWallet = () => {
-    payFromWallet(dispatch, orderId)
-      .then((response) => {
-        if (response.status === 200) {
-          toast.success("Paid from wallet successfully!", {
-            position: toast.POSITION.TOP_CENTER,
-          });
-          router.push("/dashboard/waiting-assign");
-        } else {
-          toast.error(walletError?.data.error_message, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        }
-      })
+    payFromWallet(dispatch, orderId).then((response) => {
+      if (response.status === 200) {
+        toast.success("Paid from wallet successfully!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        router.push("/dashboard/waiting-assign");
+      } else {
+        dispatch({
+          type: "MAKE_PAYMENT_ERROR",
+          errorMessage: walletError?.data.error_message,
+        });
+        toast.error(walletError?.data?.error_message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+    });
   };
 
   React.useEffect(() => {
