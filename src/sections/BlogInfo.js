@@ -72,36 +72,7 @@ const BlogInfo = () => {
                           <p style={{ fontSize: "24px", fontWeight: "600" }}>
                             {blogDetails.title}
                           </p>
-                          {blogDetails?.assets?.length === 1 ? (
-                            <div>
-                              <img
-                                height="300"
-                                width="50%"
-                                style={{
-                                  float: "left",
-                                  margin: "10px",
-                                  border: "1px solid rgb(218,230,242)",
-                                  borderRadius: "10px",
-                                }}
-                                src={`${baseUrl}/${blogDetails.assets[0].key}`}
-                              />
-                            </div>
-                          ) : blogDetails?.assets?.length === 0 ? (
-                            <div>
-                              <img
-                                src={blogg}
-                                alt="blog"
-                                height="300"
-                                width="50%"
-                                style={{
-                                  float: "left",
-                                  margin: "10px",
-                                  border: "1px solid rgb(218,230,242)",
-                                  borderRadius: "10px",
-                                }}
-                              />
-                            </div>
-                          ) : (
+                          {blogDetails?.assets?.length > 0 ? (
                             <Carousel
                               autoplay
                               style={{
@@ -121,6 +92,21 @@ const BlogInfo = () => {
                                 />
                               ))}
                             </Carousel>
+                          ) : (
+                            <div>
+                              <img
+                                src={blog}
+                                alt="blog"
+                                height="300"
+                                width="50%"
+                                style={{
+                                  float: "left",
+                                  margin: "10px",
+                                  border: "1px solid rgb(218,230,242)",
+                                  borderRadius: "10px",
+                                }}
+                              />
+                            </div>
                           )}
                           <p style={{ fontStyle: "italic" }}>
                             POSTED ON &nbsp;

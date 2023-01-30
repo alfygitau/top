@@ -767,6 +767,7 @@ export const payFromWallet = async (dispatch, orderID) => {
         }
       )
       .then((response) => {
+        console.log(response)
         dispatch({
           type: PAY_FROM_WALLET_SUCCESS,
           paid_from_wallet_order: response.data,

@@ -61,6 +61,7 @@ export const makePayment = async (dispatch, bodyData) => {
         return response;
       });
   } catch (error) {
+    console.log(error)
     dispatch({
       type: MAKE_PAYMENT_ERROR,
       errorMessage: error.response.data.message,

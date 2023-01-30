@@ -226,7 +226,7 @@ const blogDetails = ({ section }) => {
             <p style={{ fontSize: "24px", fontWeight: "600" }}>
               {blogDetails.title}
             </p>
-            {blogDetails?.assets?.length > 1 && (
+            {blogDetails?.assets?.length > 1 ? (
               <Carousel
                 autoplay
                 style={{
@@ -243,8 +243,7 @@ const blogDetails = ({ section }) => {
                   <img key={asset.id} src={`${baseUrl}/${asset.key}`} />
                 ))}
               </Carousel>
-            )}
-            {blogDetails?.assets?.length < 1 && (
+            ) : (
               <div>
                 <img
                   src={blogg}
@@ -257,21 +256,6 @@ const blogDetails = ({ section }) => {
                     border: "1px solid rgb(218,230,242)",
                     borderRadius: "10px",
                   }}
-                />
-              </div>
-            )}
-            {blogDetails?.assets?.length === 1 && (
-              <div>
-                <img
-                  height="300"
-                  width="50%"
-                  style={{
-                    float: "left",
-                    margin: "10px",
-                    border: "1px solid rgb(218,230,242)",
-                    borderRadius: "10px",
-                  }}
-                  src={`${baseUrl}/${blogDetails.assets[0].key}`}
                 />
               </div>
             )}
