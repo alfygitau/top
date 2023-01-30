@@ -253,6 +253,7 @@ const blogDetails = ({ section }) => {
                   style={{
                     float: "left",
                     margin: "10px",
+                    marginRight:"30px",
                     border: "1px solid rgb(218,230,242)",
                     borderRadius: "10px",
                   }}
