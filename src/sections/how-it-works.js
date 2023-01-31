@@ -7,22 +7,23 @@ import PatternBG from "assets/patternBG.png";
 import ArrowOdd from "assets/arrowOdd.svg";
 import ArrowEven from "assets/arrowEven.svg";
 import pricing from "../assets/blog/pricing.png";
-import order from "../assets/blog/order.png";
-import download from "../assets/blog/download.jpg";
+import wallet from "../assets/blog/wallet.png";
+import order from "../assets/blog/order-new.png";
+import download from "../assets/blog/download.png";
+import calculator from "../assets/blog/calculator.png";
 import grammar from "../assets/blog/grammar.png";
 import plag from "../assets/blog/plag.webp";
 import quality from "../assets/blog/quality.jpg";
-import tick from "../assets/blog/tick.webp"
+import tick from "../assets/blog/tick.webp";
 
 const packages = {
   instructions: [
     {
       id: 1,
-      name: "Calculate the Minimum Price and click Continue",
+      name: "Calculate the minimum price",
       point1:
-        "Visit our website to fill up your order form, indicating the service you need, " +
-        "the number of pages, and the exact time you need it. Provide detailed instructions as possible.",
-      image: pricing,
+        "Visit our website and use the calculator to determine how much you need to pay for an assignment, essay, thesis or dessertaton to done on your behalf ",
+      image: calculator,
     },
   ],
   completed_work: [
@@ -30,23 +31,16 @@ const packages = {
       id: 1,
       name: "Fill the Order Form and Place Order",
       point1:
-        "Upon registration, add additional information to your order including attachments, messages, deadline, more instructions, styles and methodology.",
+        "Povide information about your order/service including instructions, attachments, messages, deadline, styles, references and methodologies.",
       image: order,
     },
   ],
   reserve_funds: [
     {
       id: 1,
-      name: "An order is considered complete if it passes these tests",
-      point1: "Plagiarism Check - 0%",
-      image1: grammar,
-      image4: tick,
-      point2: "Grammar Check - 100%",
-      image2: plag,
-      image5: tick,
-      point3: "Quality Check - 100%",
-      image3: quality,
-      image6: tick,
+      name: "Reserve payment",
+      point1: "Reserve the payment for the order",
+      image: wallet,
     },
   ],
   Download_and_release_funds: [
@@ -54,7 +48,7 @@ const packages = {
       id: 1,
       name: "Download and release funds",
       point1:
-        "Upon successful completion of an assignment, you will download the order/service",
+        "Upon successful completion of an assignment, you will download the order/service and release money to the writer",
       point2: "Downloading the order will also realease funds to the writer",
       image: download,
     },
@@ -121,7 +115,7 @@ export default function HowItWorks() {
                   aria-label="Reserve Funds"
                   onClick={() => handlePricingPlan("reserve_funds")}
                 >
-                  Order complete
+                  Reserve payment
                 </button>
                 <button
                   className={

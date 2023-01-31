@@ -31,9 +31,8 @@ export default function PriceCard({
             {name}
           </h3>
           <Text as="p">
-            <FaAngleDoubleRight />{" "}
             {image2 && (
-              <img src={image2} alt="how it works" height="100px" width="150"  />
+              <img src={image2} alt="how it works" height="100px" width="150" />
             )}
             {point1} &nbsp;
             {image2 && (
@@ -42,7 +41,6 @@ export default function PriceCard({
           </Text>
           {point2 && (
             <Text as="p">
-              <FaAngleDoubleRight />{" "}
               {image1 && (
                 <img
                   src={image1}
@@ -59,7 +57,6 @@ export default function PriceCard({
           )}
           {point3 && (
             <Text as="p">
-              <FaAngleDoubleRight />{" "}
               {image3 && (
                 <img
                   src={image3}
@@ -74,9 +71,29 @@ export default function PriceCard({
               )}
             </Text>
           )}
-          {image && (
-            <img src={image} alt="how it works" height="450px" width="900" />
-          )}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            {image && (
+              <div style={{ border: "0.5px solid black" }}>
+                <img
+                  src={image}
+                  alt="how it works"
+                  height="300px"
+                  width="600"
+                  style={{
+                    backgroundSize: "cover",
+                    backgoundPosition: "center",
+                    margin: "20px",
+                  }}
+                />
+              </div>
+            )}
+          </div>
         </Box>
       </Box>
     </Card>
