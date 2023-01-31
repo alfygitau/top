@@ -73,11 +73,14 @@ const Dashboard = ({ section }) => {
         return "";
     }
   };
+
   return (
     <div>
       <Head>
         <title>
-          {section.toUpperCase().replace(/_/g, " ")} - Top Rated Professors
+          {section.slice(0, 1).toUpperCase() +
+            section.slice(1).replace(/_/g, " ")}{" "}
+          - Top Rated Professors
         </title>
         <link rel="shortcut icon" href="/logo.ico" />
         <link
