@@ -49,7 +49,7 @@ const packages = {
       name: "Download and release funds",
       point1:
         "Upon successful completion of an assignment, you will download the order/service and release money to the writer",
-      point2: "Downloading the order will also realease funds to the writer",
+      point2: "Rate the writer",
       image: download,
     },
   ],

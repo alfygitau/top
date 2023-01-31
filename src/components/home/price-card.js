@@ -79,7 +79,7 @@ export default function PriceCard({
             }}
           >
             {image && (
-              <div style={{ border: "0.5px solid black" }}>
+              <div style={{ border: "1px solid rgb(218,230,242)" }}>
                 <img
                   src={image}
                   alt="how it works"
