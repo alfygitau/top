@@ -569,6 +569,7 @@ const OrderDetails = ({ section }) => {
           type: "MAKE_PAYMENT_ERROR",
           errorMessage: walletError?.data.error_message,
         });
+        console.log(walletError?.data?.error_message);
         toast.error(walletError?.data?.error_message, {
           position: toast.POSITION.TOP_CENTER,
         });
@@ -1086,6 +1087,7 @@ const OrderDetails = ({ section }) => {
           <Modal
             show={reserveOpen}
             onHide={handleReserveClose}
+            // onShow={handleShowWalletValues}
             size="lg"
             centered
           >

@@ -4,7 +4,10 @@ import Link from "next/link";
 import NoData from "assets/no-open.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate, formatDeadline } from "../../../utils/dates";
-import { getCompletedOrders } from "dataStore/actions/ordersAction";
+import {
+  getCompletedOrderFiles,
+  getCompletedOrders,
+} from "dataStore/actions/ordersAction";
 
 const Completed = () => {
   const [activePage, setActivePage] = useState(1);
@@ -22,6 +25,11 @@ const Completed = () => {
     getCompletedOrders(dispatch, userId, activePage, per);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, activePage, per]);
+
+  const fetchOrderFiles = (id) => {
+    getCompletedOrderFiles(dispatch, id);
+    localStorage.setItem("completedId", JSON.stringify(id));
+  };
 
   return (
     <div style={{ marginLeft: "10px", marginRight: "10px" }}>
@@ -52,7 +60,9 @@ const Completed = () => {
             <td style={styles.table.td}>{data.id}</td>
             <td style={styles.table.td}>
               <Link href={`/dashboard/order/completed/${data.id}`}>
-                <a>{data.order_number}</a>
+                <a onClick={() => fetchOrderFiles(data.id)}>
+                  {data.order_number}
+                </a>
               </Link>
             </td>
             <td style={styles.table.td}>{formatDeadline(data.deadline)}</td>

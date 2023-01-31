@@ -74,6 +74,9 @@ import {
   RE_SUBMIT_ORDER,
   RE_SUBMIT_ORDER_SUCCESS,
   RE_SUBMIT_ORDER_ERROR,
+  GET_COMPLETED_ORDER_FILES,
+  GET_COMPLETED_ORDER_FILES_SUCCESS,
+  GET_COMPLETED_ORDER_FILES_ERROR,
 } from "../dispatchTypes";
 
 export const initialOrdersState = {
@@ -131,6 +134,7 @@ export const initialOrdersState = {
   approved_order: {},
   paid_from_wallet_order: {},
   re_submitted_order: {},
+  completed_order_files: [],
 };
 
 export const ordersReducers = (state = initialOrdersState, action) => {
@@ -719,6 +723,29 @@ export const ordersReducers = (state = initialOrdersState, action) => {
       };
     }
     case RE_SUBMIT_ORDER_ERROR: {
+      return {
+        ...state,
+        isSuccess: false,
+        isLoading: false,
+        errorMessage: action.errorMessage,
+      };
+    }
+    case GET_COMPLETED_ORDER_FILES: {
+      return {
+        ...state,
+        isError: false,
+        isLoading: true,
+      };
+    }
+    case GET_COMPLETED_ORDER_FILES_SUCCESS: {
+      return {
+        ...state,
+        isSuccess: false,
+        isLoading: false,
+        completed_order_files: action.complete_order_files,
+      };
+    }
+    case GET_COMPLETED_ORDER_FILES_ERROR: {
       return {
         ...state,
         isSuccess: false,

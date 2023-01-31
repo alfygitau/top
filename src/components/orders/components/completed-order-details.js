@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { Editor } from "@tinymce/tinymce-react";
+import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
+// import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
+import { FaDownload } from "react-icons/fa";
+import SortDownIcon from "@rsuite/icons/SortDown";
 import {
   Avatar,
   Button,
@@ -23,6 +27,7 @@ import {
   approveOrder,
   deleteOrderFile,
   fileUpload,
+  getCompletedOrderFiles,
   getOrder,
   getOrderfiles,
   getRejectReasons,
@@ -49,7 +54,7 @@ const OrderCompletedDetails = ({ section }) => {
   const [requestRevisionOpen, setRequestRevisionOpen] = useState(false);
   const [reject_reason_value, setRejectReasonValue] = useState(1);
   const [rejectOpen, setRejectOpen] = useState(false);
-  const [hoverValue, setHoverValue] = React.useState(3);
+  const [hoverValue, setHoverValue] = React.useState(5);
   const [uploadedFileName, setUploadedFileName] = useState("");
   const [uploadFiles, setUploadFiles] = useState({
     order_id: "",
@@ -89,6 +94,7 @@ const OrderCompletedDetails = ({ section }) => {
   const {
     order_files,
     isLoading,
+    completed_order_files,
     order: {
       id: orderId,
       order_number,
@@ -112,6 +118,9 @@ const OrderCompletedDetails = ({ section }) => {
     },
     reject_reasons,
   } = orderSelector;
+
+  // console.log(completed_order_files);
+  let baseUrl = "https://admin.doctorateessays.com/images/uploads";
 
   const router = useRouter();
   const { completedOrderID } = router.query;
@@ -164,6 +173,8 @@ const OrderCompletedDetails = ({ section }) => {
       });
     }
   };
+
+  console.log(hoverValue);
 
   const handleReleaseFundsSubmit = () => {
     const bodyData = {
@@ -306,6 +317,7 @@ const OrderCompletedDetails = ({ section }) => {
   useEffect(() => {
     getOrder(dispatch, completedOrderID);
     getOrderfiles(dispatch, completedOrderID);
+    getCompletedOrderFiles(dispatch, completedOrderID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, completedOrderID, uploadFiles.uploaded_files]);
 
@@ -692,7 +704,7 @@ const OrderCompletedDetails = ({ section }) => {
             <Modal open={requestRevisionOpen} onClose={handleRevisionClose}>
               <Modal.Header>
                 <Modal.Title>
-                  <h5>Request Revision For Order #120862</h5>
+                  <h5>Request Revision For Order {completedOrderID}</h5>
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
@@ -733,7 +745,7 @@ const OrderCompletedDetails = ({ section }) => {
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <Rate defaultValue={5} onChangeActive={setHoverValue} />{" "}
+                <Rate defaultValue={5} onChangeActive={setHoverValue} />
                 <span style={textStyle}>{texts[hoverValue]}</span>
                 <h6>Description</h6>
                 <textarea
@@ -817,19 +829,33 @@ const OrderCompletedDetails = ({ section }) => {
               </Modal.Footer>
             </Modal>
           </div>
+
           <table style={styles.table}>
             <tr style={{ borderRadius: "10px" }}>
               <th style={styles.table.th}>File Name</th>
+              <th style={styles.table.th}>Order Number</th>
               <th style={styles.table.th}>File Type</th>
               <th style={styles.table.th}>Time Uploaded</th>
               <th style={styles.table.th}>Download</th>
             </tr>
-            <tr>
-              <td style={styles.table.td}>Order Number</td>
-              <td style={styles.table.td}>Service</td>
-              <td style={styles.table.td}>hh</td>
-              <td style={styles.table.td}>Type of Paper</td>
-            </tr>
+            {completed_order_files.map((file) => (
+              <tr>
+                <td style={styles.table.td}>{file.name}</td>
+                <td style={styles.table.td}>{file.order_number}</td>
+                <td style={styles.table.td}>Service</td>
+                <td style={styles.table.td}>
+                  {moment(file.created_at).format("MMMM Do YYYY, h:mm:ss a")}
+                </td>
+                <td style={styles.table.td}>
+                  <a
+                    href={`${baseUrl}/${file.name}-${file.file_date}.${file.file_extension}`}
+                    download
+                  >
+                    <FaDownload style={{ color: "green" }} />
+                  </a>
+                </td>
+              </tr>
+            ))}
           </table>
         </Panel>
       )}

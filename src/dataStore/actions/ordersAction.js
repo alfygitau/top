@@ -75,6 +75,9 @@ import {
   RE_SUBMIT_ORDER,
   RE_SUBMIT_ORDER_SUCCESS,
   RE_SUBMIT_ORDER_ERROR,
+  GET_COMPLETED_ORDER_FILES,
+  GET_COMPLETED_ORDER_FILES_SUCCESS,
+  GET_COMPLETED_ORDER_FILES_ERROR,
 } from "../dispatchTypes";
 
 export const getOrders = async (dispatch, userId, page, per) => {
@@ -767,7 +770,7 @@ export const payFromWallet = async (dispatch, orderID) => {
         }
       )
       .then((response) => {
-        console.log(response)
+        console.log(response);
         dispatch({
           type: PAY_FROM_WALLET_SUCCESS,
           paid_from_wallet_order: response.data,
@@ -812,6 +815,39 @@ export const reSubmitOrder = async (dispatch, orderID) => {
     dispatch({
       type: RE_SUBMIT_ORDER_ERROR,
       errorMessage: error.response,
+    });
+
+    return error.response;
+  }
+};
+
+export const getCompletedOrderFiles = async (dispatch, orderID) => {
+  dispatch({
+    type: GET_COMPLETED_ORDER_FILES,
+  });
+  try {
+    return await fetch(
+      `https://api.doctorateessays.com/orders/${orderID}/completed_files`,
+      {
+        method: "GET",
+        headers: {
+          "x-toprated-token": localStorage.token,
+        },
+      }
+    ).then((response) =>
+      response.json().then((data) => {
+        dispatch({
+          type: GET_COMPLETED_ORDER_FILES_SUCCESS,
+          complete_order_files: data,
+        });
+        console.log(response);
+        return data;
+      })
+    );
+  } catch (error) {
+    dispatch({
+      type: GET_COMPLETED_ORDER_FILES_ERROR,
+      errorMessage: error.response?.data.message,
     });
 
     return error.response;
