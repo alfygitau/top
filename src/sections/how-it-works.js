@@ -48,8 +48,8 @@ const packages = {
       id: 1,
       name: "Download and release funds",
       point1:
-        "Upon successful completion of an assignment, you will download the order/service and release money to the writer",
-      point2: "Rate the writer",
+        "Upon successful completion of an assignment, you will download the order/service and release money to the writer.",
+      point2: "Rate the writer after reviewing the article.",
       image: download,
     },
   ],

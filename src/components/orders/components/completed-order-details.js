@@ -832,16 +832,16 @@ const OrderCompletedDetails = ({ section }) => {
 
           <table style={styles.table}>
             <tr style={{ borderRadius: "10px" }}>
-              <th style={styles.table.th}>File Name</th>
               <th style={styles.table.th}>Order Number</th>
+              <th style={styles.table.th}>File Name</th>
               <th style={styles.table.th}>File Type</th>
               <th style={styles.table.th}>Time Uploaded</th>
               <th style={styles.table.th}>Download</th>
             </tr>
             {completed_order_files.map((file) => (
               <tr>
-                <td style={styles.table.td}>{file.name}</td>
                 <td style={styles.table.td}>{file.order_number}</td>
+                <td style={styles.table.td}>{file.name}</td>
                 <td style={styles.table.td}>Service</td>
                 <td style={styles.table.td}>
                   {moment(file.created_at).format("MMMM Do YYYY, h:mm:ss a")}
