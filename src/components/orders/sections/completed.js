@@ -41,7 +41,7 @@ const Completed = () => {
           marginRight: "20px",
         }}
       >
-        <h3>Completed Orders:</h3>
+        <h3>Completed Orders</h3>
       </div>
       <Divider />
       <table style={styles.table}>

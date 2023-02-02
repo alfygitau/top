@@ -40,7 +40,7 @@ const AllOrders = () => {
             marginRight: "20px",
           }}
         >
-          <h3>All Orders:</h3>
+          <h3>All Orders</h3>
         </div>
         <Divider />
         <table style={styles.table}>

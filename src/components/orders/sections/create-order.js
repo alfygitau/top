@@ -298,7 +298,7 @@ const CreateOrder = () => {
   return (
     <Box sx={{ marginLeft: "10px", marginRight: "10px" }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <h3>Create Order:</h3>
+        <h3>Create Order</h3>
       </Box>
       <Divider />
       {orderLoading && <BoxLoading />}

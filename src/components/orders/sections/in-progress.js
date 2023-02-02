@@ -34,7 +34,7 @@ const InProgress = () => {
           marginRight: "20px",
         }}
       >
-        <h3>In-Progress/Active Orders:</h3>
+        <h3>In-Progress/Active Orders</h3>
       </div>
       <Divider />
       <table style={styles.table}>

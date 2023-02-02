@@ -32,7 +32,7 @@ const Rejected = () => {
           marginRight: "20px",
         }}
       >
-        <h3>Rejected Orders:</h3>
+        <h3>Rejected Orders</h3>
       </div>
       <Divider />
       <table style={styles.table}>

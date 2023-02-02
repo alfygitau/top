@@ -38,7 +38,7 @@ const WaitingAssign = () => {
             marginRight: "20px",
           }}
         >
-          <h3>Available Orders:</h3>
+          <h3>Available Orders</h3>
         </div>
         <Divider />
         <table style={styles.table}>

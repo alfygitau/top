@@ -122,7 +122,7 @@ const Pending = () => {
             marginRight: "20px",
           }}
         >
-          <h3>Pending Orders:</h3>
+          <h3>Pending Orders</h3>
         </div>
         <Divider />
         <table style={styles.table}>

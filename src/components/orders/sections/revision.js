@@ -30,7 +30,7 @@ const Revision = () => {
           marginRight: "20px",
         }}
       >
-        <h3>Revision Orders:</h3>
+        <h3>Revision Orders</h3>
       </div>
       <Divider />
       <table style={styles.table}>

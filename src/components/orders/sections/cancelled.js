@@ -50,7 +50,7 @@ const Cancelled = () => {
           marginRight: "20px",
         }}
       >
-        <h3>Cancelled Orders:</h3>
+        <h3>Cancelled Orders</h3>
       </div>
       <Divider />
       <table style={styles.table}>
