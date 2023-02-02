@@ -84,10 +84,12 @@ const CancelledRejectedDetails = ({ section }) => {
       spacing,
       urgency,
       amount,
+      instructions,
       created_at,
-      reject_details,
+      cancel_details,
     },
   } = orderSelector;
+  console.log(orderSelector);
 
   const router = useRouter();
   const { orderID } = router.query;
@@ -231,32 +233,6 @@ const CancelledRejectedDetails = ({ section }) => {
         </Nav.Item>
         <Nav.Item
           onClick={() => {
-            setUploadOpen(true);
-            setOpen(false);
-            setMessageOpen(false);
-            setDownloadOpen(false);
-            setActive("2");
-          }}
-          eventKey="2"
-          icon={<DetailIcon />}
-        >
-          Attach Files
-        </Nav.Item>
-        <Nav.Item
-          onClick={() => {
-            setMessageOpen(true);
-            setOpen(false);
-            setUploadOpen(false);
-            setDownloadOpen(false);
-            setActive("3");
-          }}
-          eventKey="3"
-          icon={<DetailIcon />}
-        >
-          Messages
-        </Nav.Item>
-        <Nav.Item
-          onClick={() => {
             setDownloadOpen(true);
             setOpen(false);
             setUploadOpen(false);
@@ -266,99 +242,9 @@ const CancelledRejectedDetails = ({ section }) => {
           eventKey="4"
           icon={<DetailIcon />}
         >
-          Revision Instructions
+          Cancellation reasons
         </Nav.Item>
       </Nav>
-      {uploadOpen && (
-        <div>
-          {orderLoading && <BoxLoading />}
-          <ToastContainer />
-          <Grid fluid>
-            <Row>
-              <Col xs={24} sm={24} md={24}>
-                <div style={{ padding: "10px" }}>
-                  <h4>*Uploads one file at a time</h4>
-                  <Uploader
-                    listType="picture-text"
-                    ref={uploaderRef}
-                    value={uploadFiles}
-                    autoUpload={false}
-                    removable={uploadFiles.length >= 2 && true}
-                    onChange={(file) => handleFileUploadChange(file)}
-                    fileListVisible={false}
-                  >
-                    <div
-                      style={{
-                        width: "100%",
-                        background: "#EAEEF3",
-                        lineHeight: "100px",
-                      }}
-                    >
-                      Click or Drag a file to this area to upload
-                    </div>
-                  </Uploader>
-                  {uploadedFileName && (
-                    <h4>Uploaded File: {uploadedFileName}</h4>
-                  )}
-                  <Divider />
-                  <Button
-                    style={{ width: "100%" }}
-                    color="green"
-                    appearance="primary"
-                    onClick={handleFileUploadSubmit}
-                  >
-                    Start Upload
-                  </Button>
-                </div>
-                <Panel>
-                  {order_files.length > 0 && (
-                    <div>
-                      <h6>Uploaded files</h6>
-                      <table style={styles.table}>
-                        <tr style={{ background: "#fdaa8f" }}>
-                          <th style={{ padding: "10px", textAlign: "left" }}>
-                            File Name
-                          </th>
-                          <th>Uploaded At</th>
-                        </tr>
-                        {order_files &&
-                          order_files.map((order_file) => (
-                            <tr style={{ borderRadius: "10px" }}>
-                              <td style={styles.table.td}>
-                                <strong>
-                                  <Avatar
-                                    style={{ background: "#17c671" }}
-                                    circle
-                                    size="sm"
-                                  >
-                                    TRP
-                                  </Avatar>
-                                  {"     "}
-                                  {order_file.attached}
-                                </strong>
-                              </td>
-                              <td style={styles.table.tdx}>
-                                <Button
-                                  color="red"
-                                  onClick={() =>
-                                    handleOrderFileDelete(order_file)
-                                  }
-                                  appearance="primary"
-                                >
-                                  Delete
-                                </Button>
-                              </td>
-                            </tr>
-                          ))}
-                      </table>
-                    </div>
-                  )}
-                </Panel>
-              </Col>
-            </Row>
-          </Grid>
-        </div>
-      )}
       {open && (
         <Grid fluid>
           <Row>
@@ -474,128 +360,55 @@ const CancelledRejectedDetails = ({ section }) => {
                         <b>Amount</b>
                       </td>
                       <td style={styles.table.td} colSpan="3">
-                        {amount}
+                        $ &nbsp;{amount?.toFixed(2)}
                       </td>
                     </tr>
                     <tr>
                       <td style={styles.table.td}>
-                        <b>Rejected</b>
+                        <b>Cancellation reasons</b>
                       </td>
                       <td style={styles.table.td} colSpan="3">
                         <span style={{ color: "red" }}>
-                          {reject_details?.description}
+                          {cancel_details?.description}
                         </span>
                       </td>
                     </tr>
                   </tbody>
                 </table>
+                <div className="instructions">
+                  <h6
+                    style={{ marginTop: "20px", textDecoration: "underline" }}
+                  >
+                    Order Instructions
+                  </h6>
+                  <div
+                    style={{
+                      borderRadius: "10px",
+                      border: "1px solid grey",
+                      padding: "10px 20px",
+                    }}
+                  >
+                    <div dangerouslySetInnerHTML={{ __html: instructions }} />
+                  </div>
+                </div>
               </Panel>
             </Col>
           </Row>
         </Grid>
-      )}
-      {messageOpen && (
-        <div>
-          <Panel>
-            <h5>Order Messages</h5>
-            <div
-              id="messages"
-              style={{
-                padding: "10px",
-                borderRadius: "5px",
-                border: "2px solid #98b9b6",
-              }}
-            >
-              <ScrollToBottom className={ROOT_CSS}>
-                {messageInfo.length === 0 && (
-                  <center>
-                    <h5 style={{ marginTop: "20px" }}>No order messages</h5>
-                  </center>
-                )}
-                {messageInfo
-                  ?.map((message) => (
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      {message.receiver_id === 7 ? (
-                        <div style={{ marginBottom: "15px" }}>
-                          <Tag
-                            style={{
-                              width: "300px",
-                              color: "black",
-                              borderRadius: "15px",
-                              background: "whitesmoke",
-                              padding: "10px",
-                            }}
-                          >
-                            {message.message}
-                            <br />
-                            <p style={{ float: "right" }}>
-                              {dayjs(message.created_at).format("L LT")}
-                            </p>
-                          </Tag>
-                        </div>
-                      ) : (
-                        <div />
-                      )}
-                      {message.receiver_id !== 7 && (
-                        <Tag
-                          style={{
-                            width: "300px",
-                            margin: "10px",
-                            color: "white",
-                            borderRadius: "15px",
-                            background: "#6da8a2",
-                            padding: "10px",
-                          }}
-                        >
-                          {message.message}
-                          <br />
-                          <p style={{ float: "right" }}>
-                            {dayjs(message.created_at).format("L LT")}
-                          </p>
-                        </Tag>
-                      )}
-                    </div>
-                  ))
-                  .reverse()}
-              </ScrollToBottom>
-            </div>
-          </Panel>
-          <Panel>
-            <Input
-              onChange={handleCreateMessageChange}
-              value={message.message}
-              style={{ border: "2px solid #6da8a2", padding: "20px" }}
-              placeholder="Enter message"
-            />
-            <br />
-            <Button
-              onClick={handleCreateMessageSubmit}
-              color="blue"
-              appearance="primary"
-            >
-              Send
-            </Button>
-          </Panel>
-        </div>
       )}
       {downloadOpen && (
         <Panel>
           <table style={styles.table}>
             <tr style={{ borderRadius: "10px" }}>
               <th style={styles.table.th}>Order Number</th>
-              <th style={styles.table.th}>Instructions</th>
+              <th style={styles.table.th}>Cancel Reasons</th>
               <th style={styles.table.th}>Date</th>
             </tr>
             <tr>
-              <td style={styles.table.td}>{reject_details?.order_number}</td>
-              <td style={styles.table.td}>{reject_details?.description}</td>
+              <td style={styles.table.td}>{cancel_details?.order_number}</td>
+              <td style={styles.table.td}>{cancel_details?.description}</td>
               <td style={styles.table.td}>
-                {formatDate(reject_details?.created_at)}
+                {formatDate(cancel_details?.created_at)}
               </td>
             </tr>
           </table>

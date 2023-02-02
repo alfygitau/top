@@ -147,7 +147,7 @@ export const getApprovedOrders = async (dispatch, userId, page, per) => {
   try {
     return await axiosConfig
       .get(
-        `/users/${userId}/orders?page=${page}&per=${per}&approval_status=true`,
+        `/users/${userId}/orders?page=${page}&per=${per}&approved_status=true`,
         {
           headers: {
             "x-toprated-token": localStorage.token,

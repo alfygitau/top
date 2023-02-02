@@ -17,6 +17,8 @@ const Approved = () => {
     errorMessage,
   } = orderSelector;
 
+  console.log(orderSelector)
+
   useEffect(() => {
     const { id: userId } = JSON.parse(localStorage.currentUser);
     getApprovedOrders(dispatch, userId, activePage, per);

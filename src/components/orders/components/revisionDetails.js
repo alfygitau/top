@@ -388,20 +388,6 @@ const RevisionDetails = ({ section }) => {
         </Nav.Item>
         <Nav.Item
           onClick={() => {
-            setDownloadOpen(true);
-            setRevisionOpen(false);
-            setOpen(false);
-            setUploadOpen(false);
-            setMessageOpen(false);
-            setActive("4");
-          }}
-          eventKey="4"
-          icon={<DetailIcon />}
-        >
-          Download and Review
-        </Nav.Item>
-        <Nav.Item
-          onClick={() => {
             setDownloadOpen(false);
             setRevisionOpen(true);
             setOpen(false);
@@ -581,33 +567,21 @@ const RevisionDetails = ({ section }) => {
                   </td>
                   <td style={styles.table.td}>{level && level.name}</td>
                 </tr>
-                <tr>
-                  <td style={styles.table.td}>
-                    <b>Instructions</b>
-                  </td>
-                  <td colSpan="3">
-                    <Editor
-                      apiKey="jm5weuex99fz17qyiv457ia53e6ignpzdupkd8vpszcywnoo"
-                      initialValue={formattedInstructructions}
-                      init={{
-                        height: 300,
-                        language: "en_US",
-                        menubar: false,
-                        plugins: [
-                          "advlist autolink lists link image",
-                          "charmap print preview anchor help",
-                          "searchreplace visualblocks code",
-                          "insertdatetime media table paste wordcount",
-                        ],
-                        toolbar:
-                          "undo redo | formatselect | bold italic | \
-                                                  alignleft aligncenter alignright | \
-                                                  bullist numlist outdent indent | help",
-                      }}
-                    />
-                  </td>
-                </tr>
               </table>
+              <div className="instructions">
+                <h6 style={{ marginTop: "20px", textDecoration: "underline" }}>
+                  Order Instructions
+                </h6>
+                <div
+                  style={{
+                    borderRadius: "10px",
+                    border: "1px solid grey",
+                    padding: "10px 20px",
+                  }}
+                >
+                  <div dangerouslySetInnerHTML={{ __html: instructions }} />
+                </div>
+              </div>
             </Col>
           </Row>
         </Grid>
@@ -700,168 +674,6 @@ const RevisionDetails = ({ section }) => {
             </Button>
           </Panel>
         </div>
-      )}
-      {downloadOpen && (
-        <Panel>
-          <div
-            style={{
-              display: "flex",
-              float: "right",
-              gap: "2em",
-              marginTop: "30px",
-              marginBottom: "10px",
-            }}
-          >
-            <Button
-              onClick={handleRevisonOpen}
-              color="blue"
-              appearance="primary"
-            >
-              Request Revision
-            </Button>
-            <Modal open={requestRevisionOpen} onClose={handleRevisionClose}>
-              <Modal.Header>
-                <Modal.Title>
-                  <h5>Request Revision For Order #120862</h5>
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <h6>Revision Instructions</h6>
-                <textarea
-                  name="instructions"
-                  onChange={handleOrderRevisonChange}
-                  style={{
-                    border: "1px solid #becad6",
-                    width: "100%",
-                    padding: "10px",
-                    borderRadius: "5px",
-                  }}
-                  rows={4}
-                  placeholder="Revision Instructions"
-                />
-                <br />
-              </Modal.Body>
-              <Modal.Footer>
-                <Button
-                  onClick={handleOrderRevisionSubmit}
-                  appearance="primary"
-                >
-                  Request Revision
-                </Button>
-                <Button onClick={handleRevisionClose} appearance="subtle">
-                  Cancel
-                </Button>
-              </Modal.Footer>
-            </Modal>
-            <Button onClick={handleOpen} color="green" appearance="primary">
-              Release Funds
-            </Button>
-            <Modal open={releaseFundsOpen} onClose={handleClose}>
-              <Modal.Header>
-                <Modal.Title>
-                  <h5>Review the Order</h5>
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Rate defaultValue={3} onChangeActive={setHoverValue} />{" "}
-                <span style={textStyle}>{texts[hoverValue]}</span>
-                <h6>Description</h6>
-                <textarea
-                  name="description"
-                  onChange={handleReleaseFundsChange}
-                  style={{
-                    border: "1px solid #becad6",
-                    width: "100%",
-                    padding: "10px",
-                    borderRadius: "5px",
-                  }}
-                  rows={4}
-                  placeholder="Description"
-                />
-                <br />
-              </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={handleReleaseFundsSubmit} appearance="primary">
-                  Send
-                </Button>
-                <Button onClick={handleClose} appearance="subtle">
-                  Cancel
-                </Button>
-              </Modal.Footer>
-            </Modal>
-            <Button onClick={handleRejectOpen} color="red" appearance="primary">
-              Reject Order
-            </Button>
-            <Modal open={rejectOpen} onClose={handleRejectClose}>
-              <Modal.Header>
-                <Modal.Title>
-                  <h5>Reject Order #120862</h5>
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <p>
-                  Reminder: Kindly note that rejecting the order means that you
-                  cannot use the paper delivered to you. If there is anything
-                  you need changed, we recommend that you ask for revision.
-                </p>
-                <br />
-                <h5>Reason:</h5>
-                <select
-                  onChange={handleRejectReasonsChange}
-                  style={{
-                    background: "white",
-                    borderRadius: "5px",
-                    width: "250px",
-                    height: "30px",
-                  }}
-                >
-                  {reject_reasons?.map((reject_reason) => (
-                    <option key={reject_reason.id} value={reject_reason.id}>
-                      {reject_reason.name}
-                    </option>
-                  ))}
-                </select>
-                <br />
-                <h6>Description</h6>
-                <textarea
-                  name="description"
-                  onChange={handleRejectOrderChange}
-                  style={{
-                    border: "1px solid #becad6",
-                    width: "100%",
-                    padding: "10px",
-                    borderRadius: "5px",
-                  }}
-                  rows={4}
-                  placeholder="Description"
-                />
-                <br />
-              </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={handleRejectOrderSubmit} appearance="primary">
-                  Send
-                </Button>
-                <Button onClick={handleRejectClose} appearance="subtle">
-                  Cancel
-                </Button>
-              </Modal.Footer>
-            </Modal>
-          </div>
-          <table style={styles.table}>
-            <tr style={{ borderRadius: "10px" }}>
-              <th style={styles.table.th}>File Name</th>
-              <th style={styles.table.th}>File Type</th>
-              <th style={styles.table.th}>Time Uploaded</th>
-              <th style={styles.table.th}>Download</th>
-            </tr>
-            <tr>
-              <td style={styles.table.td}>Order Number</td>
-              <td style={styles.table.td}>Service</td>
-              <td style={styles.table.td}>hh</td>
-              <td style={styles.table.td}>Type of Paper</td>
-            </tr>
-          </table>
-        </Panel>
       )}
       {revisionOpen && (
         <Panel>

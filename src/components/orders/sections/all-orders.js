@@ -20,6 +20,8 @@ const AllOrders = () => {
     orders: { orders: all_orders, pagination },
   } = orderSelector;
 
+  console.log(orderSelector)
+
   useEffect(() => {
     const { id: userId } = JSON.parse(localStorage.currentUser);
     getOrders(dispatch, userId, activePage, per);
