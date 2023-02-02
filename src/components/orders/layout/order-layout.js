@@ -23,11 +23,12 @@ import GearIcon from "@rsuite/icons/Gear";
 import ReloadIcon from "@rsuite/icons/Reload";
 import PeoplesIcon from "@rsuite/icons/Peoples";
 import LocationIcon from "@rsuite/icons/Location";
-import ExploreIcon from "@rsuite/icons/Explore";
+import ReviewPassIcon from "@rsuite/icons/ReviewPass";
 import CloseOutlineIcon from "@rsuite/icons/CloseOutline";
+import ReadyRoundIcon from "@rsuite/icons/ReadyRound";
 import BlockIcon from "@rsuite/icons/Block";
 import RemindRoundIcon from "@rsuite/icons/RemindRound";
-import AlipayIcon from "@rsuite/icons/Alipay";
+import TimeIcon from "@rsuite/icons/Time";
 import OffIcon from "@rsuite/icons/Off";
 import PageNextIcon from "@rsuite/icons/PageNext";
 import { useRouter } from "next/router";
@@ -269,7 +270,7 @@ const OrderLayout = ({ children }) => {
                 <Nav.Item
                   eventKey="4"
                   style={{ fontSize: "20px" }}
-                  icon={<AlipayIcon color="#3498FF" />}
+                  icon={<TimeIcon color="#3498FF" />}
                   onClick={() =>
                     router.push("/dashboard/waiting-assign", undefined, {
                       shallow: true,
@@ -289,7 +290,7 @@ const OrderLayout = ({ children }) => {
                 <Nav.Item
                   eventKey="5"
                   style={{ fontSize: "20px" }}
-                  icon={<PeoplesIcon color="#3498FF" />}
+                  icon={<ReadyRoundIcon color="#3498FF" />}
                   onClick={() =>
                     router.push("/dashboard/in-progress", undefined, {
                       shallow: true,
@@ -369,7 +370,7 @@ const OrderLayout = ({ children }) => {
                 <Nav.Item
                   eventKey="9"
                   style={{ fontSize: "20px" }}
-                  icon={<ExploreIcon color="#3498FF" />}
+                  icon={<ReviewPassIcon color="#3498FF" />}
                   onClick={() =>
                     router.push("/dashboard/approved", undefined, {
                       shallow: true,
