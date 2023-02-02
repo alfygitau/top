@@ -16,14 +16,17 @@ import { FaWallet, FaUserCircle } from "react-icons/fa";
 import { Box, jsx } from "theme-ui";
 import Geal from "../../../assets/logo.png";
 import ArowBackIcon from "@rsuite/icons/ArowBack";
-import DashboardIcon from "@rsuite/icons/Dashboard";
+import GridIcon from "@rsuite/icons/Grid";
 import CheckRoundIcon from "@rsuite/icons/CheckRound";
 import AddOutlineIcon from "@rsuite/icons/AddOutline";
+import GearIcon from "@rsuite/icons/Gear";
 import ReloadIcon from "@rsuite/icons/Reload";
 import PeoplesIcon from "@rsuite/icons/Peoples";
 import LocationIcon from "@rsuite/icons/Location";
 import ExploreIcon from "@rsuite/icons/Explore";
 import CloseOutlineIcon from "@rsuite/icons/CloseOutline";
+import BlockIcon from "@rsuite/icons/Block";
+import RemindRoundIcon from "@rsuite/icons/RemindRound";
 import AlipayIcon from "@rsuite/icons/Alipay";
 import OffIcon from "@rsuite/icons/Off";
 import PageNextIcon from "@rsuite/icons/PageNext";
@@ -213,7 +216,7 @@ const OrderLayout = ({ children }) => {
                 <Nav.Item
                   eventKey="1"
                   active
-                  icon={<DashboardIcon />}
+                  icon={<GridIcon />}
                   style={{ fontSize: "20px" }}
                   onClick={() =>
                     router.push("/dashboard/all-orders", undefined, {
@@ -246,7 +249,7 @@ const OrderLayout = ({ children }) => {
                 <Nav.Item
                   eventKey="3"
                   style={{ fontSize: "20px" }}
-                  icon={<LocationIcon color="#3498FF" />}
+                  icon={<RemindRoundIcon color="#3498FF" />}
                   onClick={() =>
                     router.push("/dashboard/pending", undefined, {
                       shallow: true,
@@ -386,7 +389,7 @@ const OrderLayout = ({ children }) => {
                 <Nav.Item
                   eventKey="10"
                   style={{ fontSize: "20px" }}
-                  icon={<ExploreIcon color="#3498FF" />}
+                  icon={<BlockIcon color="#3498FF" />}
                   onClick={() =>
                     router.push("/dashboard/rejected", undefined, {
                       shallow: true,
@@ -407,7 +410,7 @@ const OrderLayout = ({ children }) => {
                   eventKey="10"
                   style={{ fontSize: "20px" }}
                   icon={
-                    <ExploreIcon color="#3498FF" style={{ fontSize: "20px" }} />
+                    <GearIcon color="#3498FF" style={{ fontSize: "20px" }} />
                   }
                   onClick={() =>
                     router.push("/settings/view", undefined, { shallow: true })
