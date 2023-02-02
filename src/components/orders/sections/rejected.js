@@ -49,7 +49,7 @@ const Rejected = () => {
           <tr>
             <td style={styles.table.td}>{data.id}</td>
             <td style={styles.table.td}>
-              <Link href={`/dashboard/order/cancelled/${data.id}`}>
+              <Link href={`/dashboard/order/rejected-orders/${data.id}`}>
                 <a>{data.order_number}</a>
               </Link>
             </td>

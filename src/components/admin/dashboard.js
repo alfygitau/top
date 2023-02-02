@@ -13,6 +13,7 @@ import OrderDetails from "components/orders/components/order-details";
 import Transactions from "../wallet/transactions";
 import InProgress from "components/orders/sections/in-progress";
 import OrderCompletedDetails from "components/orders/components/completed-order-details";
+import RejectedDetails from "components/orders/components/rejectedDetails";
 import CancelledRejectedDetails from "../orders/components/cancelledRejected";
 import RevisionDetails from "../orders/components/revisionDetails";
 import InProgressDetails from "components/orders/components/inProgressDetails";
@@ -61,6 +62,8 @@ const Dashboard = ({ section }) => {
         return <OrderDetails section={section} />;
       case "completed-order":
         return <OrderCompletedDetails section={section} />;
+      case "rejected-order-details":
+        return <RejectedDetails section={section} />;
       case "create_order":
         return <CreateOrder section={section} />;
       case "blogs":

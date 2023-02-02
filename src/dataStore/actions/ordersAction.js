@@ -240,7 +240,7 @@ export const getPendingOrders = async (dispatch, userId, page, per) => {
   try {
     return await axiosConfig
       .get(
-        `/users/${userId}/orders?page=${page}&per=${per}&pending_status=true`,
+        `/users/${userId}/orders?page=${page}&per=${per}&paid_status=false`,
         {
           headers: {
             "x-toprated-token": localStorage.token,
