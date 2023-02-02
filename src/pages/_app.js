@@ -30,7 +30,7 @@ function TopRatedApp({ Component, pageProps }) {
     <div>
       <Head>
         <title>
-          Toprated Professors - Free essay and research paper writing guide,
+          Top Rated Professors - Free essay and research paper writing guide,
           essay writing service/Online homework help
         </title>
         <link

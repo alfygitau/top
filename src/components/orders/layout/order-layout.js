@@ -17,15 +17,18 @@ import { Box, jsx } from "theme-ui";
 import Geal from "../../../assets/logo.png";
 import ArowBackIcon from "@rsuite/icons/ArowBack";
 import DashboardIcon from "@rsuite/icons/Dashboard";
-import PeopleBranchIcon from "@rsuite/icons/PeopleBranch";
+import CheckRoundIcon from "@rsuite/icons/CheckRound";
+import AddOutlineIcon from "@rsuite/icons/AddOutline";
+import ReloadIcon from "@rsuite/icons/Reload";
 import PeoplesIcon from "@rsuite/icons/Peoples";
 import LocationIcon from "@rsuite/icons/Location";
 import ExploreIcon from "@rsuite/icons/Explore";
-import CheckOutlineIcon from "@rsuite/icons/CheckOutline";
+import CloseOutlineIcon from "@rsuite/icons/CloseOutline";
 import AlipayIcon from "@rsuite/icons/Alipay";
 import OffIcon from "@rsuite/icons/Off";
 import PageNextIcon from "@rsuite/icons/PageNext";
 import { useRouter } from "next/router";
+import { ImCancelCircle } from "react-icons/im";
 import {
   getOrders,
   getPendingOrders,
@@ -231,7 +234,7 @@ const OrderLayout = ({ children }) => {
                 <Nav.Item
                   eventKey="2"
                   style={{ fontSize: "20px" }}
-                  icon={<PeopleBranchIcon color="#3498FF" />}
+                  icon={<AddOutlineIcon color="#3498FF" />}
                   onClick={() =>
                     router.push("/dashboard/create_order", undefined, {
                       shallow: true,
@@ -303,7 +306,7 @@ const OrderLayout = ({ children }) => {
                 <Nav.Item
                   eventKey="6"
                   style={{ fontSize: "20px" }}
-                  icon={<CheckOutlineIcon color="#3498FF" />}
+                  icon={<CloseOutlineIcon color="#3498FF" />}
                   onClick={() =>
                     router.push("/dashboard/cancelled", undefined, {
                       shallow: true,
@@ -323,7 +326,7 @@ const OrderLayout = ({ children }) => {
                 <Nav.Item
                   eventKey="7"
                   style={{ fontSize: "20px" }}
-                  icon={<PeopleBranchIcon color="#3498FF" />}
+                  icon={<ReloadIcon color="#3498FF" />}
                   onClick={() =>
                     router.push("/dashboard/revision", undefined, {
                       shallow: true,
@@ -343,7 +346,7 @@ const OrderLayout = ({ children }) => {
                 <Nav.Item
                   eventKey="8"
                   style={{ fontSize: "20px" }}
-                  icon={<PeopleBranchIcon color="#3498FF" />}
+                  icon={<CheckRoundIcon color="#3498FF" />}
                   onClick={() =>
                     router.push("/dashboard/completed", undefined, {
                       shallow: true,
